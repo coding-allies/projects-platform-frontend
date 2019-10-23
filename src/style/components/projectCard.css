@@ -1,0 +1,13 @@
+.project-card {
+  background-color: #d9eaf0;
+  max-width: 300px;
+  float: left;
+  margin: 30px;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.project-header {
+  display: flex;
+}
