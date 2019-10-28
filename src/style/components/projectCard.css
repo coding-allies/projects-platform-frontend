@@ -1,13 +1,8 @@
-.project-card {
+.card-wrapper {
   background-color: #d9eaf0;
-  max-width: 300px;
-  float: left;
-  margin: 30px;
-  padding: 10px;
   border: 1px solid gray;
   border-radius: 5px;
-}
-
-.project-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-rows: 100px 150px 50px;
 }

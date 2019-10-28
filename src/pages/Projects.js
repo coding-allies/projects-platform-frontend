@@ -1,15 +1,18 @@
 import React from "react";
-import "../style/Projects.css";
+import "../style/pages/projects.css";
 import ProjectCard from "../components/projectCard";
 
 function Projects() {
   return (
-    <div className="Projects">
-      <header className="Projects-header">
-        <h1>Projects that are available for collaboration.</h1>
+    <div className="projects-main">
+      <div className="projects-title">
+        <h1>Header here</h1>
+      </div>
+
+      <div className="projects-wrapper">
         <ProjectCard />
         <ProjectCard />
-      </header>
+      </div>
     </div>
   );
 }
