@@ -9,19 +9,23 @@ const ProjectCard = () => {
       </div>
       <div className="card-lead">
         <p>Lead: Rey Dekker - She's coding Seattle Chapter Lead</p>
-        <p>5 years experience</p>
-        <p>Currently: Facebook</p>
+        <p>5 years experience, currently: Facebook</p>
       </div>
 
       <div className="card-body">
-        <p className="card-description">This project aims to achieve...</p>
+        <p className="card-description">
+          This project aims to achieve...Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
         <div className="card-contributors">
           <p>Contributors</p>
         </div>
         <div className="card-tags">
-          <p>JS</p>
-          <p>ReactsJS</p>
-          <p>TypeScript</p>
+          <div className="single-tag">JS</div>
+          <div className="single-tag">ReactsJS</div>
+          <div className="single-tag">TypeScript</div>
         </div>
       </div>
       <div className="card-buttons">
