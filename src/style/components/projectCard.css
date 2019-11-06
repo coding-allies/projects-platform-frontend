@@ -30,13 +30,32 @@
 
 .card-tags {
   display: grid;
-  grid-template-columns: repeat(5, minmax(5px, 100px));
-  grid-auto-rows: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(10px, 60px));
+  grid-auto-rows: 30px;
   background-color: white;
+  grid-gap: 2px;
   grid-auto-flow: dense;
+  justify-content: center;
+  align-items: center;
 }
-.single-tag {
-  justify-self: center;
-  align-self: center;
-  background-color: purple;
+
+.small {
+  grid-column: span 1;
+}
+
+.medium {
+  grid-column: span 2;
+}
+
+.large {
+  grid-column: span 3;
+}
+
+.tag {
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  background: purple;
+  color: white;
+  white-space: pre-wrap;
 }
