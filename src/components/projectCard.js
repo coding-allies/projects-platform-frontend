@@ -53,12 +53,15 @@ const ProjectCard = () => {
           ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
         <div className="card-contributors">
-          <p>Contributors</p>
+          <p className="card-contributor-label">Contributors - 3</p>
+          <div className="card-contributor-icon">NS</div>
+          <div className="card-contributor-icon">MM</div>
+          <div className="card-contributor-icon">NN</div>
         </div>
         <div className="card-tags">{getTags()}</div>
       </div>
       <div className="card-buttons">
-        <button>Github Link</button>
+        <button>Github</button>
         <button>Favorite</button>
         <button>Join</button>
       </div>
