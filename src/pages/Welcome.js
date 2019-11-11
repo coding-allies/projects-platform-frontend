@@ -27,9 +27,9 @@ function Welcome() {
       <section className="platform-featured-projects">
         <h2>Featured Projects</h2>
         <div className="featured-projects-block">
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
+          {/* <ProjectCard /> */}
+          {/* <ProjectCard /> */}
+          {/* <ProjectCard /> */}
         </div>
       </section>
       <footer>Brought to you by She's Coding</footer>
