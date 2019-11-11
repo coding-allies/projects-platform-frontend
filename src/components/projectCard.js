@@ -37,15 +37,15 @@ const getTags = () => {
 const ProjectCard = () => {
   return (
     <div className="card-wrapper">
-      <div className="card-header">
-        <p>Project Name here</p>
-      </div>
+      <header className="card-header">
+        <h2>Project Name here</h2>
+      </header>
       <div className="card-lead">
         <p>Lead: Rey Dekker - She's coding Seattle Chapter Lead</p>
         <p>5 years experience, currently: Facebook</p>
       </div>
 
-      <div className="card-body">
+      <article className="card-body">
         <p className="card-description">
           This project aims to achieve...Lorem ipsum dolor sit amet, consectetur
           adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
@@ -65,12 +65,12 @@ const ProjectCard = () => {
           <div className="card-contributor-icon">NN</div>
         </div>
         <div className="card-tags">{getTags()}</div>
-      </div>
-      <div className="card-buttons">
+      </article>
+      <footer className="card-buttons">
         <button className="card-button">Github</button>
         <button className="card-button">Favorite</button>
         <button className="card-button">Join</button>
-      </div>
+      </footer>
     </div>
   );
 };
