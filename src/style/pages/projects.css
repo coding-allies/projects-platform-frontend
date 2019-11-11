@@ -1,8 +1,8 @@
 .projects-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, 400px);
-  grid-auto-rows: 400px;
-  grid-gap: 10px;
+  grid-auto-rows: 450px;
+  grid-gap: 40px;
   justify-content: space-evenly;
   background-color: red;
 }

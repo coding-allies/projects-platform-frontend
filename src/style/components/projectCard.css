@@ -12,7 +12,7 @@
 }
 
 .card-description {
-  max-height: 100px;
+  height: 100px;
 }
 
 .card-lead {
@@ -22,10 +22,6 @@
 
 .card-body {
   background-color: blue;
-}
-
-.card-buttons {
-  background-color: green;
 }
 
 .card-tags {
@@ -58,4 +54,36 @@
   background: purple;
   color: white;
   white-space: pre-wrap;
+}
+
+.card-contributors {
+  background: #d9eaf0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 40px);
+  grid-auto-rows: 30px 40px;
+  margin: 10px;
+}
+
+.card-contributor-label {
+  grid-column: span 12;
+  justify-self: left;
+  font-size: 13px;
+}
+.card-contributor-icon {
+  background: #d9eaf0;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.card-buttons {
+  background-color: green;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40px;
+  grid-gap: 5px;
+}
+
+.card-button {
+  background: yellow;
+  margin: 5px;
 }
