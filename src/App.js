@@ -8,6 +8,7 @@ import Welcome from "./pages/Welcome";
 function App() {
   return (
     <div className="App">
+      <Header />
       <Router>
         <Switch>
           <Route path="/">
