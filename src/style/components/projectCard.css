@@ -1,0 +1,89 @@
+.card-wrapper {
+  background-color: #d9eaf0;
+  border: 1px solid gray;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 12fr;
+  grid-template-rows: 50px 70px auto 50px;
+}
+
+.card-header {
+  background-color: yellow;
+}
+
+.card-description {
+  height: 100px;
+}
+
+.card-lead {
+  background-color: orange;
+  font-size: 14px;
+}
+
+.card-body {
+  background-color: blue;
+}
+
+.card-tags {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10px, 60px));
+  grid-auto-rows: 30px;
+  background-color: white;
+  grid-gap: 2px;
+  grid-auto-flow: dense;
+  justify-content: center;
+  align-items: center;
+}
+
+.small {
+  grid-column: span 1;
+}
+
+.medium {
+  grid-column: span 2;
+}
+
+.large {
+  grid-column: span 3;
+}
+
+.tag {
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  background: purple;
+  color: white;
+  white-space: pre-wrap;
+}
+
+.card-contributors {
+  background: #d9eaf0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 40px);
+  grid-auto-rows: 30px 40px;
+  margin: 10px;
+}
+
+.card-contributor-label {
+  grid-column: span 12;
+  justify-self: left;
+  font-size: 13px;
+}
+.card-contributor-icon {
+  background: #d9eaf0;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.card-buttons {
+  background-color: green;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40px;
+  grid-gap: 5px;
+}
+
+.card-button {
+  background: yellow;
+  margin: 5px;
+}
