@@ -24,10 +24,6 @@
   background-color: blue;
 }
 
-.card-buttons {
-  background-color: green;
-}
-
 .card-tags {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10px, 60px));
@@ -77,4 +73,17 @@
   background: #d9eaf0;
   border: 1px solid black;
   border-radius: 20px;
+}
+
+.card-buttons {
+  background-color: green;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40px;
+  grid-gap: 5px;
+}
+
+.card-button {
+  background: yellow;
+  margin: 5px;
 }

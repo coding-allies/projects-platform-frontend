@@ -12,6 +12,10 @@ function Projects() {
       <div className="projects-wrapper">
         <ProjectCard />
         <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
       </div>
     </div>
   );
