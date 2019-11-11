@@ -5,6 +5,12 @@ header {
   align-items: center;
 }
 
+.auth {
+  display: flex;
+  align-items: center;
+}
+
 header button {
   height: 2em;
+  margin-left: 1em;
 }
