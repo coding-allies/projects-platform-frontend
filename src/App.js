@@ -1,12 +1,14 @@
 import React from "react";
 import logo from "./logo.svg";
-import Projects from "./pages/Projects";
 import Header from "./components/Header"
+import PlatformSummary from "./components/PlatformSummary"
+import Projects from "./pages/Projects";
 
 function App() {
   return (
     <div className="App">
       <Header />
+      <PlatformSummary />
       <Projects />
     </div>
   );
