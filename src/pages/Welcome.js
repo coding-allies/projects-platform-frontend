@@ -3,6 +3,9 @@ import ProjectCard from '../components/projectCard';
 import "../style/pages/welcome.css";
 
 function Welcome() {
+  /* TODO: Render ProjectCard components */
+  /* https://github.com/shescoding/projects-platform-frontend/issues/13 */
+
   return (
     <div className="platform-welcome">
       <section className="platform-intro">
