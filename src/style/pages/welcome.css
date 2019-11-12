@@ -44,3 +44,10 @@
 .featured-projects-block > * {
   margin: 20px;
 }
+
+
+@media (max-width: 840px){
+  .platform-features {
+    flex-direction: column;
+  }
+}
