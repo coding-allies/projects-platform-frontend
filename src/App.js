@@ -6,18 +6,15 @@ import Projects from "./pages/Projects";
 import Welcome from "./pages/Welcome";
 
 function App() {
-  /* TODO: Fix routing */
-  /* https://github.com/shescoding/projects-platform-frontend/issues/12 */
-  
   return (
     <div className="App">
       <Header />
       <Router>
         <Switch>
-          <Route path="/">
+          <Route exact path="/welcome">
             <Welcome />
           </Route>
-          <Route path="/welcome">
+          <Route exact path="/">
             <Projects />
           </Route>
         </Switch>
