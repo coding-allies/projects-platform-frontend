@@ -2,6 +2,10 @@ import React, { createContext, Component } from "react";
 
 export const AppContext = createContext();
 
+const mockUser = {
+  name: "Someone Awesome"
+};
+
 const mockProjects = [
   {
     projectName: "Project Name here",
@@ -42,7 +46,7 @@ const mockProjects = [
 
 export class AppContextProvider extends Component {
   state = {
-    user: false,
+    user: mockUser,
     projects: mockProjects
   };
 
