@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import "../style/pages/projects.css";
 import ProjectCard from "../components/projectCard";
+import { AppContext } from "../contexts/AppContext";
 
 const projects = [
   {
@@ -43,16 +44,19 @@ const projects = [
 const renderProjects = () => {
   return projects.map(data => <ProjectCard key={data.projectId} data={data} />);
 };
-function Projects() {
-  return (
-    <div className="projects-main">
-      <div className="projects-title">
-        <h1>Header here</h1>
+class Projects extends Component {
+  static contextType = AppContext;
+  render() {
+    console.log(this.context);
+    return (
+      <div className="projects-main">
+        <div className="projects-title">
+          <h1>Header here</h1>
+        </div>
+        <div className="projects-wrapper">{renderProjects()}</div>
       </div>
-
-      <div className="projects-wrapper">{renderProjects()}</div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Projects;
