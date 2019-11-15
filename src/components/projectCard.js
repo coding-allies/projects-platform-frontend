@@ -32,7 +32,6 @@ const getContributors = contributorList => {
 };
 
 const ProjectCard = props => {
-  console.log("props", props.data);
   const data = { ...props.data };
   return (
     <div className="card-wrapper">
