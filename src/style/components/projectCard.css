@@ -23,32 +23,17 @@
 }
 
 .card-tags {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10px, 60px));
-  grid-auto-rows: 30px;
-  grid-gap: 2px;
-  grid-auto-flow: dense;
-  justify-content: center;
-  align-items: center;
-  background-color: #f1f1f3;
-}
-
-.small {
-  grid-column: span 1;
-}
-
-.medium {
-  grid-column: span 2;
-}
-
-.large {
-  grid-column: span 3;
+  display: flex;
+  flex-flow: wrap;
 }
 
 .tag {
-  padding: 5px;
-  border-radius: 3px;
-  white-space: pre-wrap;
+  flex-shrink: 0;
+  font-size: 0.8em;
+  padding: 4px 10px 6px;
+  margin: 8px 8px 0 0;
+  border-radius: 1em;
+  background-color: #f1f1f3;
 }
 
 .card-contributors {
