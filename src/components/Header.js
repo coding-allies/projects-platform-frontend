@@ -1,11 +1,9 @@
 import React from "react";
 import "../style/components/Header.css";
-
-const mockUser = {
-  name: 'Someone Awesome'
-}
+import { AppContext } from "../contexts/AppContext";
 
 class Header extends React.Component {
+  static contextType = AppContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +15,7 @@ class Header extends React.Component {
 
   signUserIn(e) {
     this.setState(state => ({
-      user: mockUser.name
+      user: this.context.user.name
     }));
   }
 
@@ -32,19 +30,19 @@ class Header extends React.Component {
       <div className="auth">
         <button onClick={this.signUserIn}>Sign in with GitHub</button>
       </div>
-    )
+    );
 
     const signedIn = (
       <div className="auth">
         <p>Hello, {this.state.user}</p>
         <button onClick={this.signUserOut}>Log Out</button>
       </div>
-    )
+    );
 
     return (
       <header>
         <h1>she's collaborating</h1>
-        { this.state.user ? signedIn : signedOut }
+        {this.state.user ? signedIn : signedOut}
       </header>
     );
   }
