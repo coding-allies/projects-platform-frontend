@@ -1,9 +1,8 @@
 .projects-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, 400px);
-  grid-auto-rows: 450px;
-  grid-gap: 40px;
-  justify-content: space-evenly;
+  grid-gap: 20px;
+  justify-content: center;
 }
 
 .projects-main {
