@@ -15,7 +15,7 @@ class Header extends React.Component {
 
   signUserIn(e) {
     this.setState(state => ({
-      user: this.context.mockUser.name
+      user: this.context.user.name
     }));
   }
 
