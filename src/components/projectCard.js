@@ -1,26 +1,10 @@
 import React from "react";
 import "../style/components/projectCard.css";
 
-const getClassName = tag => {
-  switch (true) {
-    case tag.length < 6:
-      return "small";
-    case tag.length >= 6 && tag.length <= 19:
-      return "medium";
-    case tag.length > 19:
-      return "large";
-    default:
-      return "small";
-  }
-};
-
 const getTags = tagList => {
   return tagList.map(tag => {
-    const className = getClassName(tag);
     return (
-      <div className={`tag ${className}`}>
-        <span>{tag}</span>
-      </div>
+      <div className={`tag`}>{tag}</div>
     );
   });
 };
