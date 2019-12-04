@@ -18,34 +18,37 @@ const getContributors = contributorList => {
 const ProjectCard = props => {
   const data = { ...props.data };
   return (
-    <div className="card-wrapper">
-      <header className="card-header">
-        <h2>{data.projectName}</h2>
-      </header>
-      <div className="card-lead">
-        <h4>{data.projectLead.name}</h4>
-        <p>
-          {data.projectLead.yearsOfExperience} years experience, currently:
-          {data.projectLead.currentPosition}
-        </p>
+    <article className="card-wrapper">
+      <h2>{data.projectName}</h2>
+
+    <div className="card-lead">
+        <h3>Project Lead: {data.projectLead.name}</h3>
+        <p>Currently: {data.projectLead.currentPosition}</p>
+        <p>Experience: {data.projectLead.yearsOfExperience} years</p>
       </div>
 
-      <article className="card-body">
-        <p className="card-description">{data.description}</p>
+      <p className="card-description">{data.description}</p>
         <div className="card-contributors">
-          <p className="card-contributor-label">
-            Contributors - {data.numberOfContributors}
-          </p>
+        <p className="card-contributor-label">
+          Contributors: {data.numberOfContributors}
+        </p>
+        <div className="card-contributor-avatars">
           {getContributors(data.contributors)}
         </div>
+      </div>
+
+      <div className="card-tech-stack">
+        <p class="card-tech-stack-label">Tech stack: </p>
         <div className="card-tags">{getTags(data.tags)}</div>
-      </article>
-      <footer className="card-buttons">
+      </div>
+
+      <div className="card-buttons">
         <button className="card-button">Github</button>
         <button className="card-button">Favorite</button>
         <button className="card-button">Join</button>
-      </footer>
-    </div>
+      </div>
+
+    </article>
   );
 };
 
