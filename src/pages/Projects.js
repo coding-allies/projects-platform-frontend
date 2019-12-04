@@ -14,7 +14,7 @@ class Projects extends Component {
     return (
       <div className="projects-main">
         <div className="projects-title">
-          <h1>Header here</h1>
+          <h1>Explore projects</h1>
         </div>
         <div className="projects-wrapper">{renderProjects(projects)}</div>
       </div>
