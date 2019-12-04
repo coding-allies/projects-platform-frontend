@@ -41,6 +41,34 @@ const mockProjects = [
     numberOfContributors: 1,
     contributors: ["JD"],
     tags: ["JS", "ReactJS"]
+  },
+  {
+    projectName: "Project 2 here context",
+    projectId: 34534,
+    projectLead: {
+      name: "Jane Doe",
+      yearsOfExperience: 1,
+      currentPosition: "ABC Comp"
+    },
+    description:
+      "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    numberOfContributors: 1,
+    contributors: ["JD"],
+    tags: ["JS", "ReactJS"]
+  },
+  {
+    projectName: "Project 2 here context",
+    projectId: 34534,
+    projectLead: {
+      name: "Jane Doe",
+      yearsOfExperience: 1,
+      currentPosition: "ABC Comp"
+    },
+    description:
+      "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    numberOfContributors: 1,
+    contributors: ["JD"],
+    tags: ["JS", "ReactJS"]
   }
 ];
 
