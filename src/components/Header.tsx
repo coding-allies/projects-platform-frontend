@@ -1,25 +1,34 @@
-import React from "react";
-import "../style/components/Header.css";
+import * as React from "react";
+const css = require("../style/components/Header.css");
 import { AppContext } from "../contexts/AppContext";
+import { User } from "../types";
 
-class Header extends React.Component {
+type Props = {
+  user?: User;
+};
+
+type State = {
+  user: User | null;
+};
+
+class Header extends React.Component<Props, State> {
   static contextType = AppContext;
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      user: false
+      user: null
     };
     this.signUserOut = this.signUserOut.bind(this);
     this.signUserIn = this.signUserIn.bind(this);
   }
 
-  signUserIn(e) {
+  signUserIn(e: any) {
     this.setState(state => ({
       user: this.context.user.name
     }));
   }
 
-  signUserOut(e) {
+  signUserOut(e: any) {
     this.setState(state => ({
       user: null
     }));

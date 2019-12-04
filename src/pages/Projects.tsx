@@ -1,9 +1,11 @@
-import React, { Component } from "react";
-import "../style/pages/projects.css";
+import * as React from "react";
+import { Component } from "react";
+const css = require("../style/pages/projects.css");
 import ProjectCard from "../components/projectCard";
 import { AppContext } from "../contexts/AppContext";
+import { Project } from "../types";
 
-const renderProjects = projects => {
+const renderProjects = (projects: Array<Project>) => {
   return projects.map(data => <ProjectCard key={data.projectId} data={data} />);
 };
 

@@ -1,7 +1,8 @@
-import React from "react";
-import "../style/components/projectCard.css";
+import * as React from "react";
+const css = require("../style/components/projectCard.css");
+import { Project } from "../types";
 
-const getClassName = tag => {
+const getClassName = (tag: string) => {
   switch (true) {
     case tag.length < 6:
       return "small";
@@ -14,7 +15,7 @@ const getClassName = tag => {
   }
 };
 
-const getTags = tagList => {
+const getTags = (tagList: Array<string>) => {
   return tagList.map(tag => {
     const className = getClassName(tag);
     return (
@@ -25,13 +26,16 @@ const getTags = tagList => {
   });
 };
 
-const getContributors = contributorList => {
+const getContributors = (contributorList: Array<string>) => {
   return contributorList.map(contributor => (
     <div className="card-contributor-icon">{contributor}</div>
   ));
 };
 
-const ProjectCard = props => {
+type Props = {
+  data: Project;
+};
+const ProjectCard = (props: Props) => {
   const data = { ...props.data };
   return (
     <div className="card-wrapper">
@@ -41,8 +45,8 @@ const ProjectCard = props => {
       <div className="card-lead">
         <h4>{data.projectLead.name}</h4>
         <p>
-          {data.projectLead.yearsOfExperience} years experience, currently:
-          {data.projectLead.currentPosition}
+          {data.projectLead.experience}, currently:
+          {data.projectLead.company}
         </p>
       </div>
 
@@ -50,7 +54,7 @@ const ProjectCard = props => {
         <p className="card-description">{data.description}</p>
         <div className="card-contributors">
           <p className="card-contributor-label">
-            Contributors - {data.numberOfContributors}
+            Contributors - {data.contributors.length}
           </p>
           {getContributors(data.contributors)}
         </div>
