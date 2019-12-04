@@ -1,23 +1,30 @@
 .card-wrapper {
   padding: 24px;
-  border: 1px solid gray;
+  border: 2px solid #393939;
   border-radius: 5px;
   display: grid;
   grid-template-columns: 12fr;
-  grid-template-rows: 50px 70px auto 50px;
+  grid-template-rows: 40px 70px 115px 80px 105px auto;
   grid-row-gap: 12px;
+  background-color: #FFF;
 }
 
-.card-header {
+.card-wrapper h2 {
   margin: 0;
+  font-weight: 600;
+  font-size: 1.4em;
+  border-bottom: 4px solid turquoise;
 }
 
 .card-description {
-  height: 100px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
 }
 
-.card-lead {
-  font-size: 14px;
+.card-lead > * {
+  font-family: "DM Sans";
+  font-size: 16px;
 }
 
 .card-body {
@@ -32,28 +39,40 @@
   flex-shrink: 0;
   font-size: 0.8em;
   padding: 4px 10px 6px;
-  margin: 8px 8px 0 0;
+  margin: 0 8px 8px 0;
   border-radius: 1em;
-  background-color: #f1f1f3;
+  background-color: #c1fff8;
 }
 
-.card-contributors {
+.card-contributor-avatars {
   display: grid;
   grid-template-columns: repeat(auto-fit, 40px);
-  grid-auto-rows: 30px 40px;
+  grid-auto-rows: 40px 40px;
   grid-gap: 6px;
 }
 
-.card-contributor-label {
-  grid-column: span 12;
+.card-contributor-label,
+.card-tech-stack-label {
+  font-family: "DM Sans";
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
   justify-self: left;
-  font-size: 13px;
+  font-size: 14px;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  border-bottom: 1px dotted #d1d1d3;
+
 }
+
 .card-contributor-icon {
-  background-color: #d1d1d3;
+  background-color: #393939;
   border-radius: 20px;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 10px;
+  font-family: "DM Sans";
+  font-weight: 700;
+  color: #FFF;
 }
 
 .card-buttons {
