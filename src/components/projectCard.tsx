@@ -1,21 +1,23 @@
-import React from "react";
+import * as React from "react";
+import { Project } from "../types";
 import "../style/components/projectCard.css";
 
-const getTags = tagList => {
+const getTags = (tagList: Array<string>) => {
   return tagList.map(tag => {
-    return (
-      <div className={`tag`}>{tag}</div>
-    );
+    return <div className={`tag`}>{tag}</div>;
   });
 };
 
-const getContributors = contributorList => {
+const getContributors = (contributorList: Array<string>) => {
   return contributorList.map(contributor => (
     <div className="card-contributor-icon">{contributor}</div>
   ));
 };
 
-const ProjectCard = props => {
+type Props = {
+  data: Project;
+};
+const ProjectCard = (props: Props) => {
   const data = { ...props.data };
   return (
     <div className="card-wrapper">
@@ -25,8 +27,8 @@ const ProjectCard = props => {
       <div className="card-lead">
         <h4>{data.projectLead.name}</h4>
         <p>
-          {data.projectLead.yearsOfExperience} years experience, currently:
-          {data.projectLead.currentPosition}
+          {data.projectLead.experience}, currently:
+          {data.projectLead.company}
         </p>
       </div>
 
@@ -34,7 +36,7 @@ const ProjectCard = props => {
         <p className="card-description">{data.description}</p>
         <div className="card-contributors">
           <p className="card-contributor-label">
-            Contributors - {data.numberOfContributors}
+            Contributors - {data.contributors.length}
           </p>
           {getContributors(data.contributors)}
         </div>
