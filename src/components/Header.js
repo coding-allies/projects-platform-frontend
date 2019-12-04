@@ -41,7 +41,7 @@ class Header extends React.Component {
 
     return (
       <header>
-        <h1>she's collaborating</h1>
+        <h1 className="logo">she's collaborating</h1>
         {this.state.user ? signedIn : signedOut}
       </header>
     );

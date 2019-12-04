@@ -1,16 +1,19 @@
 header {
-  margin: 0 40px;
+  padding: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #FFF;
 }
-
+.logo {
+  font-size: 1.4em;
+  border-bottom: 3px solid turquoise;
+}
 .auth {
   display: flex;
   align-items: center;
 }
 
 header button {
-  height: 2em;
   margin-left: 1em;
 }
