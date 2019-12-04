@@ -24,3 +24,4 @@ yarn-error.log*
 
 #generated files
 /dist
+src/react-app-env.d.ts

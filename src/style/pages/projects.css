@@ -1,15 +1,14 @@
 .projects-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, 400px);
-  grid-auto-rows: 450px;
-  grid-gap: 40px;
-  justify-content: space-evenly;
-  background-color: red;
+  grid-gap: 20px;
+  justify-content: center;
 }
 
 .projects-main {
-  text-align: center;
+
 }
 .projects-title {
   grid-column: 1/-1;
+  text-align: center;
 }
