@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-const css = require("./index.css");
+// const css = require("./index.css");
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

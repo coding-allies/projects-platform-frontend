@@ -1,6 +1,6 @@
 import * as React from "react";
-const css = require("../style/components/projectCard.css");
 import { Project } from "../types";
+import "../style/components/projectCard.css";
 
 const getClassName = (tag: string) => {
   switch (true) {

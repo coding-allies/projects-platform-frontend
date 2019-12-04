@@ -20,9 +20,10 @@ module.exports = {
         include: path.resolve(__dirname, "src")
       },
       {
-        test: /\.css$/,
-        loader: "style!css!"
+        test: /\.css$/i,
+        loader: "css-loader"
       },
+
       // addition - add source-map support
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]

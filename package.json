@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.23",
-    "@types/node": "12.12.14",
-    "@types/react": "16.9.11",
-    "@types/react-dom": "16.9.4",
-    "@types/react-router-dom": "5.1.2",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "react-router-dom": "5.1.2",
@@ -35,7 +30,14 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "24.0.23",
+    "@types/node": "12.12.14",
+    "@types/react": "16.9.11",
+    "@types/react-dom": "16.9.4",
+    "@types/react-router-dom": "5.1.2",
     "awesome-typescript-loader": "5.2.1",
+    "css-loader": "3.2.1",
+    "typings-for-css-modules-loader": "1.7.0",
     "source-map-loader": "0.2.4",
     "ts-loader": "6.2.1",
     "typescript": "3.7.2",

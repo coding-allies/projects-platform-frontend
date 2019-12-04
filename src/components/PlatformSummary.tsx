@@ -1,5 +1,5 @@
 import * as React from "react";
-const css = require("../style/components/PlatformSummary.css");
+import "../style/components/PlatformSummary.css";
 
 const PlatformSummary = () => {
   return (

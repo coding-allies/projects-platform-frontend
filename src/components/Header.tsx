@@ -1,7 +1,7 @@
 import * as React from "react";
-const css = require("../style/components/Header.css");
 import { AppContext } from "../contexts/AppContext";
 import { User } from "../types";
+import "../style/components/Header.css";
 
 type Props = {
   user?: User;
@@ -13,6 +13,7 @@ type State = {
 
 class Header extends React.Component<Props, State> {
   static contextType = AppContext;
+
   constructor(props: Props) {
     super(props);
     this.state = {

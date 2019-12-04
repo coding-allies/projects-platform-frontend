@@ -1,6 +1,6 @@
 import * as React from "react";
 import ProjectCard from "../components/projectCard";
-const css = require("../style/pages/welcome.css");
+import "../style/pages/welcome.css";
 
 function Welcome() {
   /* TODO: Render ProjectCard components */
