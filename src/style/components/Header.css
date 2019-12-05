@@ -4,6 +4,7 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: #FFF;
+  border-bottom: 1px dotted #d1d1d3;
 }
 .logo {
   font-size: 1.4em;

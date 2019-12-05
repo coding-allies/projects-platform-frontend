@@ -3,15 +3,25 @@
   grid-template-columns: repeat(auto-fit, 400px);
   grid-gap: 40px;
   justify-content: center;
+  background-color: #e6f0fa;
+  padding: 60px 0;
 }
 
 .projects-main {
-  background-color: #F3F3F1;
-  padding: 60px 0;
+  padding: 60px 0 0;
 }
 
 .projects-title {
   grid-column: 1/-1;
   text-align: center;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
+}
+
+.projects-title h1::after{
+  content: '';
+  display: inherit;
+  height: 3px;
+  width: 120px;
+  background-color: turquoise;
+  margin: 30px auto;
 }
