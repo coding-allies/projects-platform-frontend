@@ -6,14 +6,18 @@
 }
 
 .platform-intro {
+  color: #FFF;
   text-align: center;
-  max-width: 80%;
-  min-width: 60%;
   margin: 0 auto;
+  background: rgb(95,61,196);
+  background: -webkit-linear-gradient(300deg, rgba(95,61,196,1) 30%, rgba(54,79,199,1) 100%);
+  background: -o-linear-gradient(300deg, rgba(95,61,196,1) 30%, rgba(54,79,199,1) 100%);
+  background: linear-gradient(30deg, rgba(95,61,196,1) 30%, rgba(54,79,199,1) 100%);
 }
 
 .platform-intro h1 {
   font-size: 42px;
+  color: #fff;
 }
 
 .platform-intro h1::after,
@@ -22,53 +26,71 @@
   display: inherit;
   height: 3px;
   width: 120px;
-  background-color: #5f3dc4;
+  background-color: #fff;
   margin: 30px auto;
 }
 
 .platform-intro p {
   font-size: 21px;
+  font-weight: 300;
+  line-height: 36px;
+  width: 50vw;
+  margin: auto;
 }
 
 .platform-intro button {
   margin: 60px;
   font-size: 21px;
+  border: none;
+  color: #5f3dc4;
+  background-color: #fff;
+  border-radius: 36px;
+  padding: 18px 24px;
 }
 
 .platform-features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 400px);
+  grid-template-columns: repeat(auto-fit, 480px);
   justify-content: center;
   grid-gap: 40px;
-  background-color: #5f3dc4;
   padding: 120px 0;
 }
 
 .platform-feature {
   background-color: #FFF;
-  border: 3px solid #212529;
+  border: 1px solid #e9ecef;
   padding: 36px;
+  border-radius: 6px;
 }
 
 .platform-feature h3 {
   font-family: "Work Sans";
-  font-weight: 600;
-  font-size: 1.4em;
-  border-bottom: 3px solid #5f3dc4;
+  font-weight: 500;
+  font-size: 28px;
+  color: #5f3dc4;
   padding-bottom: 18px;
-  margin-bottom: 18px;
 }
 
 .platform-feature p {
-  font-size: 15px;
-  line-height: 24px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 23px;
+  font-weight: 400;
 }
 
 .platform-featured-projects h2 {
   text-align: center;
   font-size: 32px;
 }
+
+.platform-featured-projects h2::after{
+  content: '';
+  display: inherit;
+  height: 3px;
+  width: 120px;
+  background-color: #5f3dc4;
+  margin: 16px auto;
+}
+
 .featured-projects-block {
   display: flex;
 }
