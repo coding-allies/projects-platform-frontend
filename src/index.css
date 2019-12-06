@@ -1,23 +1,18 @@
 /* @import url('https://fonts.googleapis.com/css?family=Abhaya+Libre:400,500,600,700,800|Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i|Cormorant+Infant:300,300i,400,400i,500,500i,600,600i,700,700i|Cormorant+SC:300,400,500,600,700|Cormorant+Upright:300,400,500,600,700|Cormorant:300,300i,400,400i,500,500i,600,600i,700,700i|Crimson+Pro:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Crimson+Text:400,400i,600,600i,700,700i|DM+Sans:400,400i,500,500i,700,700i|DM+Serif+Display:400,400i|DM+Serif+Text:400,400i|Faustina:400,400i,500,500i,600,600i,700,700i|Fira+Code:300,400,500,600,700|Fira+Mono:400,500,700|Fira+Sans+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Fira+Sans+Extra+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Fira+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Frank+Ruhl+Libre:300,400,500,700,900|Galdeano|Grenze:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Libre+Franklin:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Literata:400,400i,500,500i,600,600i,700,700i|Rambla:400,400i,700,700i|Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i|Vesper+Libre:400,500,700,900|Work+Sans:100,200,300,400,500,600,700,800,900|Hepta+Slab:100,200,300,400,500,600,700,800,900&display=swap'); */
 
-@import url('https://fonts.googleapis.com/css?family=Hepta+Slab:100,200,300,400,500,600,700,800,900|DM+Sans:400,400i,500,500i,700,700i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap');
 
 * {
   margin: 0;
-  font-family: "Hepta Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2 {
-  font-family: "Hepta Slab";
-  font-weight: 500;
-}
-h3 {
-  font-family: "DM Sans";
-}
-body {
+  font-weight: 600;
+  color: #212529;
 }
 
 code {
@@ -27,14 +22,5 @@ code {
 
 button {
   font-weight: 600;
-  background-color: #FFF;
-  border: 2px solid #393939;
-  padding: 0.75em;
-  box-shadow: 3px 3px turquoise;
   cursor: pointer;
-}
-
-button:hover {
-  background-color: #393939;
-  color: #FFF;
 }

@@ -22,7 +22,7 @@
   display: inherit;
   height: 3px;
   width: 120px;
-  background-color: turquoise;
+  background-color: #5f3dc4;
   margin: 30px auto;
 }
 
@@ -40,21 +40,21 @@
   grid-template-columns: repeat(auto-fit, 400px);
   justify-content: center;
   grid-gap: 40px;
-  background-color: turquoise;
+  background-color: #5f3dc4;
   padding: 120px 0;
 }
 
 .platform-feature {
   background-color: #FFF;
-  border: 3px solid #393939;
+  border: 3px solid #212529;
   padding: 36px;
 }
 
 .platform-feature h3 {
-  font-family: "Hepta Slab";
+  font-family: "Work Sans";
   font-weight: 600;
   font-size: 1.4em;
-  border-bottom: 3px solid turquoise;
+  border-bottom: 3px solid #5f3dc4;
   padding-bottom: 18px;
   margin-bottom: 18px;
 }

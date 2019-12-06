@@ -1,9 +1,9 @@
 .projects-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 400px);
+  grid-template-columns: repeat(auto-fit, 480px);
   grid-gap: 40px;
   justify-content: center;
-  background-color: #e6f0fa;
+  background-color: #f8f9fa;
   padding: 60px 0;
 }
 
@@ -22,6 +22,6 @@
   display: inherit;
   height: 3px;
   width: 120px;
-  background-color: turquoise;
-  margin: 30px auto;
+  background-color: #5f3dc4;
+  margin: 16px auto;
 }

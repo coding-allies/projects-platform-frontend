@@ -1,14 +1,14 @@
 header {
-  padding: 40px;
+  padding: 24px 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #FFF;
-  border-bottom: 1px dotted #d1d1d3;
+  border-bottom: 1px solid #e9ecef;
 }
 .logo {
   font-size: 1.4em;
-  border-bottom: 3px solid turquoise;
+  color: #5f3dc4;
 }
 .auth {
   display: flex;
@@ -16,5 +16,12 @@ header {
 }
 
 header button {
-  margin-left: 1em;
+  color: #fff;
+  background: rgb(95,61,196);
+  background: -webkit-linear-gradient(300deg, rgba(95,61,196,1) 30%, rgba(54,79,199,1) 100%);
+  background: -o-linear-gradient(300deg, rgba(95,61,196,1) 30%, rgba(54,79,199,1) 100%);
+  background: linear-gradient(30deg, rgba(95,61,196,1) 30%, rgba(54,79,199,1) 100%);
+  border-radius: 36px;
+  border: none;
+  padding: 20px 30px;
 }

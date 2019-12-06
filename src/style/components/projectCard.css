@@ -1,29 +1,32 @@
 .card-wrapper {
   padding: 24px;
-  border: 2px solid #393939;
+  border: 1px solid #f1f3f5;
+  border-radius: 6px;
   display: grid;
   grid-template-columns: 12fr;
-  grid-template-rows: 40px 70px 115px 80px 105px auto;
+  grid-template-rows: 35px 70px 150px 75px 100px auto;
   grid-row-gap: 12px;
   background-color: #FFF;
 }
 
 .card-wrapper h2 {
   margin: 0;
-  font-weight: 600;
-  font-size: 1.4em;
-  border-bottom: 3px solid turquoise;
+  font-weight: 500;
+  font-size: 28px;
+  color: #5f3dc4;
 }
 
 .card-description {
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 23px;
+  font-weight: 400;
+  color: #495057;
 }
 
 .card-lead > * {
-  font-family: "DM Sans";
+  font-family: "Work Sans";
   font-size: 16px;
+  line-height: 23px;
 }
 
 .card-body {
@@ -35,13 +38,13 @@
 }
 
 .tag {
-  font-family: "DM Sans";
+  font-family: "Work Sans";
   flex-shrink: 0;
   font-size: 14px;
   padding: 4px 10px 6px;
   margin: 0 8px 8px 0;
   border-radius: 1em;
-  background-color: #c1fff8;
+  background-color: #e5dbff;
 }
 
 .card-contributor-avatars {
@@ -52,27 +55,32 @@
 }
 
 .card-contributor-label,
-.card-tech-stack-label {
-  font-family: "DM Sans";
+.card-tech-stack-label,
+.card-lead-label {
+  font-family: "Work Sans";
   text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  color: #868e96;
   justify-self: left;
   font-size: 14px;
   padding-bottom: 6px;
   margin-bottom: 8px;
-  border-bottom: 1px dotted #d1d1d3;
+}
 
+.card-contributor-label,
+.card-tech-stack-label {
+  border-bottom: 1px solid #e9ecef;
 }
 
 .card-contributor-icon {
-  background-color: #393939;
+  background-color: #f1f3f5;
   border-radius: 20px;
   text-align: center;
   padding-top: 10px;
-  font-family: "DM Sans";
-  font-weight: 700;
-  color: #FFF;
+  font-family: "Work Sans";
+  font-weight: 500;
+  color: #212529;
 }
 
 .card-buttons {
@@ -83,4 +91,7 @@
 }
 
 .card-button {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
 }
