@@ -1,29 +1,31 @@
 .card-wrapper {
   padding: 24px;
-  border: 2px solid #393939;
   display: grid;
+  border-top: 6px solid #FFAD91;
   grid-template-columns: 12fr;
-  grid-template-rows: 40px 70px 115px 80px 105px auto;
   grid-row-gap: 12px;
   background-color: #FFF;
 }
 
 .card-wrapper h2 {
   margin: 0;
-  font-weight: 600;
-  font-size: 1.4em;
-  border-bottom: 3px solid turquoise;
+  font-weight: 800;
+  font-size: 32px;
 }
 
 .card-description {
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 500;
+  font-family: 'Abhaya Libre';
+  font-size: 21px;
+  line-height: 28px;
+  font-weight: 400;
+  min-height: 120px;
 }
 
 .card-lead > * {
-  font-family: "DM Sans";
-  font-size: 16px;
+  font-family: "Source Sans Pro";
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
 }
 
 .card-body {
@@ -35,13 +37,13 @@
 }
 
 .tag {
-  font-family: "DM Sans";
+  font-family: "Source Sans Pro";
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 16px;
   padding: 4px 10px 6px;
   margin: 0 8px 8px 0;
   border-radius: 1em;
-  background-color: #c1fff8;
+  background-color: rgba(255, 173, 145, .6);
 }
 
 .card-contributor-avatars {
@@ -52,27 +54,35 @@
 }
 
 .card-contributor-label,
-.card-tech-stack-label {
-  font-family: "DM Sans";
+.card-tech-stack-label,
+.card-lead-label {
+  font-family: "Source Sans Pro";
   text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 400;
+  letter-spacing: .5px;
   justify-self: left;
-  font-size: 14px;
+  font-size: 16px;
   padding-bottom: 6px;
   margin-bottom: 8px;
-  border-bottom: 1px dotted #d1d1d3;
+  color: #6e7485;
+}
 
+.card-lead-label {
+  padding-right: 12px;
+}
+.card-contributor-label,
+.card-tech-stack-label {
+  border-bottom: 1px solid #d1d1d3;
 }
 
 .card-contributor-icon {
-  background-color: #393939;
+  background-color: rgba(110, 116, 133, .6);
   border-radius: 20px;
   text-align: center;
   padding-top: 10px;
-  font-family: "DM Sans";
+  font-family: "Source Sans Pro";
   font-weight: 700;
-  color: #FFF;
+  color: #fff;
 }
 
 .card-buttons {
@@ -83,4 +93,14 @@
 }
 
 .card-button {
+  background-color: rgba(110, 116, 133, .85);
+  color: #FFF;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.card-button:hover {
+  background-color: #FFAD91;
+  color: #fff;
 }

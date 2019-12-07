@@ -22,9 +22,9 @@ const ProjectCard = props => {
       <h2>{data.projectName}</h2>
 
     <div className="card-lead">
-        <h3>Project Lead: {data.projectLead.name}</h3>
-        <p>Currently: {data.projectLead.currentPosition}</p>
-        <p>Experience: {data.projectLead.yearsOfExperience} years</p>
+        <h3><span className="card-lead-label">Project Lead:</span> {data.projectLead.name}</h3>
+        <p><span className="card-lead-label">Currently:</span> {data.projectLead.currentPosition}</p>
+        <p><span className="card-lead-label">Experience:</span> {data.projectLead.yearsOfExperience} years</p>
       </div>
 
       <p className="card-description">{data.description}</p>

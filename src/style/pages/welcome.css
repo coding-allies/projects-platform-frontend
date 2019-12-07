@@ -13,7 +13,7 @@
 }
 
 .platform-intro h1 {
-  font-size: 42px;
+  font-size: 48px;
 }
 
 .platform-intro h1::after,
@@ -22,47 +22,63 @@
   display: inherit;
   height: 3px;
   width: 120px;
-  background-color: turquoise;
+  background-color: #FFAD91;
   margin: 30px auto;
 }
 
 .platform-intro p {
-  font-size: 21px;
+  font-size: 24px;
+  font-weight: 300;
 }
 
+
 .platform-intro button {
-  margin: 60px;
   font-size: 21px;
+  padding: 12px 18px;
+  color: #fff;
+  background-color: #FFAD91;
+  border: none;
+  border-radius: 36px;
+  margin: 60px;
 }
 
 .platform-features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 400px);
+  display: flex;
   justify-content: center;
-  grid-gap: 40px;
-  background-color: turquoise;
+  background-color: #FFAD91;
+  flex-direction: column;
   padding: 120px 0;
 }
 
 .platform-feature {
   background-color: #FFF;
-  border: 3px solid #393939;
-  padding: 36px;
+  padding: 120px;
+  width: 680px;
+  margin: auto;
+  margin-bottom: 60px;
+}
+
+.platform-feature:nth-child(odd) {
+  margin-left: 120px;
+}
+
+.platform-feature:nth-child(even) {
+  margin-right: 120px;
 }
 
 .platform-feature h3 {
-  font-family: "Hepta Slab";
-  font-weight: 600;
-  font-size: 1.4em;
-  border-bottom: 3px solid turquoise;
+  font-family: "Abhaya Libre";
+  font-size: 42px;
+  border-bottom: 3px solid #FFAD91;
   padding-bottom: 18px;
   margin-bottom: 18px;
+  color: #f97c52;
 }
 
 .platform-feature p {
-  font-size: 15px;
-  line-height: 24px;
-  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 300;
 }
 
 .platform-featured-projects h2 {
@@ -77,9 +93,24 @@
   margin: 20px;
 }
 
+@media (max-width:1200px) {
+  .platform-feature {
+    padding: 60px;
+    margin-bottom: 60px;
+  }
+  .platform-feature:nth-child(odd) {
+    margin: 60px auto;
+  }
+  .platform-feature:nth-child(even) {
+    margin: auto;
+  }
+}
 
-@media (max-width: 840px){
+@media (max-width: 860px){
   .platform-features {
     flex-direction: column;
+  }
+  .platform-feature {
+    width: calc(100vw - 240px);
   }
 }

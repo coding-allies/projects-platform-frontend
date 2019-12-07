@@ -4,17 +4,25 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: #FFF;
-  border-bottom: 1px dotted #d1d1d3;
+  /* border-bottom: 1px dotted #d1d1d3; */
 }
 .logo {
   font-size: 1.4em;
-  border-bottom: 3px solid turquoise;
+  border-bottom: 3px solid #FFAD91;
 }
 .auth {
   display: flex;
   align-items: center;
 }
+.auth > * {
+  margin-left: 24px;
+}
 
 header button {
-  margin-left: 1em;
+  font-size: 18px;
+  padding: 12px 18px;
+  color: #fff;
+  background-color: #FFAD91;
+  border: none;
+  border-radius: 36px;
 }
