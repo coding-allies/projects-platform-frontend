@@ -41,6 +41,32 @@ const mockProjects: Array<Project> = [
       "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     contributors: ["JD"],
     tags: ["JS", "ReactJS"]
+  },
+  {
+    projectName: "Project 2 here context",
+    projectId: 34534,
+    projectLead: {
+      name: "Jane Doe",
+      experience: "Learner (0+ years of experience)",
+      company: "ABC Comp"
+    },
+    description:
+      "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    contributors: ["JD"],
+    tags: ["JS", "ReactJS"]
+  },
+  {
+    projectName: "Project 2 here context",
+    projectId: 34534,
+    projectLead: {
+      name: "Jane Doe",
+      experience: "Learner (0+ years of experience)",
+      company: "ABC Comp"
+    },
+    description:
+      "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    contributors: ["JD"],
+    tags: ["JS", "ReactJS"]
   }
 ];
 

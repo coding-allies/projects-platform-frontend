@@ -1,41 +1,73 @@
 .platform-welcome {
-  margin: 0 auto;
-  max-width: 50%;
-  min-width: 80%;
 }
 
 .platform-welcome > * {
-  padding: 3em 0;
+  padding: 120px 0 60px;
 }
 
 .platform-intro {
   text-align: center;
+  max-width: 80%;
+  min-width: 60%;
+  margin: 0 auto;
 }
 
 .platform-intro h1 {
-  font-size: 3em;
+  font-size: 42px;
+}
+
+.platform-intro h1::after,
+.platform-featured-projects h2::after {
+  content: '';
+  display: inherit;
+  height: 3px;
+  width: 120px;
+  background-color: turquoise;
+  margin: 30px auto;
 }
 
 .platform-intro p {
-  font-size: 1.6em;
+  font-size: 21px;
+}
+
+.platform-intro button {
+  margin: 60px;
+  font-size: 21px;
 }
 
 .platform-features {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 400px);
+  justify-content: center;
+  grid-gap: 40px;
+  background-color: turquoise;
+  padding: 120px 0;
 }
 
 .platform-feature {
-  padding: 2em;
+  background-color: #FFF;
+  border: 3px solid #393939;
+  padding: 36px;
 }
 
 .platform-feature h3 {
-  text-align: center;
+  font-family: "Hepta Slab";
+  font-weight: 600;
   font-size: 1.4em;
+  border-bottom: 3px solid turquoise;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+}
+
+.platform-feature p {
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 500;
 }
 
 .platform-featured-projects h2 {
   text-align: center;
-  font-size: 2.4em;
+  font-size: 32px;
 }
 .featured-projects-block {
   display: flex;
