@@ -3,7 +3,7 @@
   border: 2px solid #393939;
   display: grid;
   grid-template-columns: 12fr;
-  grid-template-rows: 40px 70px 115px 80px 105px auto;
+  grid-template-rows: 40px 70px 160px 80px 105px auto;
   grid-row-gap: 12px;
   background-color: #FFF;
 }
@@ -16,14 +16,13 @@
 }
 
 .card-description {
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 500;
+  line-height: 21px;
+  font-weight: 400;
 }
 
 .card-lead > * {
-  font-family: "DM Sans";
   font-size: 16px;
+  line-height: 21px;
 }
 
 .card-body {
@@ -35,7 +34,6 @@
 }
 
 .tag {
-  font-family: "DM Sans";
   flex-shrink: 0;
   font-size: 14px;
   padding: 4px 10px 6px;
@@ -53,10 +51,9 @@
 
 .card-contributor-label,
 .card-tech-stack-label {
-  font-family: "DM Sans";
   text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 600;
+  letter-spacing: .6px;
   justify-self: left;
   font-size: 14px;
   padding-bottom: 6px;
@@ -70,7 +67,6 @@
   border-radius: 20px;
   text-align: center;
   padding-top: 10px;
-  font-family: "DM Sans";
   font-weight: 700;
   color: #FFF;
 }
