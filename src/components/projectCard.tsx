@@ -26,7 +26,7 @@ const ProjectCard = (props: Props) => {
     <div className="card-lead">
         <h3>Project Lead: {data.projectLead.name}</h3>
         <p>Currently: {data.projectLead.company}</p>
-        <p>Experience: {data.projectLead.experience} years</p>
+        <p>{data.projectLead.experience}</p>
       </div>
 
       <p className="card-description">{data.description}</p>
