@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders PlatformSummary correctly 1`] = `
+<section
+  className="project-summary-section"
+>
+  <h2>
+    The Title Will Explain The Platform, Briefly
+  </h2>
+  <p>
+    The intro paragraph will go into a bit more details. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a mattis purus, vel cursus justo. Ut nec pretium ex. Nullam ac ultricies orci. Nulla facilisi.
+  </p>
+</section>
+`;

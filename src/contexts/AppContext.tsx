@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createContext, Component } from "react";
-import { User, Project } from "../types";
+import { User, Project, AppContextState } from "../types";
 
 export const AppContext = createContext({});
 
@@ -8,14 +8,14 @@ const mockUser: User = {
   name: "Someone Awesome"
 };
 
-const mockProjects: Array<Project> = [
+export const mockProjects: Array<Project> = [
   {
     projectName: "Project Name here",
     projectId: 18237,
     projectLead: {
-      name: "Rey Dekker",
+      name: "Ada Lovelace",
       experience: "Experienced (3+ years of experience)",
-      company: "Facebook"
+      company: "Self-employed"
     },
     description:
       "This project aims to achieve...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -44,11 +44,11 @@ const mockProjects: Array<Project> = [
   },
   {
     projectName: "Project 2 here context",
-    projectId: 34534,
+    projectId: 34535,
     projectLead: {
-      name: "Jane Doe",
+      name: "Sandy Doe",
       experience: "Learner (0+ years of experience)",
-      company: "ABC Comp"
+      company: "Test Company"
     },
     description:
       "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -57,9 +57,9 @@ const mockProjects: Array<Project> = [
   },
   {
     projectName: "Project 2 here context",
-    projectId: 34534,
+    projectId: 34536,
     projectLead: {
-      name: "Jane Doe",
+      name: "Ginny Doe",
       experience: "Learner (0+ years of experience)",
       company: "ABC Comp"
     },
@@ -70,7 +70,7 @@ const mockProjects: Array<Project> = [
   }
 ];
 
-export class AppContextProvider extends Component<any, any> {
+export class AppContextProvider extends Component<any, AppContextState> {
   state = {
     user: mockUser,
     projects: mockProjects
