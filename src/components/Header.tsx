@@ -45,6 +45,7 @@ class Header extends React.Component<Props, State> {
     const signedIn = (
       <div className="auth">
         <p>Hello, {this.state.user}</p>
+        <button>Add Project</button>
         <button onClick={this.signUserOut}>Log Out</button>
       </div>
     );
