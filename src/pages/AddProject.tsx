@@ -15,9 +15,9 @@ class AddProject extends Component {
             <ul>
               <li>Name</li>
               <li>Avatar</li>
-              <li>Company</li>
+              <li>Project description</li>
             </ul>
-            <button>My profile is up to date</button>
+            <button>Dismiss</button>
           </div>
 
           <form id="add-project-form">
@@ -41,6 +41,21 @@ class AddProject extends Component {
               <option value="experienced">Experienced (3+ years of experience)</option>
             </select>
 
+            <label
+              htmlFor="lead-position"
+              className="form-input-title">
+              Current Position:
+            </label>
+            <label
+              htmlFor="lead-position"
+              className="form-input-description">
+              Enter your current position (i.e. "Engineer at Facebook", "Bootcamp Grad from Galvanize")
+            </label>
+            <input
+              id="lead-position"
+              type="text"
+              name="lead-current-position"
+            />
 
             <label
               htmlFor="github-repo-input"
@@ -65,7 +80,7 @@ class AddProject extends Component {
             </label>
             <label
               htmlFor="looking-for"
-              className="form-tech-stack">
+              className="form-input-description">
               Describe what are you looking for in future contributors
             </label>
             {/* TODO: Add fixed values for cols, rows */}
@@ -82,10 +97,11 @@ class AddProject extends Component {
             </label>
             <label
               htmlFor="tech-stack"
-              className="form-tech-stack">
+              className="form-input-description">
               Enter the tech stack your project is built with, separated by commas. Max 5.
             </label>
             <input
+              id = "tech-stack"
               type="text"
               name="project-tech-stack"
             />
