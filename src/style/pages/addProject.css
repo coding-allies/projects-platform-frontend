@@ -1,0 +1,55 @@
+.add-project-page > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-project-page {
+  max-width: 640px;
+  padding: 60px;
+  margin: 60px auto;
+  border: 3px solid #393939;
+}
+
+.add-project-page h1::after{
+  content: '';
+  display: inherit;
+  height: 3px;
+  width: 120px;
+  background-color: turquoise;
+  margin: 24px 0px;
+}
+
+.add-project-info-block {
+  padding: 24px 24px 28px;
+  background-color: #c1fff8;
+  margin: 24px 0;
+}
+
+.add-project-info-block h2 {
+  margin-bottom: 12px;
+}
+
+.add-project-info-block button {
+  margin-top: 18px;
+  width: max-content;
+}
+
+
+label.form-input-title {
+  font-family: "Hepta Slab";
+  font-size: 16px;
+  font-weight: 600;
+}
+
+label {
+  margin-bottom: 12px;
+}
+
+input[type="url"],
+input[type="text"],
+select,
+textarea {
+  font-size: 16px;
+  padding: 12px;
+  margin-bottom: 36px;
+}
