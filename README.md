@@ -1,9 +1,9 @@
 ## Available Scripts
 
 ### To begin with, make sure you have following versions of yarn, npm and Node
-node: v8.16.0
-npm: 6.4.1
-yarn: 1.17.0
+node: v8.16.0 <br />
+npm: 6.4.1 <br />
+yarn: 1.17.0 <br />
 
 In the project directory (`cd your_path/projects-platform-frontend`), you can run:
 
