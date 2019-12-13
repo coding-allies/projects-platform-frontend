@@ -1,18 +1,23 @@
 import * as React from "react";
 import { Component } from "react";
-import ProjectCard from "../components/projectCard";
+import ProjectCard from "../components/ProjectCard";
 import { AppContext } from "../contexts/AppContext";
-import { Project } from "../types";
+import { Project, AppContextState } from "../types";
 import "../style/pages/projects.css";
 
 const renderProjects = (projects: Array<Project>) => {
-  return projects.map(data => <ProjectCard key={data.projectId} data={data} />);
+  if (projects) {
+    return projects.map(data => (
+      <ProjectCard key={data.projectId} data={data} />
+    ));
+  }
+  return null;
 };
 
 class Projects extends Component {
   static contextType = AppContext;
   render() {
-    const projects = [...this.context.projects];
+    const projects: Array<Project> = this.context.projects;
     return (
       <div className="projects-main">
         <div className="projects-title">

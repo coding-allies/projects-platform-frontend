@@ -21,3 +21,8 @@ export interface Project {
   contributors: Array<string>;
   tags: Array<string>;
 }
+
+export interface AppContextState {
+  user: User;
+  projects: Array<Project>;
+}

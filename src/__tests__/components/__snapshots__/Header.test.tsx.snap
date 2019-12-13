@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Header correctly 1`] = `
+<header>
+  <h1
+    className="logo"
+  >
+    she's collaborating
+  </h1>
+  <div
+    className="auth"
+  >
+    <button
+      onClick={[Function]}
+    >
+      Sign in with GitHub
+    </button>
+  </div>
+</header>
+`;

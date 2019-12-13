@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ProjectCard correctly 1`] = `
+<article
+  className="card-wrapper"
+>
+  <h2>
+    Project Name here
+  </h2>
+  <div
+    className="card-lead"
+  >
+    <h3>
+      Project Lead: 
+      Ada Lovelace
+    </h3>
+    <p>
+      Currently: 
+      Self-employed
+    </p>
+    <p>
+      Experienced (3+ years of experience)
+    </p>
+  </div>
+  <p
+    className="card-description"
+  >
+    This project aims to achieve...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </p>
+  <div
+    className="card-contributors"
+  >
+    <p
+      className="card-contributor-label"
+    >
+      Contributors: 
+      7
+    </p>
+    <div
+      className="card-contributor-avatars"
+    >
+      <div
+        className="card-contributor-icon"
+      >
+        NS
+      </div>
+      <div
+        className="card-contributor-icon"
+      >
+        MM
+      </div>
+      <div
+        className="card-contributor-icon"
+      >
+        NN
+      </div>
+      <div
+        className="card-contributor-icon"
+      >
+        IJ
+      </div>
+      <div
+        className="card-contributor-icon"
+      >
+        FR
+      </div>
+      <div
+        className="card-contributor-icon"
+      >
+        HJ
+      </div>
+      <div
+        className="card-contributor-icon"
+      >
+        WS
+      </div>
+    </div>
+  </div>
+  <div
+    className="card-tech-stack"
+  >
+    <p
+      className="card-tech-stack-label"
+    >
+      Tech stack: 
+    </p>
+    <div
+      className="card-tags"
+    >
+      <div
+        className="tag"
+      >
+        JS
+      </div>
+      <div
+        className="tag"
+      >
+        ReactJS
+      </div>
+      <div
+        className="tag"
+      >
+        Typescript
+      </div>
+      <div
+        className="tag"
+      >
+        TypescriptTypescript
+      </div>
+      <div
+        className="tag"
+      >
+        CSS
+      </div>
+      <div
+        className="tag"
+      >
+        Objective C
+      </div>
+    </div>
+  </div>
+  <div
+    className="card-buttons"
+  >
+    <button
+      className="card-button"
+    >
+      Github
+    </button>
+    <button
+      className="card-button"
+    >
+      Favorite
+    </button>
+    <button
+      className="card-button"
+    >
+      Join
+    </button>
+  </div>
+</article>
+`;

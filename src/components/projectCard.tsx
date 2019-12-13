@@ -1,16 +1,22 @@
 import * as React from "react";
 import { Project } from "../types";
-import "../style/components/projectCard.css";
+import "../style/components/ProjectCard.css";
 
 const getTags = (tagList: Array<string>) => {
   return tagList.map(tag => {
-    return <div className={`tag`}>{tag}</div>;
+    return (
+      <div className={`tag`} key={tag}>
+        {tag}
+      </div>
+    );
   });
 };
 
 const getContributors = (contributorList: Array<string>) => {
   return contributorList.map(contributor => (
-    <div className="card-contributor-icon">{contributor}</div>
+    <div className="card-contributor-icon" key={contributor}>
+      {contributor}
+    </div>
   ));
 };
 
@@ -23,14 +29,14 @@ const ProjectCard = (props: Props) => {
     <article className="card-wrapper">
       <h2>{data.projectName}</h2>
 
-    <div className="card-lead">
+      <div className="card-lead">
         <h3>Project Lead: {data.projectLead.name}</h3>
         <p>Currently: {data.projectLead.company}</p>
         <p>{data.projectLead.experience}</p>
       </div>
 
       <p className="card-description">{data.description}</p>
-        <div className="card-contributors">
+      <div className="card-contributors">
         <p className="card-contributor-label">
           Contributors: {data.contributors.length}
         </p>
@@ -49,7 +55,6 @@ const ProjectCard = (props: Props) => {
         <button className="card-button">Favorite</button>
         <button className="card-button">Join</button>
       </div>
-
     </article>
   );
 };
