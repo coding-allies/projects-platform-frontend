@@ -58,7 +58,7 @@ exports[`renders Welcome correctly 1`] = `
       Featured Projects
     </h2>
     <div
-      className="featured-projects-block"
+      className="projects-wrapper"
     />
   </section>
   <footer>
