@@ -17,7 +17,7 @@
 }
 
 .platform-intro h1::after,
-.platform-featured-projects h2::after {
+.platform-featured-projects>h2::after {
   content: '';
   display: inherit;
   height: 3px;
@@ -65,7 +65,7 @@
   font-weight: 500;
 }
 
-.platform-featured-projects h2 {
+.platform-featured-projects>h2 {
   text-align: center;
   font-size: 32px;
 }
