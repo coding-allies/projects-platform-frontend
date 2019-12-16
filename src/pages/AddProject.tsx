@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component } from "react";
-import "../style/pages/addProject.css";
+import "../style/pages/AddProject.css";
 
 class AddProject extends Component {
   // TODO: Add form state
