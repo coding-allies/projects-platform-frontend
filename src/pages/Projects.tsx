@@ -2,8 +2,8 @@ import * as React from "react";
 import { Component } from "react";
 import ProjectCard from "../components/ProjectCard";
 import { AppContext } from "../contexts/AppContext";
-import { Project, AppContextState } from "../types";
-import "../style/pages/projects.css";
+import { Project } from "../types";
+import "../style/pages/Projects.css";
 
 const renderProjects = (projects: Array<Project>) => {
   if (projects) {
@@ -29,4 +29,4 @@ class Projects extends Component {
   }
 }
 
-export default Projects;
+export {renderProjects, Projects};
