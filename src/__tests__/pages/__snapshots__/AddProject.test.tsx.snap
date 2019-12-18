@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Add Project correctly 1`] = `
+<div
+  className="add-project-page"
+>
+  <h1>
+    Add your project
+  </h1>
+  <div
+    className="add-project-info-block"
+  >
+    <h2>
+      Before we begin
+    </h2>
+    <p>
+      Make sure your GitHub profile is in order before submitting your project.
+    </p>
+    <p>
+      The following information will be visible:
+    </p>
+    <ul>
+      <li>
+        Name
+      </li>
+      <li>
+        Avatar
+      </li>
+      <li>
+        Project description
+      </li>
+    </ul>
+    <button>
+      Dismiss
+    </button>
+  </div>
+  <form
+    id="add-project-form"
+  >
+    <label
+      className="form-input-title"
+      htmlFor="select-experience-level"
+    >
+      Experience Level:
+    </label>
+    <label
+      className="form-input-description"
+      htmlFor="select-experience-level"
+    >
+      Select the description that best matches your experience
+    </label>
+    <select
+      id="select-experience-level"
+      name="lead-experience-level"
+    >
+      <option
+        value=""
+      >
+        Select your experience level
+      </option>
+      <option
+        value="learner"
+      >
+        Learner (0+ years of experience)
+      </option>
+      <option
+        value="beginner"
+      >
+        Beginner (1+ years of experience)
+      </option>
+      <option
+        value="experienced"
+      >
+        Experienced (3+ years of experience)
+      </option>
+    </select>
+    <label
+      className="form-input-title"
+      htmlFor="lead-position"
+    >
+      Current Position:
+    </label>
+    <label
+      className="form-input-description"
+      htmlFor="lead-position"
+    >
+      Enter your current position (i.e. "Engineer at Facebook", "Bootcamp Grad from Galvanize")
+    </label>
+    <input
+      id="lead-position"
+      name="lead-current-position"
+      type="text"
+    />
+    <label
+      className="form-input-title"
+      htmlFor="github-repo-input"
+    >
+      GitHub Repo:
+    </label>
+    <label
+      className="form-input-description"
+      htmlFor="github-repo-input"
+    >
+      Add a link to the GitHub repository for your project
+    </label>
+    <input
+      id="github-repo-input"
+      name="project-github-repo"
+      type="url"
+    />
+    <label
+      className="form-input-title"
+      htmlFor="looking-for"
+    >
+      Looking for:
+    </label>
+    <label
+      className="form-input-description"
+      htmlFor="looking-for"
+    >
+      Describe what are you looking for in future contributors
+    </label>
+    <textarea
+      id="looking-for"
+      name="project-looking-for"
+      style={
+        Object {
+          "resize": "none",
+        }
+      }
+    />
+    <label
+      className="form-input-title"
+      htmlFor="tech-stack"
+    >
+      Tech Stack:
+    </label>
+    <label
+      className="form-input-description"
+      htmlFor="tech-stack"
+    >
+      Enter the tech stack your project is built with, separated by commas. Max 5.
+    </label>
+    <input
+      id="tech-stack"
+      name="project-tech-stack"
+      type="text"
+    />
+    <button
+      form="add-project-form"
+      type="submit"
+    >
+      Add your project
+    </button>
+  </form>
+</div>
+`;
