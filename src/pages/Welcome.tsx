@@ -2,18 +2,9 @@ import * as React from "react";
 import { Component } from "react";
 import { AppContext } from "../contexts/AppContext";
 import { Project } from "../types";
-import ProjectCard from "../components/ProjectCard";
+import { renderProjects } from "./Projects"
 import "../style/pages/Welcome.css";
 import "../style/pages/Projects.css";
-
-const renderProjects = (projects: Array<Project>) => {
-  if (projects) {
-    return projects.map(data => (
-      <ProjectCard key={data.projectId} data={data} />
-    ));
-  }
-  return null;
-};
 
 class Welcome extends Component {
   static contextType = AppContext;
