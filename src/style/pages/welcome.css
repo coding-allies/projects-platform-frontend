@@ -28,6 +28,7 @@
 
 .platform-intro p {
   font-size: 21px;
+  line-height: 32px;
 }
 
 .platform-intro button {
@@ -46,7 +47,7 @@
 
 .platform-feature {
   background-color: #FFF;
-  border: 3px solid #393939;
+  border: 2px solid #393939;
   padding: 36px;
 }
 
@@ -60,14 +61,13 @@
 }
 
 .platform-feature p {
-  font-size: 15px;
   line-height: 24px;
-  font-weight: 500;
 }
 
 .platform-featured-projects>h2 {
   text-align: center;
   font-size: 32px;
+  padding-bottom: 64px;
 }
 .featured-projects-block {
   display: flex;
