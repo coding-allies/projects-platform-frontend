@@ -36,6 +36,12 @@ const ProjectCard = (props: Props) => {
       </div>
 
       <p className="card-description">{data.description}</p>
+
+      <div className="">
+        <p className="">Looking For:</p>
+        <p className="">{data.projectLookingFor}</p>        
+      </div>
+
       <div className="card-contributors">
         <p className="card-contributor-label">
           Contributors: {data.contributors.length}
