@@ -17,6 +17,7 @@ export interface Project {
   projectName: string;
   projectId: number;
   projectLead: ProjectLead;
+  projectLookingFor: string;
   description: string;
   contributors: Array<string>;
   tags: Array<string>;

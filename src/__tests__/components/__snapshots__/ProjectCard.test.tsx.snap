@@ -28,6 +28,18 @@ exports[`renders ProjectCard correctly 1`] = `
     This project aims to achieve...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </p>
   <div
+    className="card-looking-for"
+  >
+    <p
+      className="card-looking-for-label"
+    >
+      Looking For:
+    </p>
+    <p>
+      I could really use some help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+  </div>
+  <div
     className="card-contributors"
   >
     <p
