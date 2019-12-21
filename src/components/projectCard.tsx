@@ -37,9 +37,9 @@ const ProjectCard = (props: Props) => {
 
       <p className="card-description">{data.description}</p>
 
-      <div className="">
-        <p className="">Looking For:</p>
-        <p className="">{data.projectLookingFor}</p>        
+      <div className="card-looking-for">
+        <p className="card-looking-for-label">Looking For:</p>
+        <p>{data.projectLookingFor}</p>        
       </div>
 
       <div className="card-contributors">

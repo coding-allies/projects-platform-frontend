@@ -3,7 +3,6 @@
   border: 2px solid #393939;
   display: grid;
   grid-template-columns: 12fr;
-  grid-template-rows: 40px 70px 160px 80px 105px auto;
   grid-row-gap: 12px;
   background-color: #FFF;
 }
@@ -49,6 +48,15 @@
   grid-gap: 6px;
 }
 
+.card-description {
+  min-height: 160px;
+}
+
+.card-looking-for {
+  min-height: 120px;
+}
+
+.card-looking-for-label,
 .card-contributor-label,
 .card-tech-stack-label {
   text-transform: uppercase;
