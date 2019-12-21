@@ -60,6 +60,18 @@ exports[`renders App correctly 1`] = `
           This project aims to achieve...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
         <div
+          className="card-looking-for"
+        >
+          <p
+            className="card-looking-for-label"
+          >
+            Looking For:
+          </p>
+          <p>
+            I could really use some help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div
           className="card-contributors"
         >
           <p
@@ -198,6 +210,18 @@ exports[`renders App correctly 1`] = `
           Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
         <div
+          className="card-looking-for"
+        >
+          <p
+            className="card-looking-for-label"
+          >
+            Looking For:
+          </p>
+          <p>
+            I could really use some help with the front-end.
+          </p>
+        </div>
+        <div
           className="card-contributors"
         >
           <p
@@ -286,6 +310,18 @@ exports[`renders App correctly 1`] = `
           Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
         <div
+          className="card-looking-for"
+        >
+          <p
+            className="card-looking-for-label"
+          >
+            Looking For:
+          </p>
+          <p>
+            Any help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div
           className="card-contributors"
         >
           <p
@@ -373,6 +409,18 @@ exports[`renders App correctly 1`] = `
         >
           Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
+        <div
+          className="card-looking-for"
+        >
+          <p
+            className="card-looking-for-label"
+          >
+            Looking For:
+          </p>
+          <p>
+            We're just getting started, so any help is appreciated!
+          </p>
+        </div>
         <div
           className="card-contributors"
         >
