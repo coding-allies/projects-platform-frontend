@@ -19,6 +19,8 @@ export const mockProjects: Array<Project> = [
     },
     description:
       "This project aims to achieve...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    projectLookingFor:
+      "I could really use some help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     contributors: ["NS", "MM", "NN", "IJ", "FR", "HJ", "WS"],
     tags: [
       "JS",
@@ -39,6 +41,8 @@ export const mockProjects: Array<Project> = [
     },
     description:
       "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    projectLookingFor:
+      "I could really use some help with the front-end.",
     contributors: ["JD"],
     tags: ["JS", "ReactJS"]
   },
@@ -52,6 +56,8 @@ export const mockProjects: Array<Project> = [
     },
     description:
       "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    projectLookingFor:
+      "Any help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",  
     contributors: ["JD"],
     tags: ["JS", "ReactJS"]
   },
@@ -65,6 +71,8 @@ export const mockProjects: Array<Project> = [
     },
     description:
       "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    projectLookingFor:
+      "We're just getting started, so any help is appreciated!",
     contributors: ["JD"],
     tags: ["JS", "ReactJS"]
   }
