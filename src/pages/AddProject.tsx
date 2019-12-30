@@ -1,9 +1,20 @@
 import * as React from "react";
 import { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import "../style/pages/AddProject.css";
 
 class AddProject extends Component {
   // TODO: Add form state
+
+  // TODO: Redirect to projects page on submit (w/ history?)
+  redirect = (e) => {
+    e.preventDefault();
+    console.log("it works");
+    return (
+      <Redirect to="/projects"/>
+    );
+  }
+
   render() {
     return (
       <div className="add-project-page">
@@ -106,9 +117,11 @@ class AddProject extends Component {
               name="project-tech-stack"
             />
 
+            {/* TODO: Re-implement w/ history */}
             <button
               type="submit"
-              form="add-project-form">
+              form="add-project-form"
+              onClick={this.redirect}>
               Add your project
             </button>
           </form>
