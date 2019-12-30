@@ -23,8 +23,12 @@ code {
     monospace;
 }
 
-button {
+button,
+a.button-link {
+  color: #393939;
+  text-decoration: none;
   font-family: "Hepta Slab";
+  font-size: 14px;
   font-weight: 600;
   background-color: #FFF;
   border: 2px solid #393939;
@@ -33,7 +37,8 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover,
+a.button-link:hover {
   background-color: #393939;
   color: #FFF;
 }
