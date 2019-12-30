@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link, NavLink } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { User } from "../types";
 import "../style/components/Header.css";
@@ -44,15 +45,25 @@ class Header extends React.Component<Props, State> {
 
     const signedIn = (
       <div className="auth">
-        <p>Hello, {this.state.user}</p>
-        <button>Add Project</button>
+        <p>Hello, {this.state.user}!</p>
+        <Link to="add-project" className="button-link">Add Project</Link>
         <button onClick={this.signUserOut}>Log Out</button>
       </div>
     );
 
     return (
       <header>
-        <h1 className="logo">she's collaborating</h1>
+        <h1 className="logo">
+          <Link to="/projects">
+            she's collaborating
+          </Link>
+        </h1>
+        <nav>
+          <ul>
+            <li><NavLink exact to="/" activeClassName="current">Home</NavLink></li>
+            <li><NavLink to="/projects" activeClassName="current">Projects</NavLink></li>
+          </ul>
+        </nav>
         {this.state.user ? signedIn : signedOut}
       </header>
     );
