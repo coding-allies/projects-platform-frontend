@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BrowserRouter as Router, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { User } from "../types";
 import "../style/components/Header.css";
@@ -52,7 +52,6 @@ class Header extends React.Component<Props, State> {
     );
 
     return (
-      <Router>
         <header>
           <h1 className="logo">
             <Link to="/projects">
@@ -67,7 +66,6 @@ class Header extends React.Component<Props, State> {
           </nav>
           {this.state.user ? signedIn : signedOut}
         </header>
-      </Router>
     );
   }
 }
