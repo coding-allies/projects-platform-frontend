@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Link, NavLink } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { User } from "../types";
 import "../style/components/Header.css";
@@ -52,20 +52,22 @@ class Header extends React.Component<Props, State> {
     );
 
     return (
-      <header>
-        <h1 className="logo">
-          <Link to="/projects">
-            she's collaborating
-          </Link>
-        </h1>
-        <nav>
-          <ul>
-            <li><NavLink exact to="/" activeClassName="current">Home</NavLink></li>
-            <li><NavLink to="/projects" activeClassName="current">Projects</NavLink></li>
-          </ul>
-        </nav>
-        {this.state.user ? signedIn : signedOut}
-      </header>
+      <Router>
+        <header>
+          <h1 className="logo">
+            <Link to="/projects">
+              she's collaborating
+            </Link>
+          </h1>
+          <nav>
+            <ul>
+              <li><NavLink exact to="/" activeClassName="current">Home</NavLink></li>
+              <li><NavLink to="/projects" activeClassName="current">Projects</NavLink></li>
+            </ul>
+          </nav>
+          {this.state.user ? signedIn : signedOut}
+        </header>
+      </Router>
     );
   }
 }
