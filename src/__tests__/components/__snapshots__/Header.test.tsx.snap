@@ -5,8 +5,37 @@ exports[`renders Header correctly 1`] = `
   <h1
     className="logo"
   >
-    she's collaborating
+    <a
+      href="/projects"
+      onClick={[Function]}
+    >
+      she's collaborating
+    </a>
   </h1>
+  <nav>
+    <ul>
+      <li>
+        <a
+          aria-current="page"
+          className="current"
+          href="/"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current={null}
+          href="/projects"
+          onClick={[Function]}
+        >
+          Projects
+        </a>
+      </li>
+    </ul>
+  </nav>
   <div
     className="auth"
   >

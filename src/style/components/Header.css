@@ -1,20 +1,61 @@
 header {
-  padding: 40px;
+  padding: 24px 32px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #FFF;
   border-bottom: 1px dotted #d1d1d3;
 }
+
 .logo {
   font-size: 1.4em;
   border-bottom: 3px solid turquoise;
 }
+
+.logo-highlight {
+  color: turquoise;
+}
+
 .auth {
   display: flex;
   align-items: center;
 }
 
-header button {
+header h1 {
+  flex-grow: 0;
+}
+
+header h1 a {
+  color: #393939;
+  text-decoration: none;
+  margin-left: 0;
+}
+
+header > * > * {
   margin-left: 1em;
+}
+
+header nav {
+  flex-grow: 1;
+  align-self: auto;
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+header nav ul li {
+  padding: 1em;
+}
+
+header nav ul li a {
+  color: #393939;
+  text-decoration: none;
+  padding-bottom: 3px;
+}
+
+header nav ul li a.current {
+  border-bottom: 3px solid turquoise;
 }

@@ -148,6 +148,7 @@ exports[`renders Add Project correctly 1`] = `
     />
     <button
       form="add-project-form"
+      onClick={[Function]}
       type="submit"
     >
       Add your project
