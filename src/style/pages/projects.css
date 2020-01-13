@@ -17,8 +17,8 @@
   padding-bottom: 30px;
 }
 
-.projects-title h1::after{
-  content: '';
+.projects-title h1::after {
+  content: "";
   display: inherit;
   height: 3px;
   width: 120px;
