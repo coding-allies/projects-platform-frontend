@@ -1,7 +1,7 @@
 import * as React from "react";
-import { createContext, Component } from "react";
+import { createContext, useState, useEffect } from "react";
 import { User, Project, AppContextState } from "../types";
-
+import axios from "axios";
 export const AppContext = createContext({});
 
 const mockUser: User = {
@@ -57,7 +57,7 @@ export const mockProjects: Array<Project> = [
     description:
       "Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     projectLookingFor:
-      "Any help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",  
+      "Any help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     contributors: ["JD"],
     tags: ["JS", "ReactJS"]
   },
@@ -78,17 +78,27 @@ export const mockProjects: Array<Project> = [
   }
 ];
 
-export class AppContextProvider extends Component<any, AppContextState> {
-  state = {
-    user: mockUser,
-    projects: mockProjects
-  };
+export function AppContextProvider(props) {
+  const [user, setUser] = useState(mockUser);
+  const [projects, setProjects] = useState(mockProjects);
 
-  render() {
-    return (
-      <AppContext.Provider value={{ ...this.state }}>
-        {this.props.children}
-      </AppContext.Provider>
-    );
-  }
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const result = await axios(
+        "http://127.0.0.1:8000/projects/all/",
+      );
+      console.log("xx", result);
+      setUser(result.data.user);
+      setProjects(result.data.projects);
+    };
+    fetchData();
+  }, []);
+
+
+  return (
+    <AppContext.Provider value={{ user, projects }}>
+      {props.children}
+    </AppContext.Provider>
+  );
 }
