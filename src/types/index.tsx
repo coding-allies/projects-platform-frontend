@@ -1,5 +1,6 @@
 export interface User {
   name: string;
+  is_authenticated: boolean;
 }
 
 type ExperienceLevels =

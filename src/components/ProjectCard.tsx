@@ -26,14 +26,15 @@ type Props = {
 
 const ProjectCard: FC<Props> = ({ data }) => {
   const project = { ...data };
+  console.log('project', project.name);
   return (
     <article className="card-wrapper">
       <h2>{project.name}</h2>
 
       <div className="card-lead">
-        <h3>Project Lead: {project.lead.name}</h3>
-        <p>Currently: {project.lead.company}</p>
-        <p>{project.lead.experience}</p>
+        <h3>Project Lead: project.lead.name</h3>
+        <p>Currently: project.lead.company</p>
+        <p>project.lead.experience</p>
       </div>
 
       <p className="card-description">{project.description}</p>
@@ -45,10 +46,10 @@ const ProjectCard: FC<Props> = ({ data }) => {
 
       <div className="card-contributors">
         <p className="card-contributor-label">
-          Contributors: {project.contributors.length}
+          Contributors: project.contributors.length
         </p>
         <div className="card-contributor-avatars">
-          {getContributors(project.contributors)}
+          Get contrib here{/* {getContributors(project.contributors)} */}
         </div>
       </div>
 
