@@ -7,9 +7,7 @@ import "../style/pages/Projects.css";
 
 const renderProjects = (projects: Array<Project>) => {
   if (projects) {
-    return projects.map(data => (
-      <ProjectCard key={data.projectId} data={data} />
-    ));
+    return projects.map(data => <ProjectCard key={data.id} data={data} />);
   }
   return null;
 };
@@ -29,4 +27,4 @@ class Projects extends Component {
   }
 }
 
-export {renderProjects, Projects};
+export { renderProjects, Projects };
