@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { Project } from "../types";
 import "../style/components/ProjectCard.css";
 
@@ -23,8 +23,7 @@ const getContributors = (contributorList: Array<string>) => {
 type Props = {
   data: Project;
 };
-const ProjectCard = (props: Props) => {
-  const data = { ...props.data };
+const ProjectCard: FC<Props> = ({ data }) => {
   return (
     <article className="card-wrapper">
       <h2>{data.projectName}</h2>
