@@ -3,11 +3,33 @@ import { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import "../style/pages/AddProject.css";
 
+type FormState = {
+  experienceLevel: string,
+  currentLeadPosition: string,
+  githubRepo: string,
+  lookingFor: string,  
+  techStack: string
+}
+
 class AddProject extends Component {
-  // TODO: Add form state
+  state: FormState = {
+    experienceLevel: "",
+    currentLeadPosition: "",
+    githubRepo: "",
+    lookingFor: "",
+    techStack: ""
+  }
+
+  handleChange = (event: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>)) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    this.setState({
+      [name]: value
+    })
+  }
 
   // TODO: Redirect to projects page on submit (w/ history?)
-  redirect = (e) => {
+  handleSubmit(e: any) {
     e.preventDefault();
     console.log("it works");
     return (
@@ -31,7 +53,7 @@ class AddProject extends Component {
             <button>Dismiss</button>
           </div>
 
-          <form id="add-project-form">
+        <form id="add-project-form" onSubmit={this.handleSubmit}>
             <label
               htmlFor="select-experience-level"
               className="form-input-title">
@@ -45,7 +67,9 @@ class AddProject extends Component {
             {/* TODO: Experience level from types */}
             <select
               id="select-experience-level"
-              name="lead-experience-level">
+              name="experienceLevel"
+              value={this.state.experienceLevel}
+              onChange={this.handleChange}>
               <option value="">Select your experience level</option>
               <option value="learner">Learner (0+ years of experience)</option>
               <option value="beginner">Beginner (1+ years of experience)</option>
@@ -63,9 +87,11 @@ class AddProject extends Component {
               Enter your current position (i.e. "Engineer at Facebook", "Bootcamp Grad from Galvanize")
             </label>
             <input
-              id="lead-position"
               type="text"
-              name="lead-current-position"
+              id="lead-position"
+              name="currentLeadPosition"
+              onChange={this.handleChange}
+              value={this.state.currentLeadPosition}
             />
 
             <label
@@ -79,9 +105,11 @@ class AddProject extends Component {
               Add a link to the GitHub repository for your project
             </label>
             <input
-              id="github-repo-input"
               type="url"
-              name="project-github-repo"
+              id="github-repo-input"
+              name="githubRepo"
+              value={this.state.githubRepo}
+              onChange={this.handleChange}
             />
 
             <label
@@ -97,7 +125,9 @@ class AddProject extends Component {
             {/* TODO: Add fixed values for cols, rows */}
             <textarea
               id="looking-for"
-              name="project-looking-for"
+              name="lookingFor"
+              value={this.state.lookingFor}
+              onChange={this.handleChange}
               style={{"resize": "none"}}
             />
 
@@ -112,16 +142,13 @@ class AddProject extends Component {
               Enter the tech stack your project is built with, separated by commas. Max 5.
             </label>
             <input
-              id = "tech-stack"
               type="text"
-              name="project-tech-stack"
+              id="tech-stack"
+              name="techStack"
+              value={this.state.techStack}
+              onChange={this.handleChange}
             />
-
-            {/* TODO: Re-implement w/ history */}
-            <button
-              type="submit"
-              form="add-project-form"
-              onClick={this.redirect}>
+            <button>
               Add your project
             </button>
           </form>
