@@ -21,6 +21,8 @@ export interface Project {
   description: string;
   contributors: Array<string>;
   tags: Array<string>;
+  url: string;
+  email: string;
 }
 
 export interface AppContextState {

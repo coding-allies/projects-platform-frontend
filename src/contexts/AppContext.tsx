@@ -29,7 +29,9 @@ export const mockProjects: Array<Project> = [
       "TypescriptTypescript",
       "CSS",
       "Objective C"
-    ]
+    ],
+    url: "https://github.com/shescoding/projects-platform-frontend",
+    email: "info@shescoding.org"
   },
   {
     projectName: "Project 2 here context",
@@ -44,7 +46,10 @@ export const mockProjects: Array<Project> = [
     projectLookingFor:
       "I could really use some help with the front-end.",
     contributors: ["JD"],
-    tags: ["JS", "ReactJS"]
+    tags: ["JS", "ReactJS"],
+    url: "https://github.com/shescoding/projects-platform-frontend",
+    email: "info@shescoding.org"
+    
   },
   {
     projectName: "Project 2 here context",
@@ -59,7 +64,9 @@ export const mockProjects: Array<Project> = [
     projectLookingFor:
       "Any help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",  
     contributors: ["JD"],
-    tags: ["JS", "ReactJS"]
+    tags: ["JS", "ReactJS"],
+    url: "https://github.com/shescoding/projects-platform-frontend",
+    email: "info@shescoding.org"
   },
   {
     projectName: "Project 2 here context",
@@ -74,7 +81,9 @@ export const mockProjects: Array<Project> = [
     projectLookingFor:
       "We're just getting started, so any help is appreciated!",
     contributors: ["JD"],
-    tags: ["JS", "ReactJS"]
+    tags: ["JS", "ReactJS"],
+    url: "https://github.com/shescoding/projects-platform-frontend",
+    email: "info@shescoding.org"
   }
 ];
 

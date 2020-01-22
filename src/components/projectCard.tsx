@@ -23,6 +23,7 @@ const getContributors = (contributorList: Array<string>) => {
 type Props = {
   data: Project;
 };
+
 const ProjectCard = (props: Props) => {
   const data = { ...props.data };
   return (
@@ -57,9 +58,20 @@ const ProjectCard = (props: Props) => {
       </div>
 
       <div className="card-buttons">
-        <button className="card-button">Github</button>
-        <button className="card-button">Favorite</button>
-        <button className="card-button">Join</button>
+        <a 
+          href={data.url} 
+          className="button-link" 
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on Github
+        </a>
+        <a 
+          href={"mailto:" + data.email} 
+          className="button-link" 
+        >
+          Request to Join
+        </a>
       </div>
     </article>
   );
