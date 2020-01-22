@@ -59,7 +59,7 @@ const ProjectCard: FC<Props> = ({ data }) => {
 
       <div className="card-buttons">
         <a 
-          href={data.url} 
+          href={data.githubUrl} 
           className="button-link" 
           target="_blank"
           rel="noopener noreferrer"
