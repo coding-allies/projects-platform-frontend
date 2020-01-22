@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { Project } from "../types";
 import "../style/components/ProjectCard.css";
 
@@ -24,37 +24,37 @@ type Props = {
   data: Project;
 };
 
-const ProjectCard = (props: Props) => {
-  const data = { ...props.data };
+const ProjectCard: FC<Props> = ({ data }) => {
+  const project = { ...props.data };
   return (
     <article className="card-wrapper">
-      <h2>{data.projectName}</h2>
+      <h2>{project.name}</h2>
 
       <div className="card-lead">
-        <h3>Project Lead: {data.projectLead.name}</h3>
-        <p>Currently: {data.projectLead.company}</p>
-        <p>{data.projectLead.experience}</p>
+        <h3>Project Lead: {project.lead.name}</h3>
+        <p>Currently: {project.lead.company}</p>
+        <p>{project.lead.experience}</p>
       </div>
 
-      <p className="card-description">{data.description}</p>
+      <p className="card-description">{project.description}</p>
 
       <div className="card-looking-for">
         <p className="card-looking-for-label">Looking For:</p>
-        <p>{data.projectLookingFor}</p>        
+        <p>{project.lookingFor}</p>
       </div>
 
       <div className="card-contributors">
         <p className="card-contributor-label">
-          Contributors: {data.contributors.length}
+          Contributors: {project.contributors.length}
         </p>
         <div className="card-contributor-avatars">
-          {getContributors(data.contributors)}
+          {getContributors(project.contributors)}
         </div>
       </div>
 
       <div className="card-tech-stack">
         <p className="card-tech-stack-label">Tech stack: </p>
-        <div className="card-tags">{getTags(data.tags)}</div>
+        {/* <div className="card-tags">{getTags(data.tags)}</div> */}
       </div>
 
       <div className="card-buttons">

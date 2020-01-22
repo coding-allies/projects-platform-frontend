@@ -14,10 +14,10 @@ interface ProjectLead {
 }
 
 export interface Project {
-  projectName: string;
-  projectId: number;
-  projectLead: ProjectLead;
-  projectLookingFor: string;
+  name: string;
+  id: number;
+  lead: ProjectLead;
+  lookingFor: string;
   description: string;
   contributors: Array<string>;
   tags: Array<string>;
