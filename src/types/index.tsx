@@ -20,7 +20,9 @@ export interface Project {
   lookingFor: string;
   description: string;
   contributors: Array<string>;
-  tags?: Array<string>;
+  tags: Array<string>;
+  githubUrl: string;
+  email: string;
 }
 
 export interface AppContextState {

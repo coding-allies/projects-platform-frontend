@@ -58,9 +58,20 @@ const ProjectCard: FC<Props> = ({ data }) => {
       </div>
 
       <div className="card-buttons">
-        <button className="card-button">Github</button>
-        <button className="card-button">Favorite</button>
-        <button className="card-button">Join</button>
+        <a 
+          href={data.githubUrl} 
+          className="button-link" 
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on Github
+        </a>
+        <a 
+          href={"mailto:" + data.email} 
+          className="button-link" 
+        >
+          Request to Join
+        </a>
       </div>
     </article>
   );
