@@ -134,21 +134,20 @@ exports[`renders ProjectCard correctly 1`] = `
   <div
     className="card-buttons"
   >
-    <button
-      className="card-button"
+    <a
+      className="button-link"
+      href="https://github.com/shescoding/projects-platform-frontend"
+      rel="noopener noreferrer"
+      target="_blank"
     >
-      Github
-    </button>
-    <button
-      className="card-button"
+      View on Github
+    </a>
+    <a
+      className="button-link"
+      href="mailto:info@shescoding.org"
     >
-      Favorite
-    </button>
-    <button
-      className="card-button"
-    >
-      Join
-    </button>
+      Request to Join
+    </a>
   </div>
 </article>
 `;
