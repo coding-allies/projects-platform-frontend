@@ -27,9 +27,6 @@
   line-height: 21px;
 }
 
-.card-body {
-}
-
 .card-tags {
   min-height: 68px;
   display: flex;
@@ -90,8 +87,8 @@
 
 .card-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 42px;
+  text-align: center;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   padding-bottom: 0;
 }

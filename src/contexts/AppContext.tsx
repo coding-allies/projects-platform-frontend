@@ -10,6 +10,7 @@ const mockUser: User = {
 };
 
 export const mockProjects: Array<Project> = [
+
   // {
   //   name: "Project Name here",
   //   id: 18237,
@@ -75,6 +76,7 @@ export const mockProjects: Array<Project> = [
   //   contributors: ["JD"],
   //   tags: ["JS", "ReactJS"]
   // }
+
 ];
 
 export function AppContextProvider(props) {

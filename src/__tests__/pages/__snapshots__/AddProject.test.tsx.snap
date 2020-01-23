@@ -36,6 +36,7 @@ exports[`renders Add Project correctly 1`] = `
   </div>
   <form
     id="add-project-form"
+    onSubmit={[Function]}
   >
     <label
       className="form-input-title"
@@ -51,7 +52,9 @@ exports[`renders Add Project correctly 1`] = `
     </label>
     <select
       id="select-experience-level"
-      name="lead-experience-level"
+      name="experienceLevel"
+      onChange={[Function]}
+      value=""
     >
       <option
         value=""
@@ -88,8 +91,10 @@ exports[`renders Add Project correctly 1`] = `
     </label>
     <input
       id="lead-position"
-      name="lead-current-position"
+      name="currentLeadPosition"
+      onChange={[Function]}
       type="text"
+      value=""
     />
     <label
       className="form-input-title"
@@ -105,8 +110,10 @@ exports[`renders Add Project correctly 1`] = `
     </label>
     <input
       id="github-repo-input"
-      name="project-github-repo"
+      name="githubRepo"
+      onChange={[Function]}
       type="url"
+      value=""
     />
     <label
       className="form-input-title"
@@ -122,12 +129,14 @@ exports[`renders Add Project correctly 1`] = `
     </label>
     <textarea
       id="looking-for"
-      name="project-looking-for"
+      name="lookingFor"
+      onChange={[Function]}
       style={
         Object {
           "resize": "none",
         }
       }
+      value=""
     />
     <label
       className="form-input-title"
@@ -143,14 +152,12 @@ exports[`renders Add Project correctly 1`] = `
     </label>
     <input
       id="tech-stack"
-      name="project-tech-stack"
+      name="techStack"
+      onChange={[Function]}
       type="text"
+      value=""
     />
-    <button
-      form="add-project-form"
-      onClick={[Function]}
-      type="submit"
-    >
+    <button>
       Add your project
     </button>
   </form>
