@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Project } from "../types";
+import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
 
 const getTags = (tagList: Array<string>) => {
@@ -25,22 +25,24 @@ type Props = {
 };
 
 const ProjectCard: FC<Props> = ({ data }) => {
-  const project = { ...props.data };
+  const project = { ...data };
+  console.log('project', project);
+  const experienceLevel = ExperienceLevelsTypes[project.lead.experience]
   return (
     <article className="card-wrapper">
       <h2>{project.name}</h2>
 
       <div className="card-lead">
         <h3>Project Lead: {project.lead.name}</h3>
-        <p>Currently: {project.lead.company}</p>
-        <p>{project.lead.experience}</p>
+        <p>Currently: {project.lead.position}</p>
+        <p>{experienceLevel}</p>
       </div>
 
       <p className="card-description">{project.description}</p>
 
       <div className="card-looking-for">
         <p className="card-looking-for-label">Looking For:</p>
-        <p>{project.lookingFor}</p>
+        <p>{project.looking_for}</p>
       </div>
 
       <div className="card-contributors">

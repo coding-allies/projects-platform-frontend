@@ -1,5 +1,6 @@
 export interface User {
   name: string;
+  is_authenticated: boolean
 }
 
 type ExperienceLevels =
@@ -7,17 +8,22 @@ type ExperienceLevels =
   | "Beginner (1+ years of experience)"
   | "Experienced (3+ years of experience)";
 
+export const ExperienceLevelsTypes =
+  ["Learner (0+ years of experience)",
+    "Beginner (1+ years of experience)",
+    "Experienced (3+ years of experience)"];
+
 interface ProjectLead {
   name: string;
   experience: ExperienceLevels;
-  company: string;
+  position: string;
 }
 
 export interface Project {
   name: string;
   id: number;
   lead: ProjectLead;
-  lookingFor: string;
+  looking_for: string;
   description: string;
   contributors: Array<string>;
   tags: Array<string>;
