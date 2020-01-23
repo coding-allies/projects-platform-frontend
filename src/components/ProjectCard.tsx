@@ -47,10 +47,10 @@ const ProjectCard: FC<Props> = ({ data }) => {
 
       <div className="card-contributors">
         <p className="card-contributor-label">
-          Contributors: project.contributors.length
+          Contributors: {project.contributors.length}
         </p>
         <div className="card-contributor-avatars">
-          Get contrib here{/* {getContributors(project.contributors)} */}
+          {getContributors(project.contributors)}
         </div>
       </div>
 
