@@ -19,7 +19,7 @@ export function AppContextProvider(props) {
   const [projects, setProjects] = useState(mockProjects);
 
   const fetchData = async () => {
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     const result = await axios(
       "http://127.0.0.1:8000/projects/all/",
     );

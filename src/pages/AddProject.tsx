@@ -80,7 +80,7 @@ class AddProject extends Component<{}, FormState> {
     // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
     const user: User = this.context.user;
     console.log("user", user.auth_token);
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     // TODO: tags
     axios.post("http://127.0.0.1:8000/projects/add_project/", {
       experience_lvl: stateDict.experienceLevel,
