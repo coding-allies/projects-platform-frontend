@@ -1,7 +1,8 @@
 export interface User {
   name: string;
   is_authenticated: boolean,
-  csrf: string,
+  csrf_token: string,
+  auth_token: string,
 }
 
 export enum ExperienceLevels {

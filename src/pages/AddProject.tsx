@@ -3,9 +3,9 @@ import { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import "../style/pages/AddProject.css";
 import axios from "axios";
-import { ExperienceLevels, ExperienceLevelsTypes, MaybeTypeExperienceLevelsTypes } from "../types";
+import { ExperienceLevels, ExperienceLevelsTypes, MaybeTypeExperienceLevelsTypes, User } from "../types";
 import { For } from "@babel/types";
-
+import { AppContext } from "../contexts/AppContext";
 
 
 type FormState = {
@@ -33,6 +33,8 @@ type MaybeFormStateType =
 
 class AddProject extends Component<{}, FormState> {
   // const level: string = ExperienceLevelsTypes[0];
+  static contextType = AppContext;
+
   state: FormState = {
     experienceLevel: "0",
     currentLeadPosition: "",
@@ -42,18 +44,18 @@ class AddProject extends Component<{}, FormState> {
   }
 
   csrf = '';
-  fetchData = async () => {
-    axios.defaults.withCredentials = true;
-    const result = await axios(
-      "http://127.0.0.1:8000/projects/add_project/",
-    );
-    this.csrf = result.data["csrf"];
-    console.log("xx", this.csrf["token"]);
-  };
+  // fetchData = async () => {
+  //   axios.defaults.withCredentials = true;
+  //   const result = await axios(
+  //     "http://127.0.0.1:8000/projects/add_project/",
+  //   );
+  //   this.csrf = result.data["csrf"];
+  //   console.log("xx", this.csrf["token"]);
+  // };
 
-  componentDidMount() {
-    this.fetchData();
-  }
+  // componentDidMount() {
+  //   this.fetchData();
+  // }
 
   handleChange = (event: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>)) => {
     const name = event.target.name;
@@ -76,7 +78,8 @@ class AddProject extends Component<{}, FormState> {
 
     // axios.defaults.xsrfCookieName = 'csrftoken'
     // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-
+    const user: User = this.context.user;
+    console.log("user", user.auth_token);
     axios.defaults.withCredentials = true;
     // TODO: tags
     axios.post("http://127.0.0.1:8000/projects/add_project/", {
@@ -90,6 +93,7 @@ class AddProject extends Component<{}, FormState> {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'WWW-Authenticate': user.auth_token,
           // 'X-CSRFToken': this.csrf,
         }
       }
