@@ -10,20 +10,20 @@ function App() {
   return (
     <div className="App">
       <AppContextProvider>
-      <Router>
-      <Header />
-        <Switch>
-          <Route path="/add-project">
-            <AddProject />
-          </Route>
-          <Route path="/projects">
-            <Projects />
-          </Route>
-          <Route path="/">
-            <Welcome />
-          </Route>
-        </Switch>
-      </Router>
+        <Router>
+          <Header />
+          <Switch>
+            <Route path="/add-project">
+              <AddProject />
+            </Route>
+            <Route path="/projects">
+              <Projects />
+            </Route>
+            <Route path="/">
+              <Welcome />
+            </Route>
+          </Switch>
+        </Router>
       </AppContextProvider>
     </div>
   );

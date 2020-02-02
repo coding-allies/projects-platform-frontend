@@ -7,6 +7,7 @@ export const AppContext = createContext({});
 const mockUser: User = {
   name: "",
   is_authenticated: false,
+  csrf: ""
 };
 
 export const mockProjects: Array<Project> = [

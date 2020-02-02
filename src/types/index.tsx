@@ -1,17 +1,22 @@
 export interface User {
   name: string;
-  is_authenticated: boolean
+  is_authenticated: boolean,
+  csrf: string,
 }
 
-type ExperienceLevels =
-  | "Learner (0+ years of experience)"
-  | "Beginner (1+ years of experience)"
-  | "Experienced (3+ years of experience)";
+export enum ExperienceLevels {
+  Learner = "Learner (0+ years of experience)",
+  Beginner = "Beginner (1+ years of experience)",
+  Experienced = "Experienced (3+ years of experience)"
+}
+
+export type MaybeTypeExperienceLevelsTypes =
+  ExperienceLevels.Learner | ExperienceLevels.Beginner | ExperienceLevels.Experienced;
 
 export const ExperienceLevelsTypes =
-  ["Learner (0+ years of experience)",
-    "Beginner (1+ years of experience)",
-    "Experienced (3+ years of experience)"];
+  [ExperienceLevels.Learner,
+  ExperienceLevels.Beginner,
+  ExperienceLevels.Experienced];
 
 interface ProjectLead {
   name: string;
