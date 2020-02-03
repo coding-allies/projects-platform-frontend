@@ -44,18 +44,6 @@ class AddProject extends Component<{}, FormState> {
   }
 
   csrf = '';
-  // fetchData = async () => {
-  //   axios.defaults.withCredentials = true;
-  //   const result = await axios(
-  //     "http://127.0.0.1:8000/projects/add_project/",
-  //   );
-  //   this.csrf = result.data["csrf"];
-  //   console.log("xx", this.csrf["token"]);
-  // };
-
-  // componentDidMount() {
-  //   this.fetchData();
-  // }
 
   handleChange = (event: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>)) => {
     const name = event.target.name;
@@ -70,17 +58,9 @@ class AddProject extends Component<{}, FormState> {
   // TODO: Redirect to projects page on submit (w/ history?)
   handleSubmit = (e: any) => {
     e.preventDefault();
-
     const stateDict = { ...this.state };
-    // console.log("it works", stateDict, this.csrf);
-
-
-
-    // axios.defaults.xsrfCookieName = 'csrftoken'
-    // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
     const user: User = this.context.user;
     console.log("user", user.auth_token);
-    // axios.defaults.withCredentials = true;
     // TODO: tags
 
     axios.post("http://127.0.0.1:8000/projects/add_project/", {
@@ -95,8 +75,6 @@ class AddProject extends Component<{}, FormState> {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           Authorization: `Token ${user.auth_token}`,
-          // "Access-Control-Allow-Origin": "*",
-          // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, X-Requested-With"
         }
       }
     )
