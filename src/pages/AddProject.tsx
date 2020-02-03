@@ -63,27 +63,27 @@ class AddProject extends Component<{}, FormState> {
     console.log("user", user.auth_token);
     // TODO: tags
 
-    axios.post("http://127.0.0.1:8000/projects/add_project/", {
-      experience_lvl: stateDict.experienceLevel,
-      github_url: stateDict.githubRepo,
-      looking_for: stateDict.lookingFor,
-      position: stateDict.currentLeadPosition,
-      csrfmiddlewaretoken: this.csrf
-    }, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Token ${user.auth_token}`,
-        }
+    axios.post("http://127.0.0.1:8000/projects/add_project/", null, {
+      data: {
+        experience_lvl: stateDict.experienceLevel,
+        github_url: stateDict.githubRepo,
+        looking_for: stateDict.lookingFor,
+        position: stateDict.currentLeadPosition,
+        csrfmiddlewaretoken: this.csrf
+      },
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${user.auth_token}`,
       }
-    )
-      .then(function (response) {
-        console.log("Axios response", response);
-        return (
-          <Redirect to="/projects" />
-        );
-      })
+    }
+    ).then(function (response) {
+      console.log("Axios response", response);
+      return (
+        <Redirect to="/projects" />
+      );
+    })
       .catch(function (error) {
         console.log(error);
       });
