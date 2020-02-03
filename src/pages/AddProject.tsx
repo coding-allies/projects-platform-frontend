@@ -82,6 +82,7 @@ class AddProject extends Component<{}, FormState> {
     console.log("user", user.auth_token);
     // axios.defaults.withCredentials = true;
     // TODO: tags
+
     axios.post("http://127.0.0.1:8000/projects/add_project/", {
       experience_lvl: stateDict.experienceLevel,
       github_url: stateDict.githubRepo,
@@ -93,8 +94,9 @@ class AddProject extends Component<{}, FormState> {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'WWW-Authenticate': user.auth_token,
-          // 'X-CSRFToken': this.csrf,
+          Authorization: `Token ${user.auth_token}`,
+          // "Access-Control-Allow-Origin": "*",
+          // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, X-Requested-With"
         }
       }
     )
