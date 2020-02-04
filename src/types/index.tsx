@@ -11,9 +11,6 @@ export enum ExperienceLevels {
   Experienced = "Experienced (3+ years of experience)"
 }
 
-export type MaybeTypeExperienceLevelsTypes =
-  ExperienceLevels.Learner | ExperienceLevels.Beginner | ExperienceLevels.Experienced;
-
 export const ExperienceLevelsTypes =
   [ExperienceLevels.Learner,
   ExperienceLevels.Beginner,
