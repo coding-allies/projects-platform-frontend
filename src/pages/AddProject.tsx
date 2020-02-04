@@ -180,7 +180,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           />
           <button>
             Add your project
-            </button>
+          </button>
         </form>
       </div>
     );
