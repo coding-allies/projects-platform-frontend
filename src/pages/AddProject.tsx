@@ -1,12 +1,8 @@
 import * as React from "react";
-import { Component } from "react";
-import { Redirect, Route } from 'react-router-dom';
 import "../style/pages/AddProject.css";
 import axios from "axios";
-import { ExperienceLevels, ExperienceLevelsTypes, MaybeTypeExperienceLevelsTypes, User } from "../types";
-import { For } from "@babel/types";
+import { User } from "../types";
 import { AppContext } from "../contexts/AppContext";
-import { Projects } from "../pages/Projects";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 
@@ -18,23 +14,7 @@ type FormState = {
   techStack: string
 }
 
-enum FormStateType {
-  experienceLevel = "experienceLevel",
-  currentLeadPosition = "currentLeadPosition",
-  githubRepo = "githubRepo",
-  lookingFor = "lookingFor",
-  techStack = "techStack"
-}
-
-type MaybeFormStateType =
-  FormStateType.experienceLevel |
-  FormStateType.currentLeadPosition |
-  FormStateType.githubRepo |
-  FormStateType.lookingFor |
-  FormStateType.techStack;
-
 class AddProject extends React.Component<RouteComponentProps, FormState> {
-  // const level: string = ExperienceLevelsTypes[0];
   static contextType = AppContext;
 
   state: FormState = {
@@ -49,8 +29,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
   handleChange = (event: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>)) => {
     const name = event.target.name;
-    // todo special case for name = experienceLevel
-    const value = event.target.value; //ExperienceLevelsTypes[event.target.value];
+    const value = event.target.value;
     this.setState({
       [name]: value
     } as Pick<FormState, keyof FormState>)
@@ -61,7 +40,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     e.preventDefault();
     const stateDict = { ...this.state };
     const user: User = this.context.user;
-    console.log("user", user.auth_token);
     // TODO: tags
 
     axios.post("http://127.0.0.1:8000/projects/add_project/", null, {
