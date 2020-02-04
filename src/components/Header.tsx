@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { User } from "../types";
+import logo from "../scp-logo.svg";
 import "../style/components/Header.css";
 import axios from "axios";
 
@@ -51,7 +52,7 @@ class Header extends React.Component<Props> {
       <header>
         <h1 className="logo">
           <Link to="/projects">
-            she's collaborating
+              <img src={logo} alt="She's Coding Projects"/>
             </Link>
         </h1>
         <nav>
