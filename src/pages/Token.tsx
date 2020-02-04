@@ -12,8 +12,7 @@ export function Token(props) {
     path: '/'
   });
   var auth_token = cookies.auth_token;
-  console.log("my auth token from cookie", auth_token);
-  // console.log("my href", window.location.href, props);
+
   return (
     <div className="projects-main">
       Token is {props.match.params.token}
