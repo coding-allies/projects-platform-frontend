@@ -81,7 +81,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             <li>Avatar</li>
             <li>Project description</li>
           </ul>
-          <button>Dismiss</button>
         </div>
 
         <form id="add-project-form" onSubmit={this.handleSubmit}>
