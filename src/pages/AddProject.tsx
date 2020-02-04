@@ -57,7 +57,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     console.log(event.target.name, "and ", event.target.value);
   }
 
-  // TODO: Redirect to projects page on submit (w/ history?)
   handleSubmit = (e: any) => {
     e.preventDefault();
     const stateDict = { ...this.state };
