@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Component } from "react";
 import { useCookies } from 'react-cookie';
+import { Redirect } from 'react-router-dom';
 
 type TokenProps = {
   match?: any
@@ -14,8 +15,6 @@ export function Token(props) {
   var auth_token = cookies.auth_token;
 
   return (
-    <div className="projects-main">
-      Token is {props.match.params.token}
-    </div>
+    <Redirect to="/projects" />
   );
 }
