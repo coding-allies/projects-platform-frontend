@@ -1,11 +1,13 @@
 import * as React from "react";
 import { Component } from "react";
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import "../style/pages/AddProject.css";
 import axios from "axios";
 import { ExperienceLevels, ExperienceLevelsTypes, MaybeTypeExperienceLevelsTypes, User } from "../types";
 import { For } from "@babel/types";
 import { AppContext } from "../contexts/AppContext";
+import { Projects } from "../pages/Projects";
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 
 type FormState = {
@@ -31,7 +33,7 @@ type MaybeFormStateType =
   FormStateType.lookingFor |
   FormStateType.techStack;
 
-class AddProject extends Component<{}, FormState> {
+class AddProject extends React.Component<RouteComponentProps, FormState> {
   // const level: string = ExperienceLevelsTypes[0];
   static contextType = AppContext;
 
@@ -78,11 +80,9 @@ class AddProject extends Component<{}, FormState> {
         Authorization: `Token ${user.auth_token}`,
       }
     }
-    ).then(function (response) {
+    ).then((response) => {
       console.log("Axios response", response);
-      return (
-        <Redirect to="/projects" />
-      );
+      this.props.history.push('/projects');
     })
       .catch(function (error) {
         console.log(error);
@@ -211,4 +211,4 @@ class AddProject extends Component<{}, FormState> {
   }
 }
 
-export default AddProject;
+export default withRouter(AddProject);
