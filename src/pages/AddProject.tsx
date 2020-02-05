@@ -33,7 +33,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     this.setState({
       [name]: value
     } as Pick<FormState, keyof FormState>)
-    console.log(event.target.name, "and ", event.target.value);
   }
 
   handleSubmit = (e: any) => {
@@ -58,7 +57,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       }
     }
     ).then((response) => {
-      console.log("Axios response", response);
       this.props.history.push('/projects');
     })
       .catch(function (error) {

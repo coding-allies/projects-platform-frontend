@@ -26,7 +26,6 @@ type Props = {
 
 const ProjectCard: FC<Props> = ({ data }) => {
   const project = { ...data };
-  console.log('project', project);
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience]
   return (
     <article className="card-wrapper">

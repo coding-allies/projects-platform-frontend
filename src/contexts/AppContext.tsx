@@ -38,9 +38,7 @@ export const AppContextProvider = (props) => {
 
   const fetchProjectData = async (token) => {
     const result = await fetch('/all/', token);
-    console.log("xx fetchProjectData", result);
     setProjects(result.data.projects);
-    console.log("xx after set projects", projects);
   };
 
   useEffect(() => {

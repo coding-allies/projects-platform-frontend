@@ -23,7 +23,6 @@ class Header extends React.Component<{}, {}> {
 
   render() {
     const user = this.context.user;
-    console.log("XXXXXX removed auth_token from cookies and reset user", user);
     const signedOut = (
       <div className="auth">
         <button onClick={this.signUserIn}>Sign in with GitHub</button>
