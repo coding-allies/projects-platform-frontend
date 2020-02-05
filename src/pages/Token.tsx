@@ -1,20 +1,18 @@
 import * as React from "react";
-import { Component } from "react";
-import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 type TokenProps = {
   match?: any
 }
-export function Token(props) {
-  const [cookies, setCookie] = useCookies(['auth_token']);
-  setCookie('auth_token', props.match.params.token, {
-    maxAge: 60 * 60 * 24 * 30, // 1 month
-    path: '/'
-  });
-  var auth_token = cookies.auth_token;
-
+export function Token(props: TokenProps) {
+  Cookies.remove('auth_token', { path: '/' });
+  const token = window.location.href.split('/')
+  Cookies.set('auth_token', token[token.length - 1],
+    {
+      expires: 30, path: '/'
+    });
   return (
     <Redirect to="/projects" />
-  );
+  )
 }

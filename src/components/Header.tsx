@@ -1,35 +1,24 @@
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
-import { User } from "../types";
 import logo from "../scp-logo.svg";
 import "../style/components/Header.css";
-import axios from "axios";
 
-type Props = {
-  user?: User;
-};
-
-
-class Header extends React.Component<Props> {
+class Header extends React.Component<{}, {}> {
   static contextType = AppContext;
 
-  constructor(props: Props) {
+  constructor(props: any) {
     super(props);
     this.signUserOut = this.signUserOut.bind(this);
     this.signUserIn = this.signUserIn.bind(this);
   }
 
   signUserIn(e: any) {
-    window.location.href = "http://127.0.0.1:8000/accounts/github/login";
+    this.context.login();
   }
 
   async signUserOut(e: any) {
-    const result = await axios(
-      "http://127.0.0.1:8000/projects/logout/",
-    );
-    console.log("logout result", result);
-    this.context.fetchData();
+    this.context.logout();
   }
 
   render() {
@@ -43,7 +32,7 @@ class Header extends React.Component<Props> {
     const signedIn = (
       <div className="auth">
         <p>Hello, {user.name}!</p>
-        <Link to="add-project" className="button-link">Add Project</Link>
+        <Link to="/add-project" className="button-link">Add Project</Link>
         <button onClick={this.signUserOut}>Log Out</button>
       </div>
     );
@@ -52,8 +41,8 @@ class Header extends React.Component<Props> {
       <header>
         <h1 className="logo">
           <Link to="/projects">
-              <img src={logo} alt="She's Coding Projects"/>
-            </Link>
+            <img src={logo} alt="She's Coding Projects" />
+          </Link>
         </h1>
         <nav>
           <ul>

@@ -26,7 +26,6 @@ type Props = {
 
 const ProjectCard: FC<Props> = ({ data }) => {
   const project = { ...data };
-  console.log('project', project);
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience]
   return (
     <article className="card-wrapper">
@@ -60,17 +59,17 @@ const ProjectCard: FC<Props> = ({ data }) => {
       </div>
 
       <div className="card-buttons">
-        <a 
-          href={data.githubUrl} 
-          className="button-link" 
-          target="_blank"
+        <a
+          href={data.github_url}
+          className="button-link"
+          target={data.github_url}
           rel="noopener noreferrer"
         >
           View on Github
         </a>
-        <a 
-          href={"mailto:" + data.email} 
-          className="button-link" 
+        <a
+          href={`mailto:${data.lead.email}?subject=Request to join ${project.name}`}
+          className="button-link"
         >
           Request to Join
         </a>

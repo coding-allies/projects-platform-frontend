@@ -2,9 +2,11 @@ import * as React from "react";
 import { createContext, useState, useEffect } from "react";
 import { User, Project, AppContextState } from "../types";
 import axios from "axios";
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 
-export const AppContext = createContext({});
+export const AppContext = createContext({} = {});
+const baseUrl = "http://127.0.0.1:8000";
+const baseProjectsUrl = `${baseUrl}/projects`;
 
 const mockUser: User = {
   name: "",
@@ -20,29 +22,46 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState(mockUser);
   const [projects, setProjects] = useState(mockProjects);
 
-  const [cookies] = useCookies(['auth_token']);
 
-  const token = cookies.auth_token;
-  console.log("cookies in context", token);
-  const fetchData = async () => {
-    // axios.defaults.withCredentials = true;
 
+  const fetch = async (path, token) => {
     const result = await axios(
-      { method: 'get', url: "http://127.0.0.1:8000/projects/all/", headers: { Authorization: `Token ${token}` } }
+      { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: `Token ${token}` } }
     );
-    console.log("xx", result.data.user);
-    result.data.user.auth_token = cookies.auth_token;
+    return result;
+  }
+
+  const fetchUserData = async (token) => {
+    const result = await fetch('/user/', token);
     setUser(result.data.user);
+  };
+
+  const fetchProjectData = async (token) => {
+    const result = await fetch('/all/', token);
     setProjects(result.data.projects);
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const token = Cookies.get("auth_token");
+    if (token) {
+      fetchUserData(token);
+    }
+  }, [user.is_authenticated]);
 
+  const login = () => {
+    window.location.href = `${baseUrl}/accounts/github/login`;
+  }
+
+  const logout = async () => {
+    const result = await fetch('/logout/', user.auth_token);
+    if (result.data['result'] === 'success') {
+      Cookies.remove('auth_token', { path: '/' });
+      setUser(mockUser);
+    }
+  }
 
   return (
-    <AppContext.Provider value={{ user, projects, fetchData }}>
+    <AppContext.Provider value={{ user, projects, fetchUserData, fetchProjectData, login, logout }}>
       {props.children}
     </AppContext.Provider>
   );
