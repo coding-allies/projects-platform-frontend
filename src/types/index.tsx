@@ -30,7 +30,7 @@ export interface Project {
   description: string;
   contributors: Array<string>;
   tags: Array<string>;
-  githubUrl: string;
+  github_url: string;
   email: string;
 }
 
