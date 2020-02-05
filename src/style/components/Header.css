@@ -7,15 +7,6 @@ header {
   border-bottom: 1px dotted #d1d1d3;
 }
 
-.logo {
-  font-size: 1.4em;
-  border-bottom: 3px solid turquoise;
-}
-
-.logo-highlight {
-  color: turquoise;
-}
-
 .auth {
   display: flex;
   align-items: center;

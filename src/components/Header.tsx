@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
+import logo from "../scp-logo.svg";
 import "../style/components/Header.css";
 
 class Header extends React.Component<{}, {}> {
@@ -41,8 +42,8 @@ class Header extends React.Component<{}, {}> {
       <header>
         <h1 className="logo">
           <Link to="/projects">
-            she's collaborating
-            </Link>
+            <img src={logo} alt="She's Coding Projects" />
+          </Link>
         </h1>
         <nav>
           <ul>
