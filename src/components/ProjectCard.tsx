@@ -69,7 +69,7 @@ const ProjectCard: FC<Props> = ({ data }) => {
           View on Github
         </a>
         <a
-          href={"mailto:" + data.email}
+          href={`mailto:${data.lead.email}?subject=Request to join ${project.name}`}
           className="button-link"
         >
           Request to Join

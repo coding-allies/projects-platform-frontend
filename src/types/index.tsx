@@ -20,6 +20,7 @@ interface ProjectLead {
   name: string;
   experience: ExperienceLevels;
   position: string;
+  email?: string;
 }
 
 export interface Project {
