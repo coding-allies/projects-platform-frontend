@@ -5,6 +5,8 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 export const AppContext = createContext({} = {});
+const baseUrl = "http://127.0.0.1:8000";
+const baseProjectsUrl = `${baseUrl}/projects`;
 
 const mockUser: User = {
   name: "",
@@ -20,30 +22,54 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState(mockUser);
   const [projects, setProjects] = useState(mockProjects);
 
-  const fetchData = async (token) => {
+
+
+  const fetch = async (path, token) => {
     const result = await axios(
-      { method: 'get', url: "http://127.0.0.1:8000/projects/user/", headers: { Authorization: `Token ${token}` } }
+      { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: `Token ${token}` } }
     );
+    return result;
+  }
 
-    console.log("xx fetchData", result);
-    // result.data.user.auth_token = cookies.auth_token;
-
+  const fetchUserData = async (token) => {
+    const result = await fetch('/user/', token);
+    console.log("xx fetchUserData", result);
     setUser(result.data.user);
-    console.log("xx after set user", result.data.user);
-    // setProjects(result.data.projects);
+    console.log("xx after set user", user);
+  };
+
+  const fetchProjectData = async (token) => {
+    const result = await fetch('/', token);
+    console.log("xx fetchProjectData", result);
+    setProjects(result.data.projects);
+    console.log("xx after set projects", projects);
   };
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
     console.log("Calling user endpoint", token);
     if (token) {
-      fetchData(token);
+      fetchUserData(token);
     }
   }, [user.is_authenticated]);
 
+  const login = () => {
+    window.location.href = `${baseUrl}/accounts/github/login`;
+  }
+
+  const logout = async () => {
+    console.log("xx logging out", user.auth_token);
+    const result = await fetch('/logout/', user.auth_token);
+    console.log("logout result", result);
+    if (result.data['result'] === 'success') {
+      Cookies.remove('auth_token', { path: '/' });
+      console.log("signUserOut after remove VVVVV cookies", Cookies.get(), Cookies.get());
+      setUser(mockUser);
+    }
+  }
 
   return (
-    <AppContext.Provider value={{ user, projects, fetchData }}>
+    <AppContext.Provider value={{ user, projects, fetchUserData, login, logout }}>
       {props.children}
     </AppContext.Provider>
   );
