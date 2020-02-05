@@ -17,15 +17,9 @@ function App() {
           <Header />
           <Switch>
             <Route path="/token/:token" component={Token} />
-            <Route path="/projects">
-              <Projects />
-            </Route>
-            <Route path="/">
-              <Welcome />
-            </Route>
-            <Route path="/add-project">
-              <AddProject />
-            </Route>
+            <Route path="/projects" component={Projects} />
+            <Route path="/add-project" component={AddProject} />
+            <Route path="/" component={Welcome} />
           </Switch>
         </Router>
       </AppContextProvider>

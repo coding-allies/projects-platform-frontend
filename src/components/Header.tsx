@@ -32,7 +32,7 @@ class Header extends React.Component<{}, {}> {
     const signedIn = (
       <div className="auth">
         <p>Hello, {user.name}!</p>
-        <Link to="add-project" className="button-link">Add Project</Link>
+        <Link to="/add-project" className="button-link">Add Project</Link>
         <button onClick={this.signUserOut}>Log Out</button>
       </div>
     );
