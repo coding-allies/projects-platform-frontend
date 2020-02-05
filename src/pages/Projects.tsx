@@ -14,6 +14,7 @@ const renderProjects = (projects: Array<Project>) => {
 
 class Projects extends Component {
   static contextType = AppContext;
+
   render() {
     const projects: Array<Project> = this.context.projects;
     return (
