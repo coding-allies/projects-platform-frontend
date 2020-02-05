@@ -33,9 +33,7 @@ export const AppContextProvider = (props) => {
 
   const fetchUserData = async (token) => {
     const result = await fetch('/user/', token);
-    console.log("xx fetchUserData", result);
     setUser(result.data.user);
-    console.log("xx after set user", user);
   };
 
   const fetchProjectData = async (token) => {
@@ -47,7 +45,6 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
-    console.log("Calling user endpoint", token);
     if (token) {
       fetchUserData(token);
     }
@@ -58,12 +55,9 @@ export const AppContextProvider = (props) => {
   }
 
   const logout = async () => {
-    console.log("xx logging out", user.auth_token);
     const result = await fetch('/logout/', user.auth_token);
-    console.log("logout result", result);
     if (result.data['result'] === 'success') {
       Cookies.remove('auth_token', { path: '/' });
-      console.log("signUserOut after remove VVVVV cookies", Cookies.get(), Cookies.get());
       setUser(mockUser);
     }
   }
