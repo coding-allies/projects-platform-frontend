@@ -2,16 +2,6 @@ import React, { FC } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
 
-const getTags = (tagList: Array<string>) => {
-  return tagList.map(tag => {
-    return (
-      <div className={`tag`} key={tag}>
-        {tag}
-      </div>
-    );
-  });
-};
-
 const getContributors = (contributorList: Array<string>) => {
   return contributorList.map(contributor => (
     <div className="card-contributor-icon" key={contributor}>
@@ -25,38 +15,35 @@ type Props = {
 };
 
 const ProjectCard: FC<Props> = ({ data }) => {
-  const project = { ...data };
-  console.log('project', project);
-  const experienceLevel = ExperienceLevelsTypes[project.lead.experience]
+  const experienceLevel = ExperienceLevelsTypes[data.lead.experience]
   return (
     <article className="card-wrapper">
-      <h2>{project.name}</h2>
+      <h2>{data.name}</h2>
 
       <div className="card-lead">
-        <h3>Project Lead: {project.lead.name}</h3>
-        <p>Currently: {project.lead.position}</p>
+        <h3>Project Lead: {data.lead.name}</h3>
+        <p>Currently: {data.lead.position}</p>
         <p>{experienceLevel}</p>
       </div>
 
-      <p className="card-description">{project.description}</p>
+      <p className="card-description">{data.description}</p>
 
       <div className="card-looking-for">
         <p className="card-looking-for-label">Looking For:</p>
-        <p>{project.looking_for}</p>
+        <p>{data.looking_for}</p>
       </div>
 
       <div className="card-contributors">
         <p className="card-contributor-label">
-          Contributors: {project.contributors.length}
+          Contributors: {data.contributors.length}
         </p>
         <div className="card-contributor-avatars">
-          {getContributors(project.contributors)}
+          {getContributors(data.contributors)}
         </div>
       </div>
 
       <div className="card-tech-stack">
         <p className="card-tech-stack-label">Tech stack: </p>
-        {/* <div className="card-tags">{getTags(data.tags)}</div> */}
       </div>
 
       <div className="card-buttons">

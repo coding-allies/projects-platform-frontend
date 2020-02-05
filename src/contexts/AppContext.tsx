@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createContext, useState, useEffect } from "react";
-import { User, Project, AppContextState } from "../types";
+import { User, Project } from "../types";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
 
