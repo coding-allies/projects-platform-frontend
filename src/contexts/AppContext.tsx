@@ -37,7 +37,7 @@ export const AppContextProvider = (props) => {
   };
 
   const fetchProjectData = async (token) => {
-    const result = await fetch('/', token);
+    const result = await fetch('/all/', token);
     console.log("xx fetchProjectData", result);
     setProjects(result.data.projects);
     console.log("xx after set projects", projects);
@@ -63,7 +63,7 @@ export const AppContextProvider = (props) => {
   }
 
   return (
-    <AppContext.Provider value={{ user, projects, fetchUserData, login, logout }}>
+    <AppContext.Provider value={{ user, projects, fetchUserData, fetchProjectData, login, logout }}>
       {props.children}
     </AppContext.Provider>
   );
