@@ -50,7 +50,7 @@ class Welcome extends Component {
         </section>
         <section className="platform-featured-projects">
           <h2>Featured Projects</h2>
-          <div className="projects-wrapper">{renderProjects(projects)}</div>
+          <div className="projects-wrapper">{renderProjects(projects, this.context.login)}</div>
         </section>
         <footer>Brought to you by She's Coding</footer>
       </div>

@@ -36,9 +36,15 @@ export const AppContextProvider = (props) => {
     setUser(result.data.user);
   };
 
-  const fetchProjectData = async (token) => {
-    const result = await fetch('/all/', token);
-    setProjects(result.data.projects);
+  const fetchProjectData = async () => {
+    const token = Cookies.get("auth_token");
+    if (token) {
+      const result = await fetch('/all/', token);
+      setProjects(result.data.projects);
+    } else {
+      const result = await fetch('/all/public/', '');
+      setProjects(result.data.projects);
+    }
   };
 
   useEffect(() => {
@@ -57,6 +63,7 @@ export const AppContextProvider = (props) => {
     if (result.data['result'] === 'success') {
       Cookies.remove('auth_token', { path: '/' });
       setUser(mockUser);
+      fetchProjectData();
     }
   }
 
