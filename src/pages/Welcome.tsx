@@ -9,6 +9,9 @@ import "../style/pages/Projects.css";
 
 class Welcome extends Component {
   static contextType = AppContext;
+  componentDidMount() {
+    this.context.fetchProjectData();
+  }
   render() {
     const projects: Array<Project> = this.context.projects;
     return (
