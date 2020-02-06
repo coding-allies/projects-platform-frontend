@@ -18,7 +18,6 @@ class Welcome extends Component {
           <h2>Featured Projects</h2>
           <div className="projects-wrapper">{renderProjects(projects)}</div>
         </section>
-        <footer>Brought to you by She's Coding</footer>
       </div>
     );
   }
