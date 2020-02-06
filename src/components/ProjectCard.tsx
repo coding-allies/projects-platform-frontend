@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
 
+
 const getTags = (tagList: Array<string>) => {
   return tagList.map(tag => {
     return (
@@ -22,18 +23,61 @@ const getContributors = (contributorList: Array<string>) => {
 
 type Props = {
   data: Project;
+  loginLink: string;
 };
 
-const ProjectCard: FC<Props> = ({ data }) => {
+const renderButtons = (project: Project, loginLink: any) => {
+  if (!!project.lead.email) {
+    return (
+      <div className="card-buttons">
+        <a
+          href={project.github_url}
+          className="button-link"
+          target={project.github_url}
+          rel="noopener noreferrer"
+        >
+          View on Github
+      </a>
+        <a
+          href={`mailto:${project.lead.email}?subject=Request to join ${project.name}`}
+          className="button-link"
+        >
+          Request to Join
+      </a>
+      </div >
+    );
+  } else {
+    return (
+      <div className="card-buttons">
+        <button
+          onClick={loginLink}
+          className="button-link"
+        >
+          View on Github
+      </button>
+        <button
+          onClick={loginLink}
+          className="button-link"
+        >
+          Request to Join
+      </button>
+      </div >
+    );
+  }
+}
+
+const ProjectCard: FC<Props> = ({ data, loginLink }) => {
   const project = { ...data };
-  const experienceLevel = ExperienceLevelsTypes[project.lead.experience]
+  const experienceLevel = ExperienceLevelsTypes[project.lead.experience];
+
+
   return (
     <article className="card-wrapper">
       <h2>{project.name}</h2>
 
       <div className="card-lead">
         <h3>Project Lead: {project.lead.name}</h3>
-        <p>Currently: {project.lead.position}</p>
+        <p>{project.lead.position}</p>
         <p>{experienceLevel}</p>
       </div>
 
@@ -58,22 +102,7 @@ const ProjectCard: FC<Props> = ({ data }) => {
         {/* <div className="card-tags">{getTags(data.tags)}</div> */}
       </div>
 
-      <div className="card-buttons">
-        <a
-          href={data.github_url}
-          className="button-link"
-          target={data.github_url}
-          rel="noopener noreferrer"
-        >
-          View on Github
-        </a>
-        <a
-          href={`mailto:${data.lead.email}?subject=Request to join ${project.name}`}
-          className="button-link"
-        >
-          Request to Join
-        </a>
-      </div>
+      {renderButtons(project, loginLink)}
     </article>
   );
 };

@@ -9,6 +9,9 @@ import "../style/pages/Projects.css";
 
 class Welcome extends Component {
   static contextType = AppContext;
+  componentDidMount() {
+    this.context.fetchProjectData();
+  }
   render() {
     const projects: Array<Project> = this.context.projects;
     return (
@@ -16,7 +19,7 @@ class Welcome extends Component {
         <PlatformSummary />
         <section className="platform-featured-projects">
           <h2>Featured Projects</h2>
-          <div className="projects-wrapper">{renderProjects(projects)}</div>
+          <div className="projects-wrapper">{renderProjects(projects, this.context.login)}</div>
         </section>
       </div>
     );
