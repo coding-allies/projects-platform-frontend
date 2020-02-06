@@ -1,0 +1,15 @@
+footer {
+    padding: 32px; 
+    color: #393939;
+    text-align: center;
+}
+footer a {
+    color: #393939;
+    font-weight: 600;
+    text-decoration: none;
+    padding-bottom: 6px;
+    border-bottom: 3px solid turquoise;
+}
+footer a:hover {
+    border-bottom-color: darkturquoise ;
+}
