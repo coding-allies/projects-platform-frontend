@@ -3,15 +3,35 @@ import "../style/components/PlatformSummary.css";
 
 const PlatformSummary = () => {
   return (
-    <section className="project-summary-section">
-      <h2>The Title Will Explain The Platform, Briefly</h2>
-      <p>
-        The intro paragraph will go into a bit more details. Lorem ipsum dolor
-        sit amet, consectetur adipiscing elit. Quisque a mattis purus, vel
-        cursus justo. Ut nec pretium ex. Nullam ac ultricies orci. Nulla
-        facilisi.
-      </p>
-    </section>
+    <div>
+      <section className="platform-intro">
+        <h1>Open Source Collaboration for Womxn In Tech</h1>
+        <p>
+          She's Coding Projects is a place for womxn in tech to share and find open-source projects so they can easily connect and collaborate in a safe environment. Join our community and let's write some awesome code together!
+        </p>
+        <button>Sign In With GitHub</button>
+      </section>
+      <section className="platform-features">
+        <div className="platform-feature">
+          <h3>Find A Project</h3>
+          <p>
+            Gain experience by contributing to womxn-led open source projects! Learn best practices, get code reviews and mentorship from womxn working in the industry, and build your portfolio.
+          </p>
+        </div>
+        <div className="platform-feature">
+          <h3>Share A Project</h3>
+          <p>
+            Grow your leadership skills by spearheading a project! Guide newcomers to writing excellent code through PR/CR. Be a confident champion for other womxn in tech and help close the gender gap at your workplace and the industry.
+          </p>
+        </div>
+        <div className="platform-feature">
+          <h3>Write Software You Love</h3>
+          <p>
+            Join forces with fellow womxn in tech to create, deliver and maintain projects that solve problems and improve lives! Form teams and support each other in your journeys to fulfulling careers in tech. 
+          </p>
+        </div>
+      </section>
+    </div>
   );
 };
 
