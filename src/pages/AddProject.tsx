@@ -5,13 +5,22 @@ import { User } from "../types";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
+// eslint-disable-next-line no-useless-escape
+const validGitHubRepo = /^(?:https\:\/\/)*github[.]com\/(\w+)\/(\w+)+\/?$/gm;
 
 type FormState = {
   experienceLevel: string,
   currentLeadPosition: string,
   githubRepo: string,
   lookingFor: string,
-  techStack: string
+  techStack: string,
+  errors: {
+    experienceLevel: string,
+    currentLeadPosition: string,
+    githubRepo: string,
+    lookingFor: string,
+    techStack: string,
+  },
 }
 
 class AddProject extends React.Component<RouteComponentProps, FormState> {
@@ -22,21 +31,64 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     currentLeadPosition: "",
     githubRepo: "",
     lookingFor: "",
-    techStack: ""
+    techStack: "",
+    errors: {
+      experienceLevel: "",
+      currentLeadPosition: "",
+      githubRepo: "",
+      lookingFor: "",
+      techStack: "",
+    },
   }
 
   csrf = '';
 
   handleChange = (event: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>)) => {
+    event.preventDefault();
     const name = event.target.name;
     const value = event.target.value;
-    this.setState({
-      [name]: value
-    } as Pick<FormState, keyof FormState>)
-  }
+    const errors = this.state.errors;
+    
+    switch (name) {
+      case 'experienceLevel':
+        errors.experienceLevel =
+          value.length !== 1 ? "Invalid experience level" : "";
+        break;
+      
+      case 'currentLeadPosition': 
+        errors.currentLeadPosition = 
+          value.length === 0 ? "Current position is required" : "";
+        break;
 
-  handleSubmit = (e: any) => {
-    e.preventDefault();
+      case 'githubRepo':
+        errors.githubRepo = 
+          value.length === 0 ? "A GitHub repository is required" : 
+            !validGitHubRepo.test(value) ? "Please enter a valid GitHub repository" : "";
+        break;
+
+      case 'lookingFor': 
+        errors.lookingFor =
+          value.length === 0 ? "Field cannot be empty" : "";
+        break;
+
+      case 'techStack': 
+        errors.techStack = 
+          value.length === 0 ? "Tech stack cannot be empty" : "";
+        break;
+      
+      default:
+        break;
+
+    }
+
+    this.setState({ 
+      [name]: value,
+      errors
+    } as Pick<FormState, keyof FormState>)
+  } 
+
+  handleSubmit = (event: any) => {
+    event.preventDefault();
     const stateDict = { ...this.state };
     const user: User = this.context.user;
     // TODO: tags
@@ -62,11 +114,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       .catch(function (error) {
         console.log(error);
       });
-
-
   }
 
   render() {
+    const { errors } = this.state; 
     return (
       <div className="add-project-page">
         <h1>Add your project</h1>
@@ -81,18 +132,17 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           </ul>
         </div>
 
-        <form id="add-project-form" onSubmit={this.handleSubmit}>
+        <form id="add-project-form" onSubmit={this.handleSubmit} noValidate>
           <label
             htmlFor="select-experience-level"
             className="form-input-title">
             Experience Level:
-            </label>
+          </label>
           <label
             htmlFor="select-experience-level"
             className="form-input-description">
             Select the description that best matches your experience
-              </label>
-          {/* TODO: Experience level from types */}
+          </label>
           <select
             id="select-experience-level"
             name="experienceLevel"
@@ -103,17 +153,18 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             <option value={1}>Beginner (1+ years of experience)</option>
             <option value={2}>Experienced (3+ years of experience)</option>
           </select>
-
+          {errors.experienceLevel.length > 0 && <span className="error">{errors.experienceLevel}</span>}
+          
           <label
             htmlFor="lead-position"
             className="form-input-title">
             Current Position:
-            </label>
+          </label>
           <label
             htmlFor="lead-position"
             className="form-input-description">
             Enter your current position (i.e. "Engineer at Facebook", "Bootcamp Grad from Galvanize")
-            </label>
+          </label>
           <input
             type="text"
             id="lead-position"
@@ -121,17 +172,18 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             onChange={this.handleChange}
             value={this.state.currentLeadPosition}
           />
+          {errors.currentLeadPosition.length > 0 && <span className="error">{errors.currentLeadPosition}</span>}
 
           <label
             htmlFor="github-repo-input"
             className="form-input-title">
             GitHub Repo:
-            </label>
+          </label>
           <label
             htmlFor="github-repo-input"
             className="form-input-description">
             Add a link to the GitHub repository for your project
-            </label>
+          </label>
           <input
             type="url"
             id="github-repo-input"
@@ -139,17 +191,18 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             value={this.state.githubRepo}
             onChange={this.handleChange}
           />
+          {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
 
           <label
             htmlFor="looking-for"
             className="form-input-title">
             Looking for:
-            </label>
+          </label>
           <label
             htmlFor="looking-for"
             className="form-input-description">
             Describe what are you looking for in future contributors
-            </label>
+          </label>
           {/* TODO: Add fixed values for cols, rows */}
           <textarea
             id="looking-for"
@@ -158,17 +211,18 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             onChange={this.handleChange}
             style={{ "resize": "none" }}
           />
+          {errors.lookingFor.length > 0 && <span className="error">{errors.lookingFor}</span>}
 
           <label
             htmlFor="tech-stack"
             className="form-input-title">
             Tech Stack:
-            </label>
+          </label>
           <label
             htmlFor="tech-stack"
             className="form-input-description">
             Enter the tech stack your project is built with, separated by commas. Max 5.
-            </label>
+          </label>
           <input
             type="text"
             id="tech-stack"
@@ -176,6 +230,8 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             value={this.state.techStack}
             onChange={this.handleChange}
           />
+          {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
+
           <button>
             Add your project
           </button>

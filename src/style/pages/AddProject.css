@@ -53,3 +53,12 @@ textarea {
   padding: 12px;
   margin-bottom: 36px;
 }
+
+span {
+  margin-top: -24px;
+  padding-bottom: 24px;
+}
+
+.error {
+  color: darkred;
+}
