@@ -48,7 +48,14 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     }
     this.context.addProject(data).then((response) => {
       console.log("response xx", response);
-      this.props.history.push('/projects');
+      if (response.data["result"] === "success") {
+        this.props.history.push('/projects');
+      } else if (response.data["result"] === "error") {
+        // TODO: display the message to the users
+        console.log("response", response.data["message"]);
+      } else {
+        console.log("response", response);
+      }
     })
       .catch(function (error) {
         console.log(error);
