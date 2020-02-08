@@ -22,22 +22,36 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState(mockUser);
   const [projects, setProjects] = useState(mockProjects);
 
+  const getToken = () => {
+    const token = Cookies.get("auth_token");
+    if (!!token) { return token; }
+    cleanUp();
+  }
 
+  const validateResponse = (response) => {
+    if (response["status"] === 200) return response;
+    if (response["status"] === 401) { // Not authenticated user
+      cleanUp();
+    };
+  }
 
   const fetch = async (path) => {
-    const token = Cookies.get("auth_token");
-    if (!token) { return false; } // todo: unauth
-
+    const token = getToken();
     const result = await axios(
       { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: `Token ${token}` } }
     );
-    return result;
+    return validateResponse(result);
+  }
+
+  const fetchPublic = async (path) => {
+    const result = await axios(
+      { method: 'GET', url: `${baseProjectsUrl}${path}` }
+    );
+    return validateResponse(result);
   }
 
   const post = async (path, data) => {
-    const token = Cookies.get("auth_token");
-    if (!token) { return false; } // todo: unauth
-
+    const token = getToken();
     const result = await axios(
       {
         method: 'POST', url: `${baseProjectsUrl}${path}`,
@@ -49,21 +63,15 @@ export const AppContextProvider = (props) => {
         data: data
       }
     );
-    return result;
-  }
-
-  const validateResponse = (response) => {
-    if (response["status"] === 200) return response;
-    if (response["status"] === 400) return response; // Finish
+    return validateResponse(result);
   }
 
   const addProject = async (data) => {
     const result = await post("/add_project/", data);
-    console.log("addProject", result);
     return result;
   }
 
-  const fetchUserData = async (token) => {
+  const fetchUserData = async () => {
     const result = await fetch('/user/');
     setUser(result.data.user);
   };
@@ -74,7 +82,7 @@ export const AppContextProvider = (props) => {
       const result = await fetch('/all/');
       setProjects(result.data.projects);
     } else {
-      const result = await fetch('/all/public/');
+      const result = await fetchPublic('/all/public/');
       setProjects(result.data.projects);
     }
   };
@@ -87,20 +95,18 @@ export const AppContextProvider = (props) => {
     window.location.href = `${baseUrl}/accounts/github/login`;
   }
 
+  const cleanUp = () => {
+    Cookies.remove('auth_token', { path: '/' });
+    setUser(mockUser);
+    fetchProjectData();
+  }
+
   const logout = async () => {
     const result = await fetch('/logout/');
     if (result.data['result'] === 'success') {
-      Cookies.remove('auth_token', { path: '/' });
-      setUser(mockUser);
-      fetchProjectData();
+      cleanUp();
     }
   }
-
-
-  // todo check for status 200 before proceeding
-  // todo handle to show error
-
-  //for add project
 
   return (
     <AppContext.Provider value={{
