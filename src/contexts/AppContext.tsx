@@ -24,34 +24,63 @@ export const AppContextProvider = (props) => {
 
 
 
-  const fetch = async (path, token) => {
+  const fetch = async (path) => {
+    const token = Cookies.get("auth_token");
+    if (!token) { return false; } // todo: unauth
+
     const result = await axios(
       { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: `Token ${token}` } }
     );
     return result;
   }
 
+  const post = async (path, data) => {
+    const token = Cookies.get("auth_token");
+    if (!token) { return false; } // todo: unauth
+
+    const result = await axios(
+      {
+        method: 'POST', url: `${baseProjectsUrl}${path}`,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Token ${token}`
+        },
+        data: data
+      }
+    );
+    return result;
+  }
+
+  const validateResponse = (response) => {
+    if (response["status"] === 200) return response;
+    if (response["status"] === 400) return response; // Finish
+  }
+
+  const addProject = async (data) => {
+    const result = await post("/add_project/", data);
+    console.log("addProject", result);
+    return result;
+  }
+
   const fetchUserData = async (token) => {
-    const result = await fetch('/user/', token);
+    const result = await fetch('/user/');
     setUser(result.data.user);
   };
 
   const fetchProjectData = async () => {
     const token = Cookies.get("auth_token");
     if (token) {
-      const result = await fetch('/all/', token);
+      const result = await fetch('/all/');
       setProjects(result.data.projects);
     } else {
-      const result = await fetch('/all/public/', '');
+      const result = await fetch('/all/public/');
       setProjects(result.data.projects);
     }
   };
 
   useEffect(() => {
-    const token = Cookies.get("auth_token");
-    if (token) {
-      fetchUserData(token);
-    }
+    fetchUserData();
   }, [user.is_authenticated]);
 
   const login = () => {
@@ -59,7 +88,7 @@ export const AppContextProvider = (props) => {
   }
 
   const logout = async () => {
-    const result = await fetch('/logout/', user.auth_token);
+    const result = await fetch('/logout/');
     if (result.data['result'] === 'success') {
       Cookies.remove('auth_token', { path: '/' });
       setUser(mockUser);
@@ -67,8 +96,16 @@ export const AppContextProvider = (props) => {
     }
   }
 
+
+  // todo check for status 200 before proceeding
+  // todo handle to show error
+
+  //for add project
+
   return (
-    <AppContext.Provider value={{ user, projects, fetchUserData, fetchProjectData, login, logout }}>
+    <AppContext.Provider value={{
+      user, projects, fetchUserData, fetchProjectData, login, logout, addProject
+    }}>
       {props.children}
     </AppContext.Provider>
   );

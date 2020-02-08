@@ -1,6 +1,5 @@
 import * as React from "react";
 import "../style/pages/AddProject.css";
-import axios from "axios";
 import { User } from "../types";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -40,23 +39,15 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     const stateDict = { ...this.state };
     const user: User = this.context.user;
     // TODO: tags
-
-    axios.post("http://127.0.0.1:8000/projects/add_project/", null, {
-      data: {
-        experience_lvl: stateDict.experienceLevel,
-        github_url: stateDict.githubRepo,
-        looking_for: stateDict.lookingFor,
-        position: stateDict.currentLeadPosition,
-        csrfmiddlewaretoken: this.csrf
-      },
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Token ${user.auth_token}`,
-      }
+    const data = {
+      experience_lvl: stateDict.experienceLevel,
+      github_url: stateDict.githubRepo,
+      looking_for: stateDict.lookingFor,
+      position: stateDict.currentLeadPosition,
+      csrfmiddlewaretoken: this.csrf
     }
-    ).then((response) => {
+    this.context.addProject(data).then((response) => {
+      console.log("response xx", response);
       this.props.history.push('/projects');
     })
       .catch(function (error) {
