@@ -37,6 +37,7 @@ export const AppContextProvider = (props) => {
 
   const fetch = async (path) => {
     const token = getToken();
+
     const result = await axios(
       { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: `Token ${token}` } }
     );
@@ -88,7 +89,10 @@ export const AppContextProvider = (props) => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    const token = Cookies.get("auth_token");
+    if (token) {
+      fetchUserData();
+    }
   }, [user.is_authenticated]);
 
   const login = () => {
