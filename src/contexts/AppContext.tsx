@@ -1,10 +1,10 @@
 import * as React from "react";
 import { createContext, useState, useEffect } from "react";
-import { User, Project, AppContextState } from "../types";
+import { User, Project } from "../types";
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-export const AppContext = createContext({} = {});
+export const AppContext = createContext({});
 const baseUrl = "http://127.0.0.1:8000";
 
 const baseProjectsUrl = `${baseUrl}/projects`;
@@ -95,7 +95,8 @@ export const AppContextProvider = (props) => {
     if (token) {
       fetchUserData();
     }
-  }, [user.is_authenticated]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const login = () => {
     window.location.href = `${baseUrl}/accounts/github/login`;
@@ -116,7 +117,7 @@ export const AppContextProvider = (props) => {
 
   return (
     <AppContext.Provider value={{
-      user, projects, fetchUserData, fetchProjectData, login, logout, addProject
+      user, projects, fetchProjectData, login, logout, addProject
     }}>
       {props.children}
     </AppContext.Provider>

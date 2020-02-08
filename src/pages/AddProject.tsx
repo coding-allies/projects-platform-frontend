@@ -1,6 +1,5 @@
 import * as React from "react";
 import "../style/pages/AddProject.css";
-import { User } from "../types";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
@@ -37,7 +36,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   handleSubmit = (e: any) => {
     e.preventDefault();
     const stateDict = { ...this.state };
-    const user: User = this.context.user;
     // TODO: tags
     const data = {
       experience_lvl: stateDict.experienceLevel,
