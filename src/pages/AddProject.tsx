@@ -157,7 +157,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             style={{ "resize": "none" }}
           />
 
-          <label
+          {/* <label
             htmlFor="tech-stack"
             className="form-input-title">
             Tech Stack:
@@ -173,7 +173,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             name="techStack"
             value={this.state.techStack}
             onChange={this.handleChange}
-          />
+          /> */}
           <button>
             Add your project
           </button>
