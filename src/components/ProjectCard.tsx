@@ -23,7 +23,7 @@ const getContributors = (contributorList: Array<string>) => {
 
 type Props = {
   data: Project;
-  loginLink: string;
+  loginLink?: any;
 };
 
 const renderButtons = (project: Project, loginLink: any) => {

@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 
 export const AppContext = createContext({} = {});
 const baseUrl = "http://127.0.0.1:8000";
+
 const baseProjectsUrl = `${baseUrl}/projects`;
 
 const mockUser: User = {
@@ -36,6 +37,7 @@ export const AppContextProvider = (props) => {
   }
 
   const fetch = async (path) => {
+    console.log("XXXXXX baseUrl", baseUrl);
     const token = getToken();
 
     const result = await axios(

@@ -6,7 +6,7 @@ import { mockProjects } from "../../contexts/AppContext";
 it("renders ProjectCard correctly", () => {
   const data = mockProjects[0];
   const component = renderer
-    .create(<ProjectCard key={data.projectId} data={data} />)
+    .create(<ProjectCard data={data} />)
     .toJSON();
   expect(component).toMatchSnapshot();
 });
