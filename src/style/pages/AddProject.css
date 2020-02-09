@@ -59,6 +59,13 @@ span {
   padding-bottom: 24px;
 }
 
+.field-error {
+  border: 1px solid #c23b22;
+}
+.field-error:focus {
+  outline-color: #f00;
+}
+
 .error {
-  color: darkred;
+  color: #c23b22;
 }
