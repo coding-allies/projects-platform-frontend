@@ -170,6 +170,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             id="lead-position"
             name="currentLeadPosition"
             onChange={this.handleChange}
+            onBlur={this.handleChange}
             value={this.state.currentLeadPosition}
             className={classNames({"field-error" : errors.currentLeadPosition.length > 0})}
           />
@@ -191,6 +192,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             name="githubRepo"
             value={this.state.githubRepo}
             onChange={this.handleChange}
+            onBlur={this.handleChange}
             className={classNames({ "field-error": errors.githubRepo.length > 0 })}
           />
           {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
@@ -211,6 +213,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             name="lookingFor"
             value={this.state.lookingFor}
             onChange={this.handleChange}
+            onBlur={this.handleChange}
             style={{ "resize": "none" }}
             className={classNames({ "field-error": errors.lookingFor.length > 0 })}
           />
@@ -232,6 +235,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             name="techStack"
             value={this.state.techStack}
             onChange={this.handleChange}
+            onBlur={this.handleChange}
             className={classNames({ "field-error": errors.techStack.length > 0 })}
           />
           {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
