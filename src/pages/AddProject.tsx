@@ -5,8 +5,7 @@ import { User } from "../types";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-// eslint-disable-next-line no-useless-escape
-const validGitHubRepo = /^(?:https\:\/\/)*github[.]com\/(\w+)\/(\w+)+\/?$/gm;
+const validGitHubRepo = /^(?:https:\/\/)*github[.]com\/([a-z0-9-]+)\/([a-z0-9\-_]+)\/?$/;
 
 type FormState = {
   experienceLevel: string,
