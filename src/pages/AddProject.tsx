@@ -27,7 +27,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   static contextType = AppContext;
 
   state: FormState = {
-    experienceLevel: "0",
+    experienceLevel: "",
     currentLeadPosition: "",
     githubRepo: "",
     lookingFor: "",
@@ -147,11 +147,13 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             id="select-experience-level"
             name="experienceLevel"
             value={this.state.experienceLevel}
-            onChange={this.handleChange}>
-            {/* <option value="">Select your experience level</option> */}
-            <option value={0}>Learner (0+ years of experience)</option>
-            <option value={1}>Beginner (1+ years of experience)</option>
-            <option value={2}>Experienced (3+ years of experience)</option>
+            onChange={this.handleChange}
+            onBlur={this.handleChange}
+            className={classNames({ "field-error": errors.experienceLevel.length > 0 })}>
+            <option value="">Select your experience level</option>
+            <option value="0">Learner (0+ years of experience)</option>
+            <option value="1">Beginner (1+ years of experience)</option>
+            <option value="2">Experienced (3+ years of experience)</option>
           </select>
           {errors.experienceLevel.length > 0 && <span className="error">{errors.experienceLevel}</span>}
           
