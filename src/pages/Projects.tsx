@@ -4,7 +4,7 @@ import ProjectCard from "../components/ProjectCard";
 import { AppContext } from "../contexts/AppContext";
 import { Project } from "../types";
 import "../style/pages/Projects.css";
-import Cookies from 'js-cookie';
+
 
 const renderProjects = (projects: Array<Project>, loginLink: any) => {
   if (projects) {

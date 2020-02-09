@@ -1,8 +1,7 @@
 import * as React from "react";
 import "../style/pages/AddProject.css";
 import classNames from "classnames/bind"
-import axios from "axios";
-import { User } from "../types";
+// import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
@@ -129,38 +128,35 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     } as Pick<FormState, keyof FormState>)
   }
 
-
-
   handleSubmit = (event: any) => {
     event.preventDefault();
     if (validateForm(this.state)) {
+      
       console.log("Valid form");
 
       const stateDict = { ...this.state };
-      const user: User = this.context.user;
       // TODO: tags
-
-      axios.post("http://127.0.0.1:8000/projects/add_project/", null, {
-        data: {
-          experience_lvl: stateDict.experienceLevel,
-          github_url: stateDict.githubRepo,
-          looking_for: stateDict.lookingFor,
-          position: stateDict.currentLeadPosition,
-          csrfmiddlewaretoken: this.csrf
-        },
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Token ${user.auth_token}`,
-        }
+      const data = {
+        experience_lvl: stateDict.experienceLevel,
+        github_url: stateDict.githubRepo,
+        looking_for: stateDict.lookingFor,
+        position: stateDict.currentLeadPosition,
+        csrfmiddlewaretoken: this.csrf
       }
-      ).then((response) => {
-        this.props.history.push('/projects');
+      this.context.addProject(data).then((response) => {
+        console.log("response xx", response);
+        if (response.data["result"] === "success") {
+          this.props.history.push('/projects');
+        } else if (response.data["result"] === "error") {
+          // TODO: display the message to the users
+          console.log("response", response.data["message"]);
+        } else {
+          console.log("response", response);
+        }
       })
-        .catch(function (error) {
-          console.log(error);
-        });
+      .catch(function (error) {
+        console.log(error);
+      });
     } else {
       console.log("Invalid form");
     }
@@ -272,7 +268,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           />
           {errors.lookingFor.length > 0 && <span className="error">{errors.lookingFor}</span>}
 
-          <label
+          {/* <label
             htmlFor="tech-stack"
             className="form-input-title">
             Tech Stack:
@@ -292,7 +288,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             className={classNames({ "field-error": errors.techStack.length > 0 })}
           />
           {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
-
+          */}
           <button>
             Add your project
           </button>

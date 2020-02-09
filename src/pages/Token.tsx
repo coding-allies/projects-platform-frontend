@@ -2,10 +2,8 @@ import * as React from "react";
 import { Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-type TokenProps = {
-  match?: any
-}
-export function Token(props: TokenProps) {
+
+export function Token() {
   Cookies.remove('auth_token', { path: '/' });
   const token = window.location.href.split('/')
   Cookies.set('auth_token', token[token.length - 1],
