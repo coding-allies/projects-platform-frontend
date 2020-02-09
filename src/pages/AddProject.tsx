@@ -1,5 +1,6 @@
 import * as React from "react";
 import "../style/pages/AddProject.css";
+import classNames from "classnames/bind"
 import axios from "axios";
 import { User } from "../types";
 import { AppContext } from "../contexts/AppContext";
@@ -170,6 +171,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             name="currentLeadPosition"
             onChange={this.handleChange}
             value={this.state.currentLeadPosition}
+            className={classNames({"field-error" : errors.currentLeadPosition.length > 0})}
           />
           {errors.currentLeadPosition.length > 0 && <span className="error">{errors.currentLeadPosition}</span>}
 
@@ -189,6 +191,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             name="githubRepo"
             value={this.state.githubRepo}
             onChange={this.handleChange}
+            className={classNames({ "field-error": errors.githubRepo.length > 0 })}
           />
           {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
 
@@ -209,6 +212,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             value={this.state.lookingFor}
             onChange={this.handleChange}
             style={{ "resize": "none" }}
+            className={classNames({ "field-error": errors.lookingFor.length > 0 })}
           />
           {errors.lookingFor.length > 0 && <span className="error">{errors.lookingFor}</span>}
 
@@ -228,6 +232,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             name="techStack"
             value={this.state.techStack}
             onChange={this.handleChange}
+            className={classNames({ "field-error": errors.techStack.length > 0 })}
           />
           {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
 
