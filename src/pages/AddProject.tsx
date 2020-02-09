@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../style/pages/AddProject.css";
 import classNames from "classnames/bind"
-// import axios from "axios";
+import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
@@ -57,20 +57,13 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   }
 
   csrf = '';
-  
-  //TODO: Figure out CORS issue here?
+
   isPublicGithubRepo = (githubUrl) => {
-    // axios.get(githubUrl)
-    // .then((response) => console.log(response.status))
-    // .catch((error) => console.log(error));
-    return true;
-  }
-  
-  // TODO: Call DB to check duplicates?
-  isNotListed = (githubUrl) => {
-    // axios.get(githubUrl)
-    //   .then((response) => console.log(response.status))
-    //   .catch((error) => console.log(error));
+    const gitURLSplit = githubUrl.split("github.com/");
+    const gitAPIURL = "https://api.github.com/repos/" + gitURLSplit[gitURLSplit.length - 1];
+    axios.get(gitAPIURL)
+      .then((response) => console.log(response.status))
+      .catch((error) => console.log(error));
     return true;
   }
 
@@ -100,9 +93,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           errors.githubRepo = "";
           if (!this.isPublicGithubRepo(value)) {
             errors.githubRepo = "This GitHub repository could not be found";
-            if (!this.isNotListed(value)) {
-              errors.githubRepo = "This repository is already listed under another lead";
-            }
+            // if (!this.isNotListed(value)) {
+            //   errors.githubRepo = "This repository is already listed under another lead";
+            // }
           }
         }
       break;
