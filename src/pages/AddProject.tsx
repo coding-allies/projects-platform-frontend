@@ -12,13 +12,13 @@ type FormState = {
   currentLeadPosition: string,
   githubRepo: string,
   lookingFor: string,
-  techStack: string,
+  // techStack: string,
   errors: {
     experienceLevel: string,
     currentLeadPosition: string,
     githubRepo: string,
     lookingFor: string,
-    techStack: string,
+    // techStack: string,
   },
 }
 
@@ -46,13 +46,13 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     currentLeadPosition: "",
     githubRepo: "",
     lookingFor: "",
-    techStack: "",
+    // techStack: "",
     errors: {
       experienceLevel: "",
       currentLeadPosition: "",
       githubRepo: "",
       lookingFor: "",
-      techStack: "",
+      // techStack: "",
     },
   }
 
@@ -105,10 +105,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           value.length === 0 ? "Field cannot be empty" : "";
         break;
 
-      case 'techStack':
-        errors.techStack =
-          value.length === 0 ? "Tech stack cannot be empty" : "";
-        break;
+      // case 'techStack':
+      //   errors.techStack =
+      //     value.length === 0 ? "Tech stack cannot be empty" : "";
+      //   break;
 
       default:
         break;
@@ -122,7 +122,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   }
 
   showErrors = () => {
-    console.log("check experienceLevel", this.state.experienceLevel);
     let currErrors = this.state.errors;
     if (!!!this.state.experienceLevel) {
       currErrors.experienceLevel = "Experience level is required";
@@ -132,37 +131,25 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       currErrors.currentLeadPosition = "Current position is required";
     }
 
-    // this.state.errors.currentLeadPosition =
-    //   this.state.currentLeadPosition.length === 0 ? "Current position is required" : "";
+    if (!!!this.state.githubRepo) {
+      currErrors.githubRepo = "A GitHub repository is required";
+    }
 
-    //     case 'githubRepo':
-    // if (value.length === 0) {
-    //   errors.githubRepo = "A GitHub repository is required"
+    if (!!!this.state.githubRepo) {
+      currErrors.githubRepo = "A GitHub repository is required";
+    }
+
+    if (!!!this.state.lookingFor) {
+      currErrors.lookingFor = "Field cannot be empty"
+    }
+
+    // if (!!!this.state.techStack) {
+    //   currErrors.techStack = "Tech stack cannot be empty"
     // }
-    // if (!validGitHubRepo.test(value)) {
-    //   errors.githubRepo = "Please enter a valid GitHub repository";
-    // } else {
-    //   errors.githubRepo = "";
-    //   if (!this.isPublicGithubRepo(value)) {
-    //     errors.githubRepo = "This GitHub repository could not be found";
-    //     // if (!this.isNotListed(value)) {
-    //     //   errors.githubRepo = "This repository is already listed under another lead";
-    //     // }
-    //   }
-    // }
-    // break;
 
-    //     case 'lookingFor':
-    // errors.lookingFor =
-    //   value.length === 0 ? "Field cannot be empty" : "";
-    // break;
-
-    //     case 'techStack':
-    // errors.techStack =
-    //   value.length === 0 ? "Tech stack cannot be empty" : "";
     this.setState({ errors: currErrors });
-
   }
+
   handleSubmit = (event: any) => {
     event.preventDefault();
     if (validateForm(this.state)) {
