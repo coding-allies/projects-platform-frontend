@@ -28,7 +28,7 @@ const validateForm = (state) => {
 
   let inputFields = Object.values(state).filter(
     (value: any) => value.length === 0);
-  
+
   hasInput = (inputFields.length === 0) ? true : false;
 
   Object.values(state.errors).forEach(
@@ -71,22 +71,22 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     const name = event.target.name;
     const value = event.target.value;
     const errors = this.state.errors;
-    
+
     switch (name) {
       case 'experienceLevel':
         errors.experienceLevel =
           value.length === 0 ? "Experience level is required" : "";
         break;
-      
-      case 'currentLeadPosition': 
-        errors.currentLeadPosition = 
+
+      case 'currentLeadPosition':
+        errors.currentLeadPosition =
           value.length === 0 ? "Current position is required" : "";
         break;
 
-      case 'githubRepo': 
+      case 'githubRepo':
         if (value.length === 0) {
           errors.githubRepo = "A GitHub repository is required"
-        } 
+        }
         if (!validGitHubRepo.test(value)) {
           errors.githubRepo = "Please enter a valid GitHub repository";
         } else {
@@ -98,33 +98,75 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             // }
           }
         }
-      break;
+        break;
 
-      case 'lookingFor': 
+      case 'lookingFor':
         errors.lookingFor =
           value.length === 0 ? "Field cannot be empty" : "";
         break;
 
-      case 'techStack': 
-        errors.techStack = 
+      case 'techStack':
+        errors.techStack =
           value.length === 0 ? "Tech stack cannot be empty" : "";
         break;
-      
+
       default:
         break;
 
     }
 
-    this.setState({ 
+    this.setState({
       [name]: value,
       errors
     } as Pick<FormState, keyof FormState>)
   }
 
+  showErrors = () => {
+    console.log("check experienceLevel", this.state.experienceLevel);
+    let currErrors = this.state.errors;
+    if (!!!this.state.experienceLevel) {
+      currErrors.experienceLevel = "Experience level is required";
+    }
+
+    if (!!!this.state.currentLeadPosition) {
+      currErrors.currentLeadPosition = "Current position is required";
+    }
+
+    // this.state.errors.currentLeadPosition =
+    //   this.state.currentLeadPosition.length === 0 ? "Current position is required" : "";
+
+    //     case 'githubRepo':
+    // if (value.length === 0) {
+    //   errors.githubRepo = "A GitHub repository is required"
+    // }
+    // if (!validGitHubRepo.test(value)) {
+    //   errors.githubRepo = "Please enter a valid GitHub repository";
+    // } else {
+    //   errors.githubRepo = "";
+    //   if (!this.isPublicGithubRepo(value)) {
+    //     errors.githubRepo = "This GitHub repository could not be found";
+    //     // if (!this.isNotListed(value)) {
+    //     //   errors.githubRepo = "This repository is already listed under another lead";
+    //     // }
+    //   }
+    // }
+    // break;
+
+    //     case 'lookingFor':
+    // errors.lookingFor =
+    //   value.length === 0 ? "Field cannot be empty" : "";
+    // break;
+
+    //     case 'techStack':
+    // errors.techStack =
+    //   value.length === 0 ? "Tech stack cannot be empty" : "";
+    this.setState({ errors: currErrors });
+
+  }
   handleSubmit = (event: any) => {
     event.preventDefault();
     if (validateForm(this.state)) {
-      
+
       console.log("Valid form");
 
       const stateDict = { ...this.state };
@@ -147,17 +189,18 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           console.log("response", response);
         }
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .catch(function (error) {
+          console.log(error);
+        });
     } else {
       console.log("Invalid form");
+      this.showErrors();
     }
-    
+
   }
 
   render() {
-    const { errors } = this.state; 
+    const { errors } = this.state;
     return (
       <div className="add-project-page">
         <h1>Add your project</h1>
@@ -196,7 +239,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             <option value="2">Experienced (3+ years of experience)</option>
           </select>
           {errors.experienceLevel.length > 0 && <span className="error">{errors.experienceLevel}</span>}
-          
+
           <label
             htmlFor="lead-position"
             className="form-input-title">
@@ -214,7 +257,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             onChange={this.handleChange}
             onBlur={this.handleChange}
             value={this.state.currentLeadPosition}
-            className={classNames({"field-error" : errors.currentLeadPosition.length > 0})}
+            className={classNames({ "field-error": errors.currentLeadPosition.length > 0 })}
           />
           {errors.currentLeadPosition.length > 0 && <span className="error">{errors.currentLeadPosition}</span>}
 
