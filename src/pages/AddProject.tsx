@@ -23,6 +23,22 @@ type FormState = {
   },
 }
 
+const validateForm = (state) => {
+  let noErrors = true;
+  let hasInput = false;
+
+  let inputFields = Object.values(state).filter(
+    (value: any) => value.length === 0);
+  
+  hasInput = (inputFields.length === 0) ? true : false;
+
+  Object.values(state.errors).forEach(
+    (value: any) => value.length > 0 && (noErrors = false)
+  );
+
+  return hasInput && noErrors;
+}
+
 class AddProject extends React.Component<RouteComponentProps, FormState> {
   static contextType = AppContext;
 
@@ -42,9 +58,24 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   }
 
   csrf = '';
+  
+  //TODO: Figure out CORS issue here?
+  isPublicGithubRepo = (githubUrl) => {
+    // axios.get(githubUrl)
+    // .then((response) => console.log(response.status))
+    // .catch((error) => console.log(error));
+    return true;
+  }
+  
+  // TODO: Call DB to check duplicates?
+  isNotListed = (githubUrl) => {
+    // axios.get(githubUrl)
+    //   .then((response) => console.log(response.status))
+    //   .catch((error) => console.log(error));
+    return true;
+  }
 
-  handleChange = (event: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>)) => {
-    event.preventDefault();
+  handleChange = (event: any) => {
     const name = event.target.name;
     const value = event.target.value;
     const errors = this.state.errors;
@@ -52,7 +83,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     switch (name) {
       case 'experienceLevel':
         errors.experienceLevel =
-          value.length !== 1 ? "Invalid experience level" : "";
+          value.length === 0 ? "Experience level is required" : "";
         break;
       
       case 'currentLeadPosition': 
@@ -60,11 +91,22 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           value.length === 0 ? "Current position is required" : "";
         break;
 
-      case 'githubRepo':
-        errors.githubRepo = 
-          value.length === 0 ? "A GitHub repository is required" : 
-            !validGitHubRepo.test(value) ? "Please enter a valid GitHub repository" : "";
-        break;
+      case 'githubRepo': 
+        if (value.length === 0) {
+          errors.githubRepo = "A GitHub repository is required"
+        } 
+        if (!validGitHubRepo.test(value)) {
+          errors.githubRepo = "Please enter a valid GitHub repository";
+        } else {
+          errors.githubRepo = "";
+          if (!this.isPublicGithubRepo(value)) {
+            errors.githubRepo = "This GitHub repository could not be found";
+            if (!this.isNotListed(value)) {
+              errors.githubRepo = "This repository is already listed under another lead";
+            }
+          }
+        }
+      break;
 
       case 'lookingFor': 
         errors.lookingFor =
@@ -85,35 +127,44 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       [name]: value,
       errors
     } as Pick<FormState, keyof FormState>)
-  } 
+  }
+
+
 
   handleSubmit = (event: any) => {
     event.preventDefault();
-    const stateDict = { ...this.state };
-    const user: User = this.context.user;
-    // TODO: tags
+    if (validateForm(this.state)) {
+      console.log("Valid form");
 
-    axios.post("http://127.0.0.1:8000/projects/add_project/", null, {
-      data: {
-        experience_lvl: stateDict.experienceLevel,
-        github_url: stateDict.githubRepo,
-        looking_for: stateDict.lookingFor,
-        position: stateDict.currentLeadPosition,
-        csrfmiddlewaretoken: this.csrf
-      },
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Token ${user.auth_token}`,
+      const stateDict = { ...this.state };
+      const user: User = this.context.user;
+      // TODO: tags
+
+      axios.post("http://127.0.0.1:8000/projects/add_project/", null, {
+        data: {
+          experience_lvl: stateDict.experienceLevel,
+          github_url: stateDict.githubRepo,
+          looking_for: stateDict.lookingFor,
+          position: stateDict.currentLeadPosition,
+          csrfmiddlewaretoken: this.csrf
+        },
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Token ${user.auth_token}`,
+        }
       }
+      ).then((response) => {
+        this.props.history.push('/projects');
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      console.log("Invalid form");
     }
-    ).then((response) => {
-      this.props.history.push('/projects');
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
+    
   }
 
   render() {
