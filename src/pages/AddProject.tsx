@@ -20,6 +20,9 @@ type FormState = {
     lookingFor: string,
     // techStack: string,
   },
+  serverError: {
+    message: string
+  }
 }
 
 const validateForm = (state) => {
@@ -54,8 +57,11 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       lookingFor: "",
       // techStack: "",
     },
+    serverError: {
+      message: ""
+    }
   }
-
+  
   csrf = '';
 
   isPublicGithubRepo = (githubUrl) => {
@@ -151,11 +157,12 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   }
 
   handleSubmit = (event: any) => {
+    // let that = this;
     event.preventDefault();
     if (validateForm(this.state)) {
-
+      
       console.log("Valid form");
-
+      
       const stateDict = { ...this.state };
       // TODO: tags
       const data = {
@@ -171,12 +178,13 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           this.props.history.push('/projects');
         } else if (response.data["result"] === "error") {
           // TODO: display the message to the users
+          // this.setState({ serverError.message : error.message });
           console.log("response", response.data["message"]);
         } else {
           console.log("response", response);
         }
       })
-        .catch(function (error) {
+      .catch(error => {
           console.log(error);
         });
     } else {
@@ -202,6 +210,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           </ul>
         </div>
 
+        {(this.state.serverError.message) && <div className="error-message">
+          <p>{this.state.serverError.message}.</p>
+          <p>If this problem persists, contact us!</p>
+        </div>}
         <form id="add-project-form" onSubmit={this.handleSubmit} noValidate>
           <label
             htmlFor="select-experience-level"

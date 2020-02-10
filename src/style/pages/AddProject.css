@@ -69,3 +69,15 @@ span {
 .error {
   color: #c23b22;
 }
+
+.error-message {
+  padding: 24px 24px 12px;
+  margin-bottom: 24px;
+  color: #c12b11;
+  background-color: #fdd;
+}
+
+.error-message p {
+  line-height: 1.35em;
+  padding-bottom: 12px;
+}
