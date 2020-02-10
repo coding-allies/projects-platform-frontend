@@ -177,8 +177,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
         if (response.data["result"] === "success") {
           this.props.history.push('/projects');
         } else if (response.data["result"] === "error") {
-          // TODO: display the message to the users
-          // this.setState({ serverError.message : error.message });
+          let currServerError = this.state.serverError;
+          currServerError.message = response.data["message"];
+          this.setState({ serverError: currServerError });
           console.log("response", response.data["message"]);
         } else {
           console.log("response", response);
