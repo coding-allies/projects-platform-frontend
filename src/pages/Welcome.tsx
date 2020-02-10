@@ -16,7 +16,7 @@ class Welcome extends Component {
     const projects: Array<Project> = this.context.projects;
     return (
       <div className="platform-welcome">
-        <PlatformSummary />
+        <PlatformSummary login={this.context.login} />
         <section className="platform-featured-projects">
           <h2>Featured Projects</h2>
           <div className="projects-wrapper">{renderProjects(projects, this.context.login)}</div>
