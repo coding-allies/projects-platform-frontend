@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AppContextProvider } from "./contexts/AppContext";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, HashRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Projects } from "./pages/Projects";
@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <AppContextProvider>
-        <Router>
+        <HashRouter>
           <Header />
           <Switch>
             <Route path="/token/:token" component={Token} />
@@ -22,7 +22,7 @@ function App() {
             <Route path="/" component={Welcome} />
           </Switch>
           <Footer />
-        </Router>
+        </HashRouter>
       </AppContextProvider>
     </div>
   );
