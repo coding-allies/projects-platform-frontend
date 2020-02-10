@@ -61,7 +61,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       message: ""
     }
   }
-  
+
   csrf = '';
 
   isPublicGithubRepo = (githubUrl) => {
@@ -160,9 +160,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     // let that = this;
     event.preventDefault();
     if (validateForm(this.state)) {
-      
+
       console.log("Valid form");
-      
+
       const stateDict = { ...this.state };
       // TODO: tags
       const data = {
@@ -173,19 +173,17 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
         csrfmiddlewaretoken: this.csrf
       }
       this.context.addProject(data).then((response) => {
-        console.log("response xx", response);
         if (response.data["result"] === "success") {
           this.props.history.push('/projects');
         } else if (response.data["result"] === "error") {
           let currServerError = this.state.serverError;
           currServerError.message = response.data["message"];
           this.setState({ serverError: currServerError });
-          console.log("response", response.data["message"]);
         } else {
           console.log("response", response);
         }
       })
-      .catch(error => {
+        .catch(error => {
           console.log(error);
         });
     } else {
@@ -212,7 +210,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
         </div>
 
         {(this.state.serverError.message) && <div className="error-message">
-          <p>{this.state.serverError.message}.</p>
+          <p>{this.state.serverError.message}</p>
           <p>If this problem persists, contact us!</p>
         </div>}
         <form id="add-project-form" onSubmit={this.handleSubmit} noValidate>
