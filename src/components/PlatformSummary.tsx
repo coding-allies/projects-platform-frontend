@@ -9,8 +9,9 @@ const PlatformSummary = (props: ProjectSummaryProps) => {
   const getButton = () => {
     const token = Cookies.get("auth_token");
     if (!!token) {
-      return (<a className="button-link" href="/#/projects">See Projects</a>)
-      //return (<button onClick={props.login}>Sign In With GitHub</button>)
+      return (<a className="button-link" href="/#/projects">See All Projects</a>)} 
+    else {
+      return (<button onClick={props.login}>Sign In With GitHub</button>)
     }
 
   }

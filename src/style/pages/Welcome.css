@@ -1,6 +1,3 @@
-.platform-welcome {
-}
-
 .platform-welcome > * {
   padding: 120px 0 60px;
 }
@@ -31,9 +28,14 @@
   line-height: 32px;
 }
 
-.platform-intro button {
+.platform-intro button,
+.platform-intro a.button-link {
   margin: 60px;
   font-size: 21px;
+}
+
+.platform-intro a.button-link {
+  display: inline-block;
 }
 
 .platform-features {
