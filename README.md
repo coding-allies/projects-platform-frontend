@@ -1,9 +1,16 @@
-## Available Scripts
+## How to contribute
+Create or pick a feature from https://github.com/shescoding/projects-platform-frontend/projects/1.
+
+## Community
+Join our slack space at She's Coding #projects channel to discuss this projects or ask questions.
+
+
+## Installation guide
 
 ### To begin with, make sure you have following versions of yarn, npm and Node
-node: v8.16.0 <br />
-npm: 6.4.1 <br />
-yarn: 1.17.0 <br />
+`node: v8.16.0` <br />
+`npm: 6.4.1` <br />
+`yarn: 1.17.0` <br />
 
 In the project directory (`cd your_path/projects-platform-frontend`), you can run:
 
@@ -11,7 +18,7 @@ In the project directory (`cd your_path/projects-platform-frontend`), you can ru
 
 Installs all the needed dependencies
 
-### `npx webpack --mode=development`
+### `yarn build`
 
 Builds the project
 
