@@ -4,6 +4,8 @@ import classNames from "classnames/bind"
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 
 const validGitHubRepo = /^(?:https:\/\/)*github[.]com\/([a-z0-9-]+)\/([a-z0-9\-_]+)\/?$/;
 
@@ -194,6 +196,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   }
 
   render() {
+    const token = Cookies.get("auth_token");
+    if (!!!token) {
+      this.props.history.push('/');
+    }
     const { errors } = this.state;
     return (
       <div className="add-project-page">
