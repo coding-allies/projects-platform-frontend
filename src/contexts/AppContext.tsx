@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 export const AppContext = createContext({});
-const baseUrl = "http://shescoding-projects.us-east-1.elasticbeanstalk.com"; //"http://127.0.0.1:8000";
+const baseUrl = process.env.REACT_APP_API_URL;
 
 const baseProjectsUrl = `${baseUrl}/projects`;
 
