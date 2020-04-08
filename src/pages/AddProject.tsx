@@ -5,7 +5,7 @@ import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Cookies from 'js-cookie';
-
+import Modal from 'react-modal';
 
 const validGitHubRepo = /^(?:https:\/\/)*github[.]com\/([a-z0-9-]+)\/([a-z0-9\-_]+)\/?$/;
 
@@ -24,7 +24,8 @@ type FormState = {
   },
   serverError: {
     message: string
-  }
+  },
+  cancelModalOpen: boolean
 }
 
 const validateForm = (state) => {
@@ -61,7 +62,8 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     },
     serverError: {
       message: ""
-    }
+    },
+    cancelModalOpen: false
   }
 
   csrf = '';
@@ -195,11 +197,25 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
   }
 
+  handleCancel = () => {
+    this.setState({ cancelModalOpen: true });
+    console.log(this.state.cancelModalOpen)
+  }
+
+  closeCancelModel = () => {
+    this.setState({ cancelModalOpen: false });
+  }
+
+  cancelAddingProject = () => {
+    this.setState({ cancelModalOpen: false });
+    this.props.history.push('/projects');
+  }
+
   render() {
     const token = Cookies.get("auth_token");
-    if (!!!token) {
-      this.props.history.push('/');
-    }
+    // if (!!!token) {
+    //   this.props.history.push('/');
+    // }
     const { errors } = this.state;
     return (
       <div className="add-project-page">
@@ -329,8 +345,28 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           />
           {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
           */}
-          <button>
+
+          {/* this is the modal for cancel */}
+          { this.state.cancelModalOpen ? 
+            <Modal isOpen={this.state.cancelModalOpen} 
+              className="modal-container"
+              closeTimeoutMS={200}>
+              <div className="modal-text">
+                <h3 >Are you sure you want to cancel adding a new project?</h3>
+              </div>
+              <div className="modal-buttons">
+                <button onClick={this.cancelAddingProject} className="modal-button">Yes, I am sure</button>
+                <button onClick={this.closeCancelModel} className="modal-button">Cancel</button>
+              </div>
+              
+            </Modal> 
+            : null }
+
+          <button type="submit">
             Add your project
+          </button>
+          <button type="button" onClick={this.handleCancel}>
+            Cancel
           </button>
         </form>
       </div>
