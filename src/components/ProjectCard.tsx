@@ -14,8 +14,12 @@ const getTags = (tagList: Array<string>) => {
 };
 
 const getContributors = (contributorList: Array<string>) => {
-  return contributorList.map(contributor => (
-    <div className="card-contributor-icon" key={contributor}>
+  if (contributorList.length > 6) {
+    contributorList = [...contributorList.slice(0, 6), '...'];
+  }
+
+  return contributorList.map((contributor, i) => (
+    <div className="card-contributor-icon" key={i}>
       {contributor}
     </div>
   ));
