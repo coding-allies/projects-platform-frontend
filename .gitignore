@@ -30,8 +30,9 @@ yarn.lock*
 /dist
 src/react-app-env.d.ts
 
-/env
-/nenv
-/.yarn
+#env files
+env
+nenv
+
 
 
