@@ -8,6 +8,8 @@
   padding: 60px;
   margin: 60px auto;
   border: 3px solid #393939;
+  padding: 0.75em;
+  box-shadow: 3px 3px turquoise;
 }
 
 .add-project-page h1::after{
@@ -82,6 +84,18 @@ span {
   padding-bottom: 12px;
 }
 
+.add-project-form-buttons{
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-project-form-button {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0.4em 3em;
+}
+
 .modal-container{
   max-width: 50%;
   margin: 15em auto;
@@ -91,7 +105,9 @@ span {
   flex-direction: column;
   justify-content: center;
   text-decoration: none;
-  border-color: black;
+  border: 2px solid #393939;
+  padding: 0.75em;
+  box-shadow: 3px 3px turquoise;
 }
 
 .modal-text{
@@ -106,4 +122,5 @@ span {
 
 .modal-button{
   margin: 0.5em;
+  display: inline-block;
 }

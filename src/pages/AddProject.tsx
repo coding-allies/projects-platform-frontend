@@ -213,9 +213,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
   render() {
     const token = Cookies.get("auth_token");
-    if (!!!token) {
-      this.props.history.push('/');
-    }
+    // if (!!!token) {
+    //   this.props.history.push('/');
+    // }
     const { errors } = this.state;
     return (
       <div className="add-project-page">
@@ -361,13 +361,14 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
               
             </Modal> 
             : null }
-
-          <button type="submit">
-            Add your project
-          </button>
-          <button type="button" onClick={this.handleCancel}>
-            Cancel
-          </button>
+          <div className="add-project-form-buttons">
+            <button type="submit" className="add-project-form-button">
+              Add your project
+            </button>
+            <button type="button" onClick={this.handleCancel} className="add-project-form-button">
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     );
