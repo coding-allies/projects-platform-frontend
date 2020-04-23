@@ -5,13 +5,13 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 export const AppContext = createContext({});
-// const baseUrl = "http://shescoding-projects.us-east-1.elasticbeanstalk.com"; 
-const baseUrl = "http://127.0.0.1:8000";
+const baseUrl = "http://shescoding-projects.us-east-1.elasticbeanstalk.com"; 
+// "http://127.0.0.1:8000";
 const baseProjectsUrl = `${baseUrl}/projects`;
 
 const mockUser: User = {
   name: "",
-  is_authenticated: true,
+  is_authenticated: false,
   csrf_token: "",
   auth_token: "",
 };
