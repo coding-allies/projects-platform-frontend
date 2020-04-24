@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
 import Modal from 'react-modal';
+Modal.setAppElement('*');
 
 
 const getTags = (tagList: Array<string>) => {
@@ -100,10 +101,11 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
     }
   
     return contributorList.map((contributor, i) => {
+      
       if(i === 6){
         return(
           <div key={i}>
-            <button onClick={() => {setIsModalOpen(!isModalOpen);}}>
+            <button className="card-contributor-modal-button" onClick={() => {setIsModalOpen(!isModalOpen);}}>
               {contributor}
             </button>
           </div>
@@ -152,7 +154,9 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
             </div> 
             {project.contributors.map((contributor, i) => {
               return(
-                <p key={i} className="contributor-modal-item">{contributor}</p>
+                <div className="contributor-modal-item">
+                  <p key={i}>{contributor}</p>
+                </div>
               );
             })}
           </Modal> : null}
