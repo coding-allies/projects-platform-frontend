@@ -54,6 +54,11 @@
   grid-gap: 6px;
 }
 
+.card-description-box{
+  margin-top: 2em;
+  background-color: #c1fff88a;
+}
+
 .card-description {
   min-height: 150px;
 }
@@ -62,6 +67,7 @@
   min-height: 110px;
 }
 
+.card-description-label,
 .card-looking-for-label,
 .card-contributor-label,
 .card-tech-stack-label {

@@ -131,7 +131,10 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
         <p>{experienceLevel}</p>
       </div>
 
-      <p className="card-description">{project.description}</p>
+      <div className="card-description-box">
+        <p className="card-description-label">Project Details:</p>
+        <p className="card-description">{project.description}</p>
+      </div>
 
       <div className="card-looking-for">
         <p className="card-looking-for-label">Looking For:</p>
