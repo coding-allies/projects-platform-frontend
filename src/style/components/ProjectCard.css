@@ -92,3 +92,39 @@
   grid-gap: 10px;
   padding-bottom: 0;
 }
+
+.contributor-modal{
+  max-width: 50%;
+  margin: 15em auto;
+  padding: 3em;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid #393939;
+  padding: 0.75em;
+  box-shadow: 3px 3px turquoise;
+  position: relative;
+}
+
+.contributor-modal-header{
+  display: inline-flex;
+  width: 100%;
+}
+
+.contributor-modal-close-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  right: 1em;
+  font-size: 1em;
+  border: 1px solid black;
+  cursor: pointer;
+  box-shadow: 3px 3px turquoise;
+}
+
+.contributor-modal-item{
+  display: inline-flex;
+  margin: 2em;
+  font-weight: bold;
+}

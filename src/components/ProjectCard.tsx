@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
+import Modal from 'react-modal';
 
 
 const getTags = (tagList: Array<string>) => {
@@ -13,17 +14,35 @@ const getTags = (tagList: Array<string>) => {
   });
 };
 
-const getContributors = (contributorList: Array<string>) => {
-  if (contributorList.length > 6) {
-    contributorList = [...contributorList.slice(0, 6), '...'];
-  }
 
-  return contributorList.map((contributor, i) => (
-    <div className="card-contributor-icon" key={i}>
-      {contributor}
-    </div>
-  ));
-};
+// const getContributors = (contributorList: Array<string>, modalState: Boolean) => {
+//   if (contributorList.length > 6) {
+//     contributorList = [...contributorList.slice(0, 6), '...'];
+//   }
+
+//   return contributorList.map((contributor, i) => {
+//     if(i === 6){
+//       return(
+//         <div key={i}>
+//           <button onClick={() => {modalState = !modalState; console.log(modalState)}}>
+//             {contributor}
+//           </button>
+//           {/* <div>
+//           {modalOpen ? <Modal isOpen={true} className="contributor-modal" >
+//             <p>This is modal for contrubutor list</p> 
+//           </Modal> : null}
+//           </div> */}
+//         </div>
+//       );
+//     } else{
+//       return(
+//         <div className="card-contributor-icon" key={i}>
+//           {contributor}
+//         </div>
+//       );
+//     }
+//   });
+// };
 
 type Props = {
   data: Project;
@@ -73,6 +92,31 @@ const renderButtons = (project: Project, loginLink: any) => {
 const ProjectCard: FC<Props> = ({ data, loginLink }) => {
   const project = { ...data };
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const getContributors = (contributorList: Array<string>) => {
+    if (contributorList.length > 6) {
+      contributorList = [...contributorList.slice(0, 6), '...'];
+    }
+  
+    return contributorList.map((contributor, i) => {
+      if(i === 6){
+        return(
+          <div key={i}>
+            <button onClick={() => {setIsModalOpen(!isModalOpen);}}>
+              {contributor}
+            </button>
+          </div>
+        );
+      } else{
+        return(
+          <div className="card-contributor-icon" key={i}>
+            {contributor}
+          </div>
+        );
+      }
+    });
+  };
 
 
   return (
@@ -98,7 +142,22 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
         </p>
         <div className="card-contributor-avatars">
           {getContributors(project.contributors)}
+          {isModalOpen ? 
+          <Modal isOpen={isModalOpen} className="contributor-modal" >
+            <div className="contributor-modal-header">
+              <h2>Contributors of the project:</h2>
+              <div className="contributor-modal-close-button" onClick={() => {setIsModalOpen(!isModalOpen)}}>
+                X
+              </div> 
+            </div> 
+            {project.contributors.map((contributor, i) => {
+              return(
+                <p key={i} className="contributor-modal-item">{contributor}</p>
+              );
+            })}
+          </Modal> : null}
         </div>
+       
       </div>
 
       <div className="card-tech-stack">
