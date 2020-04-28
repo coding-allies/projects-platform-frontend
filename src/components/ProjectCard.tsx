@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
-import { Project, ExperienceLevelsTypes } from "../types";
+import { Project, ExperienceLevelsTypes, Avatar } from "../types";
 import "../style/components/ProjectCard.css";
+import axios from 'axios';
 import Modal from 'react-modal';
 Modal.setAppElement('*');
 
@@ -94,6 +95,20 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
   const project = { ...data };
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience];
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const avatarLinks = [];
+
+  const getAvatars = () => {
+    axios.get('https://api.github.com/repos/shescoding/projects-platform-frontend/contributors')
+      .then((result: any) => {
+        let users =  result.data;
+        let avatars: Array<string> = [];
+        users.map((user: Avatar) => {
+          avatars.push(user.avatar_url)
+        })
+        return avatars;
+      })
+      .catch(err => console.log(err));
+  }
 
   const getContributors = (contributorList: Array<string>) => {
     if (contributorList.length > 6) {
