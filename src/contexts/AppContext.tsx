@@ -5,7 +5,8 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 export const AppContext = createContext({});
-const baseUrl = "http://shescoding-projects.us-east-1.elasticbeanstalk.com"; //"http://127.0.0.1:8000";
+const baseUrl = "https://api.shescoding.org";
+// const baseUrl = "http://127.0.0.1:8000";
 
 const baseProjectsUrl = `${baseUrl}/projects`;
 
@@ -37,7 +38,7 @@ export const AppContextProvider = (props) => {
   }
 
   const fetch = async (path) => {
-    console.log("XXXXXX baseUrl", baseUrl);
+    console.log("She's Coding Projects API", baseUrl);
     const token = getToken();
 
     const result = await axios(
