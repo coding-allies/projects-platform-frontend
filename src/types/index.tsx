@@ -39,3 +39,7 @@ export interface AppContextState {
   user: User;
   projects: Array<Project>;
 }
+
+export interface Avatar {
+  avatar_url: string;
+} 
