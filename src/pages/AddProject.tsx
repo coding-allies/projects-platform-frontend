@@ -199,7 +199,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
   handleCancel = () => {
     this.setState({ cancelModalOpen: true });
-    console.log(this.state.cancelModalOpen)
   }
 
   closeCancelModel = () => {
