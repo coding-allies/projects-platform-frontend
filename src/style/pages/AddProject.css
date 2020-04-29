@@ -8,6 +8,8 @@
   padding: 60px;
   margin: 60px auto;
   border: 3px solid #393939;
+  padding: 0.75em;
+  box-shadow: 3px 3px turquoise;
 }
 
 .add-project-page h1::after{
@@ -80,4 +82,46 @@ span {
 .error-message p {
   line-height: 1.35em;
   padding-bottom: 12px;
+}
+
+.add-project-form-buttons{
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-project-form-button {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0.4em 1em;
+}
+
+.modal-container{
+  max-width: 50%;
+  margin: 15em auto;
+  padding: 3em;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: 2px solid #393939;
+  padding: 0.75em;
+  box-shadow: 3px 3px turquoise;
+}
+
+.modal-text{
+  text-align: center;
+}
+
+.modal-buttons{
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+}
+
+.modal-button{
+  margin: 0.5em;
+  display: inline-block;
 }
