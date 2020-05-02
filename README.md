@@ -34,3 +34,8 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+
+### `config.js` with Github keys for Dev Github App
+
+[Click this link ](https://drive.google.com/open?id=1BEe4RnmLFPEk2Jw_BxNLLu9fQm065FVZ) to get permission and download and move the config.js file into your repo to get Github App authentication working locally.
