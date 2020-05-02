@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "0.19.1",
     "classnames": "^2.2.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "react-modal": "^3.11.2",
@@ -14,6 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
