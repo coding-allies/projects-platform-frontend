@@ -1,7 +1,7 @@
 var express = require("express"),
   app = express(),
   config = require("./config.js")
-const port = 9292;
+const port = 5000;
 
 var githubOAuth = require('github-oauth')({
   githubClient: config.GITHUB_KEY,
