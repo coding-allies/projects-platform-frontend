@@ -6,7 +6,8 @@
     "axios": "0.19.1",
     "classnames": "2.2.6",
     "cors": "2.8.5",
-    "express": "4.17.1",
+    "express": "^4.17.1",
+    "pg": "^8.0.3",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "react-modal": "3.11.2",
@@ -16,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "node server.js",
+    "server": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -46,7 +47,7 @@
     "@types/react-test-renderer": "16.9.1",
     "awesome-typescript-loader": "5.2.1",
     "css-loader": "3.2.1",
-    "dotenv": "8.2.0",
+    "dotenv": "^8.2.0",
     "js-cookie": "^2.2.1",
     "react-test-renderer": "16.12.0",
     "source-map-loader": "0.2.4",
