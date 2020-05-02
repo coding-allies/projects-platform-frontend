@@ -212,9 +212,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
   render() {
     const token = Cookies.get("auth_token");
-    // if (!!!token) {
-    //   this.props.history.push('/');
-    // }
+    if (!!!token) {
+      this.props.history.push('/');
+    }
     const { errors } = this.state;
     return (
       <div className="add-project-page">
