@@ -43,7 +43,7 @@ Runs the backend server on port 5000.<br />
 ### `About creating psql database locally`
 
 - First, make sure you install and setup postgreSQL in your computer.
-- Secondly, create a database called scproject in psql.
+- Secondly, connect to psql server(run ```psqlbrew services start postgresql``` or ```sudo service postgresql start```) and create a database called scproject in psql(run ```CREATE DATABASE scproject```).
 - Then, since you already have the schema.sql in the server/data, just need to create a .env file with this variable (DATABASE_URL=postgres://your-psql-username:your-psql-password@LOCALHOST:5432/scproject) in the root. ) in there to link your node with psql.
 - Lastly, in your terminal:
   1. connect to psql server. (run ```psqlbrew services start postgresql``` or ```sudo service postgresql start```)
