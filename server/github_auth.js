@@ -1,14 +1,14 @@
 var express = require("express"),
-  app = express(),
-  config = require("./config.js")
+  app = express();
 const port = 5000;
-
+require('dotenv').config();
 var githubOAuth = require('github-oauth')({
-  githubClient: config.GITHUB_KEY,
-  githubSecret: config.GITHUB_SECRET,
+  githubClient: process.env.GITHUB_KEY,
+  githubSecret: process.env.GITHUB_SECRET,
   baseURL: 'http://localhost:' + port,
   loginURI: '/auth/github',
-  callbackURI: '/auth/github/callback'
+  callbackURI: '/auth/github/callback',
+  scope: 'user'
 })
 
 app.get("/auth/github", function (req, res) {
