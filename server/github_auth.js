@@ -1,6 +1,11 @@
 var express = require("express"),
   app = express();
 const port = 5000;
+
+const axios = require('axios');
+
+var access_token_store = '';
+
 require('dotenv').config();
 var githubOAuth = require('github-oauth')({
   githubClient: process.env.GITHUB_KEY,
@@ -26,8 +31,17 @@ githubOAuth.on('error', function (err) {
 })
 
 githubOAuth.on('token', function (token, serverResponse) {
+  access_token_store = token;
+  axios.get('https://api.github.com/user',{
+    headers: {Authorization: 'Bearer ' + token.access_token}
+  })
+    .then(result => {
+      console.log(JSON.stringify(result.data));
+    })
+    .catch(err => console.log(err));
   serverResponse.end(JSON.stringify(token))
 })
+
 
 var server = app.listen(port, function () {
   console.log('Listening on port %d', server.address().port);

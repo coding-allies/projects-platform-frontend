@@ -18,6 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "node server/server.js",
+    "oauth": "node server/github_auth.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
