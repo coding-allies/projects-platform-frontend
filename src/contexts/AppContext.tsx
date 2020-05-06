@@ -5,8 +5,8 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 export const AppContext = createContext({});
-const baseUrl = "https://api.shescoding.org";
-// const baseUrl = "http://127.0.0.1:8000";
+// const baseUrl = "https://api.shescoding.org";
+const baseUrl = "http://localhost:5000";
 
 const baseProjectsUrl = `${baseUrl}/projects`;
 
@@ -100,7 +100,7 @@ export const AppContextProvider = (props) => {
   }, []);
 
   const login = () => {
-    window.location.href = `${baseUrl}/accounts/github/login`;
+    window.location.href = `${baseUrl}/auth/github`;
   }
 
   const cleanUp = () => {
