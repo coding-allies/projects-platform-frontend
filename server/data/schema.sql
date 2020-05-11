@@ -16,6 +16,7 @@ CREATE TABLE Projects(
 
 CREATE TABLE Users(
   id SERIAL PRIMARY KEY,
+  token VARCHAR(255),
   experience_lvl SMALLINT,
   position VARCHAR(255),
   github_username VARCHAR(255),
