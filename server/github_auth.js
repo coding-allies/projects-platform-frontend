@@ -12,6 +12,8 @@ client.connect();
 client.on('error', (err)=> console.log(err));
 
 var access_token_store = '';
+var user_data = null;
+var user_token = null;
 
 function User(data) {
   this.token = data.token ? data.token : '';
@@ -58,43 +60,51 @@ githubOAuth.on('error', function (err) {
 
 //get access_token from github and then create a token by jwt
 githubOAuth.on('token', function (token, serverResponse) {
-  access_token_store = token;
-  axios.get('https://api.github.com/user',{
-    headers: {Authorization: 'Bearer ' + token.access_token}
-  })
-    .then(result => {
-      console.log(JSON.stringify(result.data));
-      const user_data = result.data;
-      const new_token = jwt.sign(
-        { userId: user_data.id },
-        process.env.TOKEN_SECRET,
-        { expiresIn: '24h' });
-        // console.log(token);
-      // const newUser = new User({
-      //   token: new_token,  
-      //   github_username: user_data.login, 
-      //   github_id: user_data.id, 
-      //   github_url: user_data.url, 
-      //   avatar_url: user_data.avatar_url, 
-      //   gravatar_url: user_data.gravatar_id
-      // });
-      // console.log('this is the new user created',newUser);
-      // //save user to sql
-      // let { token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined} = newUser;
-      // let SQL = 'INSERT INTO Users(token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
-      // let values = [ token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined];
-
-      // client.query(SQL, values)
-      //   .then(result => console.log(result))
-      //   .catch(err => console.log(err));
-      let SQL = 'INSERT INTO Users(token, github_username, github_id, github_url) VALUES($1, $2, $3, $4) RETURNING id;';
-      client.query(SQL, [new_token, user_data.login, user_data.id, user_data.url])
-        .then(result => console.log(result))
-        .catch(err => console.log(err));
-  })
-  .catch(err => console.log(err));
+  // access_token_store = token;
+  // axios.get('https://api.github.com/user',{
+  //   headers: {Authorization: 'Bearer ' + token.access_token}
+  // })
+  //   .then(result => {
+  //     console.log(JSON.stringify(result.data));
+  //     user_data = result.data;
+  //     user_token = jwt.sign(
+  //       { userId: user_data.id },
+  //       process.env.TOKEN_SECRET,
+  //       { expiresIn: '24h' });
+  //       // console.log(token);    
+  //   })
+  //   .catch(err => console.log(err));
   serverResponse.end(JSON.stringify(token))
 })
+
+//save user data to backend
+// app.get("/user", createUser);
+
+// function createUser(req, res) {
+//   const newUser = new User({
+//     token: user_token,  
+//     github_username: user_data.login, 
+//     github_id: user_data.id, 
+//     github_url: user_data.url, 
+//     avatar_url: user_data.avatar_url, 
+//     gravatar_url: user_data.gravatar_id
+//   });
+//   console.log('this is the new user created',newUser);
+
+  // save user to sql
+  // let { token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined} = newUser;
+  // let SQL = 'INSERT INTO Users(token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
+  // let values = [ newUser.token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
+  // client.query(SQL, values)
+  //   .then(result => console.log('got in sql saving',result))
+  //   .catch(err => console.log(err));
+ 
+//   let SQL = 'INSERT INTO Users(token, github_username, github_id, github_url) VALUES($1, $2, $3, $4) RETURNING id;';
+//   client.query(SQL, ['jdkla298435', 'leylali', 126732, 'leylagitu.com'])
+//     .then(result => console.log(result))
+//     .catch(err => console.log(err));
+
+// }
 
 
 var server = app.listen(port, function () {
