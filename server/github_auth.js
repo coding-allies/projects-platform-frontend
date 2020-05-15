@@ -1,7 +1,7 @@
 var express = require("express"),
   app = express();
 const port = 5000;
-
+require('dotenv').config();
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
