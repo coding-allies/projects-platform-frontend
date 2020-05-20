@@ -1,13 +1,14 @@
-var express = require("express"),
-  app = express();
-const port = 5000;
-require('dotenv').config();
+var express = require("express");
+var router = express.Router();
 const axios = require('axios');
-
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
 
+require('dotenv').config();
+  // app = express();
+const port = process.env.PORT || 5000;
 
+//connect to the database
 const client = new pg.Client(process.env.DATABASE_URL);
 console.log('xxx', process.env.DATABASE_URL);
 client.connect();
@@ -37,7 +38,6 @@ function User(data) {
   this.date_joined = data.date_joined ? data.date_joined : null;
 }
 
-require('dotenv').config();
 var githubOAuth = require('github-oauth')({
   githubClient: process.env.GITHUB_KEY,
   githubSecret: process.env.GITHUB_SECRET,
@@ -47,13 +47,14 @@ var githubOAuth = require('github-oauth')({
   scope: 'user'
 })
 
-app.get("/auth/github", function (req, res) {
+router.get("/auth/github", function (req, res) {
   console.log("started oauth");
   return githubOAuth.login(req, res);
 });
 
-app.get("/auth/github/callback", function (req, res) {
+router.get("/auth/github/callback", function (req, res) {
   console.log("received callback");
+  console.log('this is what we got from the callback', );
   return githubOAuth.callback(req, res);
 });
 
@@ -69,7 +70,7 @@ githubOAuth.on('token', function (token, serverResponse) {
     headers: { Authorization: 'Bearer ' + token.access_token }
   })
     .then(result => {
-      console.log(JSON.stringify(result.data));
+      // console.log('here is the user data from github',JSON.stringify(result.data));
       user_data = result.data;
       user_token = jwt.sign(
         { userId: user_data.id },
@@ -80,6 +81,17 @@ githubOAuth.on('token', function (token, serverResponse) {
     .catch(err => console.log(err));
   serverResponse.end(JSON.stringify(token))
 })
+
+function checkUser(req, res){
+  let SQL = 'SELECT * FROM Users WHERE github_id=$1;';
+  let values = [user_data.id];
+  client.query(SQL,values)
+    .then(result => {
+      console.log('here is the user from SQL',result.rows[0]);
+      return result.rows[0];
+    })
+    .catch(err => {console.log(err)});
+}
 
 
 
@@ -92,14 +104,14 @@ function createUser(req, res) {
     avatar_url: user_data.avatar_url,
     gravatar_url: user_data.gravatar_id
   });
-  console.log('XXXX this is the new user created', newUser);
+  // console.log('XXXX this is the new user created', newUser);
 
   // save user to sql
   // let { token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined } = newUser;
   let SQL = 'INSERT INTO users (token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
   let values = [newUser.token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
 
-  console.log("the query", SQL);
+  // console.log("the query", SQL);
   client.query(SQL, values)
     .then(result => console.log('XXXX got in sql saving', result))
     .catch(err => console.log(err));
@@ -110,34 +122,29 @@ function createUser(req, res) {
   //     .catch(err => console.log(err));
 
 }
+
+function userAuthentication(req, res){
+  let user = checkUser(req, res);
+  if(user !== undefined){
+    return res.json(user.token);
+  }else{
+    createUser(req, res);
+  }
+}
+
+
+//check if user is in psql already
+app.get("/login", checkUser);
 //save user data to backend
-app.get("/user", createUser);
+app.get("/signup", createUser);
+//check psql before creating a new user
+router.get("/auth", userAuthentication)
 
 
 
-var server = app.listen(port, function () {
-  console.log('Listening on port %d', server.address().port);
-});
+// var server = app.listen(port, function () {
+//   console.log('Listening on port %d', server.address().port);
+// });
 
-// token VARCHAR(255),
-//   experience_lvl SMALLINT, null
-//   position VARCHAR(255), null
-//   github_username VARCHAR(255), user.login
-//   github_id INTEGER, user.id
-//   github_url VARCHAR(255), user.url
-//   avatar_url VARCHAR(255), user.avatar_url
-//   gravatar_url VARCHAR(255), user.gravatar_id
-//   last_login TIMESTAMP, null
-//   is_superuser BOOLEAN, false
-//   username VARCHAR(150), null
-//   first_name VARCHAR(30), null
-//   last_name VARCHAR(150), null
-//   email VARCHAR(254), null
-//   is_active BOOLEAN, null
-//   date_joined TIMESTAMPTZ null
 
-// id SERIAL PRIMARY KEY,
-// token VARCHAR(255),
-// github_username VARCHAR(255),
-// github_id INTEGER,
-// github_url VARCHAR(255)
+module.exports = router;

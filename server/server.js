@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
 
+const oauthRoutes = require('./github_auth');
 
 require('dotenv').config();
 
@@ -14,6 +15,8 @@ client.on('error', (err)=> console.log(err));
 
 app.use(cors());
 app.use(express.json());
+
+app.use(oauthRoutes);
 
 // app.get('/user', createUser);
 
