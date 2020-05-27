@@ -18,6 +18,7 @@ client.on('error', (err) => console.log(err));
 var access_token_store = '';
 var user_data = null;
 var user_token = null;
+var githubCode = null;
 
 function User(data) {
   this.token = data.token ? data.token : '';
@@ -54,9 +55,18 @@ router.get("/auth/github", function (req, res) {
 
 router.get("/auth/github/callback", function (req, res) {
   console.log("received callback");
-  console.log('this is what we got from the callback', );
+  githubCode = req.originalUrl.split('code')[1].split('=')[1].split('&')[0];
+  // console.log('this is what we got from the callback', githubCode);
+  // console.log('this is from the call back route',githubOAuth.callback(req, res));
   return githubOAuth.callback(req, res);
 });
+
+// var resultWithAccess = axios.post('https://github.com/login/oauth/access_token',
+//                           {client_id: process.env.GITHUB_KEY,
+//                            client_secret: process.env.GITHUB_SECRET,
+//                            code: githubCode},
+//                            accept = 'json')
+//                            .then(result => {console.log(result.access_token)});
 
 githubOAuth.on('error', function (err) {
   console.error('there was a login error', err)
@@ -134,9 +144,9 @@ function userAuthentication(req, res){
 
 
 //check if user is in psql already
-app.get("/login", checkUser);
+// app.get("/login", checkUser);
 //save user data to backend
-app.get("/signup", createUser);
+// app.get("/signup", createUser);
 //check psql before creating a new user
 router.get("/auth", userAuthentication)
 
@@ -148,3 +158,4 @@ router.get("/auth", userAuthentication)
 
 
 module.exports = router;
+
