@@ -20,6 +20,7 @@ app.use(oauthRoutes);
 
 // app.get('/user', createUser);
 
+
 // function createUser(req, res) {
 //   let SQL = 'INSERT INTO Users(token, github_username, github_id, github_url) VALUES($1, $2, $3, $4) RETURNING id;';
 //   client.query(SQL, ['jdkla298435', 'leylali', 126732, 'leylagitu.com'])

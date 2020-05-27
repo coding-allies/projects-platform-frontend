@@ -55,11 +55,11 @@ router.get("/auth/github", function (req, res) {
 
 router.get("/auth/github/callback", function (req, res) {
   console.log("received callback");
-  githubCode = req.originalUrl.split('code')[1].split('=')[1].split('&')[0];
-  // console.log('this is what we got from the callback', githubCode);
+  githubCode = req.query.code;
+  console.log('this is what we got from the callback', githubCode);
   // console.log('this is from the call back route',githubOAuth.callback(req, res));
   return githubOAuth.callback(req, res);
-});
+})
 
 // var resultWithAccess = axios.post('https://github.com/login/oauth/access_token',
 //                           {client_id: process.env.GITHUB_KEY,
@@ -74,7 +74,7 @@ githubOAuth.on('error', function (err) {
 
 //get access_token from github and then create a token by jwt
 githubOAuth.on('token', function (token, serverResponse) {
-  console.log("github token", token);
+  // console.log("github token", token);
   access_token_store = token;
   axios.get('https://api.github.com/user', {
     headers: { Authorization: 'Bearer ' + token.access_token }
