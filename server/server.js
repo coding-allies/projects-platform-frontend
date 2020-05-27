@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
 
-const oauthRoutes = require('./github_auth');
+// const oauthRoutes = require('./github_auth');
+const oauthRoutes = require('./github_oauth');
+
+
 
 require('dotenv').config();
 

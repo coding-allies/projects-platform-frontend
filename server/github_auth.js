@@ -56,7 +56,7 @@ router.get("/auth/github", function (req, res) {
 router.get("/auth/github/callback", function (req, res) {
   console.log("received callback");
   githubCode = req.query.code;
-  console.log('this is what we got from the callback', githubCode);
+  // console.log('this is what we got from the callback', githubCode);
   // console.log('this is from the call back route',githubOAuth.callback(req, res));
   return githubOAuth.callback(req, res);
 })

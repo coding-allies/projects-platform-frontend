@@ -5,9 +5,11 @@
   "dependencies": {
     "axios": "0.19.1",
     "classnames": "2.2.6",
+    "cookie-session": "^1.4.0",
     "cors": "2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.0",
     "pg": "8.0.3",
     "react": "16.10.2",
     "react-dom": "16.10.2",
