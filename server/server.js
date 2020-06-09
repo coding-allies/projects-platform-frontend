@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
+const session = require('express-session');
 
 // const oauthRoutes = require('./github_auth');
 const oauthRoutes = require('./github_oauth');
@@ -19,6 +20,7 @@ client.on('error', (err)=> console.log(err));
 app.use(cors());
 app.use(express.json());
 
+app.use(session({ resave: true ,secret: '123456' , saveUninitialized: true}));
 app.use(oauthRoutes);
 
 // app.get('/user', createUser);
