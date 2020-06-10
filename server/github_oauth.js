@@ -23,6 +23,26 @@ client.connect();
 client.on('error', (err) => console.log(err));
 
 
+function User(data) {
+  this.token = data.token ? data.token : '';
+  this.experience_lvl = data.experience_lvl ? data.experience_lvl : 0;
+  this.position = data.position ? data.position : '';
+  this.github_username = data.github_username ? data.github_username : '';
+  this.github_id = data.github_id ? data.github_id : '';
+  this.github_url = data.github_url ? data.github_url : '';
+  this.avatar_url = data.avatar_url ? data.avatar_url : '';
+  this.gravatar_url = data.gravatar_url ? data.gravatar_url : '';
+  this.last_login = data.last_login ? data.last_login : null;
+  this.is_superuser = data.is_superuser ? data.is_superuser : false;
+  this.username = data.username ? data.username : '';
+  this.first_name = data.first_name ? data.first_name : '';
+  this.last_name = data.last_name ? data.last_name : '';
+  this.email = data.email ? data.email : '';
+  this.is_active = data.is_active ? data.is_active : true;
+  this.date_joined = data.date_joined ? data.date_joined : null;
+}
+
+
 router.get("/", (req, res) => {
   res.send("Hello GitHub auth");
 });
@@ -47,11 +67,8 @@ router.get("/auth/github/callback", async (req, res) => {
     .then(user => {
       console.log('this is user within user', user);
       if (user) {
-        // console.log('this is the req from call back');
-        req.session.access_token = access_token;
-        req.session.githubId = user.id;
-        res.redirect("/admin");
-      
+        console.log('this is the req from call back');
+        userAuthentication(user, access_token);
       } else {
         res.status(400).send("Login did not succeed!");
       }
@@ -60,15 +77,6 @@ router.get("/auth/github/callback", async (req, res) => {
 
 });
 
-router.get("/admin", async (req, res) => {
-  // if (req.session && req.session.githubId === 36176567) {
-  //   res.send("Hello Leyla <pre>" + JSON.stringify(req.session, null, 2));
-  //   // Possible use "fetchGitHubUser" with the access_token
-  // } else {
-  //   res.redirect("/auth/github");
-  // }
-
-});
 
 async function getAccessToken(code, client_id, client_secret) {
   console.log('this is the arguments for post request', code, client_id, client_secret);
@@ -120,9 +128,19 @@ function checkUser(userId){
     .catch(err => {console.log(err)});
 }
 
+function userAuthentication(user_data, token){
+  let user = checkUser(user_data.id);
+  if(user !== undefined){
+    console.log('xxxx have user within authentication', user.token);
+    return res.json(user.token);
+  }else{
+    console.log('xxx get in creating new user');
+    createUser(user_data,token);
+  }
+}
 
 
-function createUser(req, res) {
+function createUser(user_data,user_token) {
   const newUser = new User({
     token: user_token,
     github_username: user_data.login,
@@ -131,10 +149,9 @@ function createUser(req, res) {
     avatar_url: user_data.avatar_url,
     gravatar_url: user_data.gravatar_id
   });
-  // console.log('XXXX this is the new user created', newUser);
+  console.log('XXXX this is the new user created', newUser);
 
   // save user to sql
-  // let { token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined } = newUser;
   let SQL = 'INSERT INTO users (token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
   let values = [newUser.token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
 
@@ -143,21 +160,8 @@ function createUser(req, res) {
     .then(result => console.log('XXXX got in sql saving', result))
     .catch(err => console.log(err));
 
-  //   let SQL = 'INSERT INTO Users(token, github_username, github_id, github_url) VALUES($1, $2, $3, $4) RETURNING id;';
-  //   client.query(SQL, ['jdkla298435', 'leylali', 126732, 'leylagitu.com'])
-  //     .then(result => console.log(result))
-  //     .catch(err => console.log(err));
-
 }
 
-function userAuthentication(req, res){
-  let user = checkUser(req, res);
-  if(user !== undefined){
-    return res.json(user.token);
-  }else{
-    createUser(req, res);
-  }
-}
 
 // router.get("/logout", (req, res) => {
 //   if (req.session) req.session = null;
