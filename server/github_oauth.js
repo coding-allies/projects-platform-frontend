@@ -7,7 +7,6 @@ const pg = require('pg');
 const jwt = require('jsonwebtoken');
 const fetch = require('node-fetch');
 const axios = require('axios');
-const url = require('url');
 
 
 require('dotenv').config();
@@ -55,7 +54,8 @@ router.get("/auth/github", (req, res) => {
 
 router.get("/auth/github/callback", async (req, res) => {
   const code = req.query.code;
-  let access_token = await getAccessToken(code, client_id, client_secret).then((access_token) => {
+  let access_token = await getAccessToken(code, client_id, client_secret)
+  .then((access_token) => {
     console.log("CALLBACK access_token", access_token);
     return access_token;
   }).catch(error => {
@@ -68,7 +68,11 @@ router.get("/auth/github/callback", async (req, res) => {
       console.log('this is user within user', user);
       if (user) {
         console.log('this is the req from call back');
-        userAuthentication(user, access_token);
+        const user_token = jwt.sign(
+          { userId: user.id },
+          process.env.TOKEN_SECRET,
+          { expiresIn: '24h' });
+        userAuthentication(user, user_token);
       } else {
         res.status(400).send("Login did not succeed!");
       }
@@ -117,10 +121,11 @@ async function fetchGitHubUser(token) {
 
 
 
-function checkUser(userId){
+async function checkUser(userId){
   let SQL = 'SELECT * FROM Users WHERE github_id=$1;';
+  console.log('this is the userid from checkUser', userId);
   let values = [userId];
-  client.query(SQL,values)
+  await client.query(SQL,values)
     .then(result => {
       console.log('here is the user from SQL',result.rows[0]);
       return result.rows[0];
@@ -128,11 +133,19 @@ function checkUser(userId){
     .catch(err => {console.log(err)});
 }
 
-function userAuthentication(user_data, token){
-  let user = checkUser(user_data.id);
+async function userAuthentication(user_data, token){
+  let user = await checkUser(user_data.id);
+  console.log('within user authentication user from checking', user);
   if(user !== undefined){
     console.log('xxxx have user within authentication', user.token);
-    return res.json(user.token);
+    let SQL = 'UPDATE Users SET token = $1 WHERE token=$2;';
+    let values = [token, user.token];
+    client.query(SQL,values)
+      .then(result => {
+        console.log('here is the user with new token',result);
+        return result;
+      })
+      .catch(err => {console.log(err)});
   }else{
     console.log('xxx get in creating new user');
     createUser(user_data,token);
