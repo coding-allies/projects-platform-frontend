@@ -55,16 +55,18 @@ router.get("/auth/github", (req, res) => {
 router.get("/auth/github/callback", async (req, res) => {
   const code = req.query.code;
   let access_token = await getAccessToken(code, client_id, client_secret)
-  .then((access_token) => {
-    console.log("CALLBACK access_token", access_token);
-    return access_token;
-  }).catch(error => {
-    console.error("Error", error);
-  });
-
-
-  let user = await fetchGitHubUser(access_token)
-    .then(user => {
+    .then((access_token) => {
+      console.log("CALLBACK access_token", access_token);
+      return access_token;
+    }).catch(error => {
+      console.error("Error", error);
+      return null;
+    });
+  if (access_token === null) {
+    res.status(400).send("Error: could not get access token from Github");
+  }
+  await fetchGitHubUser(access_token)
+    .then(async (user) => {
       console.log('this is user within user', user);
       if (user) {
         console.log('this is the req from call back');
@@ -72,12 +74,15 @@ router.get("/auth/github/callback", async (req, res) => {
           { userId: user.id },
           process.env.TOKEN_SECRET,
           { expiresIn: '24h' });
-        userAuthentication(user, user_token);
+        await checkUser(user, user_token, res);
       } else {
-        res.status(400).send("Login did not succeed!");
+        res.status(400).send("Error: Github user is null");
       }
     })
-    .catch(err => {console.log(`This is an error from fetching github user ${err}`)});
+    .catch(err => {
+      console.log(`This is an error from fetching github user ${err}`);
+      res.status(400).send("Error: Could not get user from Github");
+    });
 
 });
 
@@ -103,7 +108,8 @@ async function getAccessToken(code, client_id, client_secret) {
     return access_token;
   })
     .catch(err => {
-      console.log('Error ' + err.message)
+      console.log('Error ' + err.message);
+      throw err;
     });
   return result;
 }
@@ -115,45 +121,47 @@ async function fetchGitHubUser(token) {
       Authorization: "token " + token
     }
   });
-  
+
   return await request.json();
 }
 
 
 
-async function checkUser(userId){
+async function checkUser(user_data, token, res) {
   let SQL = 'SELECT * FROM Users WHERE github_id=$1;';
-  console.log('this is the userid from checkUser', userId);
-  let values = [userId];
-  await client.query(SQL,values)
+  console.log('this is the userid from checkUser', user_data.id);
+  let values = [user_data.id];
+  await client.query(SQL, values)
     .then(result => {
-      console.log('here is the user from SQL',result.rows[0]);
-      return result.rows[0];
+      const user = result.rows[0];
+      console.log('here is the user from SQL', user);
+      if (user !== undefined) {
+        console.log('xxxx have user within authentication', user.token);
+        let SQL = 'UPDATE Users SET token = $1 WHERE token=$2;';
+        let values = [token, user.token];
+        client.query(SQL, values)
+          .then(result => {
+            console.log('here is the user with new token', result);
+            res.redirect("/");
+          })
+          .catch(err => {
+            console.log(err);
+            throw err;
+          });
+      } else {
+        console.log('xxx get in creating new user');
+        createUser(user_data, token);
+        res.redirect("/");
+      }
     })
-    .catch(err => {console.log(err)});
-}
-
-async function userAuthentication(user_data, token){
-  let user = await checkUser(user_data.id);
-  console.log('within user authentication user from checking', user);
-  if(user !== undefined){
-    console.log('xxxx have user within authentication', user.token);
-    let SQL = 'UPDATE Users SET token = $1 WHERE token=$2;';
-    let values = [token, user.token];
-    client.query(SQL,values)
-      .then(result => {
-        console.log('here is the user with new token',result);
-        return result;
-      })
-      .catch(err => {console.log(err)});
-  }else{
-    console.log('xxx get in creating new user');
-    createUser(user_data,token);
-  }
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 }
 
 
-function createUser(user_data,user_token) {
+function createUser(user_data, user_token) {
   const newUser = new User({
     token: user_token,
     github_username: user_data.login,
@@ -171,7 +179,7 @@ function createUser(user_data,user_token) {
   // console.log("the query", SQL);
   client.query(SQL, values)
     .then(result => console.log('XXXX got in sql saving', result))
-    .catch(err => console.log(err));
+    .catch(err => { console.log(err); throw err; });
 
 }
 
