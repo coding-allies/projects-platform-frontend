@@ -35,11 +35,3 @@ CREATE TABLE Users
   is_active BOOLEAN,
   date_joined TIMESTAMPTZ
 );
-
--- CREATE TABLE Users(
---   id SERIAL PRIMARY KEY,
---   token VARCHAR(255),
---   github_username VARCHAR(255),
---   github_id INTEGER,
---   github_url VARCHAR(255)
--- );
