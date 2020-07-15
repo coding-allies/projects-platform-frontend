@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Projects;
 
-CREATE TABLE Projects(
+CREATE TABLE Projects
+(
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
   github_url VARCHAR(255),
@@ -14,8 +15,10 @@ CREATE TABLE Projects(
   tags TEXT
 );
 
-CREATE TABLE Users(
+CREATE TABLE Users
+(
   id SERIAL PRIMARY KEY,
+  token VARCHAR(255),
   experience_lvl SMALLINT,
   position VARCHAR(255),
   github_username VARCHAR(255),
