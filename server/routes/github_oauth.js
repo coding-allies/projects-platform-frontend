@@ -113,14 +113,16 @@ async function checkUser(user_data, token, res) {
         let values = [token, user.token];
         client.query(SQL, values)
           .then(result => {
-            res.redirect("/");
+            res.redirect("http://localhost:3000/#/token/" + token);
+            console.log('in checkUser,token:', token);
+            //"http://localhost:3000/#/token/" + token
           })
           .catch(err => {
             throw err;
           });
       } else {
         createUser(user_data, token);
-        res.redirect("/");
+        res.redirect("http://localhost:3000/#/token/" + token);
       }
     })
     .catch(err => {
