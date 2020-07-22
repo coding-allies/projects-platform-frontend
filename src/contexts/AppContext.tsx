@@ -76,7 +76,8 @@ export const AppContextProvider = (props) => {
   }
 
   const fetchUserData = async () => {
-    const result = await fetch('/user/');
+    const result = await fetch('/user/'); // pass the token
+    console.log("fetchUserData", result);
     setUser(result.data.user);
   };
 
@@ -93,8 +94,15 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
+    console.log("TOKEN IN USE EFFECTS", token);
     if (token) {
       fetchUserData();
+      // setUser({
+      //   name: "BOB",
+      //   is_authenticated: true,
+      //   csrf_token: "",
+      //   auth_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM3MzM3NzMsImlhdCI6MTU5NTM4MzU3NiwiZXhwIjoxNTk1NDY5OTc2fQ.ooaEBz73JfP-ih3Zx3pnEoxgxnRQbiv-5Li1AApfyZo",
+      // });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

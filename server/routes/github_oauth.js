@@ -114,7 +114,7 @@ async function checkUser(user_data, token, res) {
         client.query(SQL, values)
           .then(result => {
             res.redirect("http://localhost:3000/#/token/" + token);
-            console.log('in checkUser,token:', token);
+            console.log('in checkUser token:', token);
             //"http://localhost:3000/#/token/" + token
           })
           .catch(err => {
@@ -146,6 +146,33 @@ function createUser(user_data, user_token) {
   client.query(SQL, values)
 }
 
+async function getUser(token, res) {
+  let SQL = 'SELECT * FROM Users WHERE token=$1;';
+  let values = [token];
+  await client.query(SQL, values)
+    .then(result => {
+      const user = result.rows[0];
+      if (user !== undefined) {
+        console.log("USER", user);
+        return res.json({ user });
+      } else {
+        console.log("DID NOT GET USER");
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+router.get("/projects/user/", async (req, res) => {
+  console.log("IN THE USER API");
+  // TODO: pass token from front end
+  // make sure user is found in the DB
+  // return user
+  // make sure the authentication flow works. click signin-> authenticate with github=> return to home page
+  // implement sign out
+  await getUser("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM3MzM3NzMsImlhdCI6MTU5NTM4MzU3NiwiZXhwIjoxNTk1NDY5OTc2fQ.ooaEBz73JfP-ih3Zx3pnEoxgxnRQbiv-5Li1AApfyZo", res);
+});
 // router.get("/logout", (req, res) => {
 //   if (req.session) req.session = null;
 //   res.redirect("/");

@@ -9,7 +9,6 @@ import Welcome from "./pages/Welcome";
 import AddProject from "./pages/AddProject";
 
 function App() {
-
   return (
     <div className="App">
       <AppContextProvider>
