@@ -57,11 +57,11 @@ router.get("/auth/github/callback", async (req, res) => {
   await fetchGitHubUser(access_token)
     .then(async (user) => {
       if (user) {
-        const user_token = jwt.sign(
+        const auth_token = jwt.sign(
           { userId: user.id },
           process.env.TOKEN_SECRET,
           { expiresIn: '24h' });
-        await checkUser(user, user_token, res);
+        await checkUser(user, auth_token, res);
       } else {
         res.status(400).send("Error: Github user is null");
       }
@@ -102,7 +102,7 @@ async function fetchGitHubUser(token) {
   return await request.json();
 }
 
-async function checkUser(user_data, token, res) {
+async function checkUser(user_data, auth_token, res) {
   let SQL = 'SELECT * FROM Users WHERE github_id=$1;';
   let values = [user_data.id];
   await client.query(SQL, values)
@@ -110,19 +110,17 @@ async function checkUser(user_data, token, res) {
       const user = result.rows[0];
       if (user !== undefined) {
         let SQL = 'UPDATE Users SET token = $1 WHERE token=$2;';
-        let values = [token, user.token];
+        let values = [auth_token, user.token];
         client.query(SQL, values)
           .then(result => {
-            res.redirect("http://localhost:3000/#/token/" + token);
-            console.log('in checkUser token:', token);
-            //"http://localhost:3000/#/token/" + token
+            res.redirect("http://localhost:3000/#/token/" + auth_token);
           })
           .catch(err => {
             throw err;
           });
       } else {
-        createUser(user_data, token);
-        res.redirect("http://localhost:3000/#/token/" + token);
+        createUser(user_data, auth_token);
+        res.redirect("http://localhost:3000/#/token/" + auth_token);
       }
     })
     .catch(err => {
@@ -130,9 +128,9 @@ async function checkUser(user_data, token, res) {
     });
 }
 
-function createUser(user_data, user_token) {
+function createUser(user_data, auth_token) {
   const newUser = new User({
-    token: user_token,
+    token: auth_token,
     github_username: user_data.login,
     github_id: user_data.id,
     github_url: user_data.url,
@@ -146,15 +144,16 @@ function createUser(user_data, user_token) {
   client.query(SQL, values)
 }
 
-async function getUser(token, res) {
+async function getUser(auth_token, res) {
   let SQL = 'SELECT * FROM Users WHERE token=$1;';
-  let values = [token];
+  let values = [auth_token];
   await client.query(SQL, values)
     .then(result => {
       const user = result.rows[0];
+      console.log("result", result);
       if (user !== undefined) {
         console.log("USER", user);
-        return res.json({ user });
+        return user;
       } else {
         console.log("DID NOT GET USER");
       }
@@ -164,18 +163,34 @@ async function getUser(token, res) {
     });
 }
 
+const getToken = (tokenString) => {
+  if (tokenString === null || tokenString === undefined || tokenString === "") {
+    return null;
+  }
+  const token = tokenString.split(" ")[1];
+  return token;
+}
 router.get("/projects/user/", async (req, res) => {
-  console.log("IN THE USER API");
-  // TODO: pass token from front end
-  // make sure user is found in the DB
-  // return user
+  console.log("IN THE USER API", req.headers);
+  const auth_token = getToken(req.headers.authorization);
+  if (auth_token === null) {
+    return res.sendStatus(401);
+  }
   // make sure the authentication flow works. click signin-> authenticate with github=> return to home page
   // implement sign out
-  await getUser("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM3MzM3NzMsImlhdCI6MTU5NTM4MzU3NiwiZXhwIjoxNTk1NDY5OTc2fQ.ooaEBz73JfP-ih3Zx3pnEoxgxnRQbiv-5Li1AApfyZo", res);
+  const user = await getUser(auth_token, res);
+  console.log("user about to be returned in User API", user);
+  const authUser = {
+    name: "Bob Marley", // TODO: figure out how to get naming set and retrieved correctly
+    is_authenticated: true,
+    auth_token: auth_token,
+  };
+  return res.json(authUser);
 });
 // router.get("/logout", (req, res) => {
 //   if (req.session) req.session = null;
 //   res.redirect("/");
 // });
+
 
 module.exports = router;

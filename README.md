@@ -49,3 +49,19 @@ Runs the backend server on port 5000.<br />
   1. connect to psql server. (run ```psqlbrew services start postgresql``` for Mac or ```sudo service postgresql start``` for windows and linux)
   2. connect schema.sql to psal (run ```psql -d YOUR-DB-NAME -f FILE/PATH/TO/schema.sql;```)
   3. check if db is updated(run ```\c scproject;``` to go into db, then run ```\d;``` to see if tables are created, lastly run ```SELECT * FROM table-name;``` to check the contents in that table)
+
+# `Authentication & re-authentication flow`
+
+## `Authentication flow`
+
+Get github auth token first and:
+
+- if already exist in our db - create a new auth_token and send it back.
+- if new user - create a new auth_token and send it back.
+
+Calling user API flow in use effects - (periodically validating the token):
+
+- Pass the token in authorization header.
+- In API check for db:
+  - if not there, sign out & redirect;
+  - if there, return user object.

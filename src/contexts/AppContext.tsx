@@ -13,7 +13,6 @@ const baseProjectsUrl = `${baseUrl}/projects`;
 const mockUser: User = {
   name: "",
   is_authenticated: false,
-  csrf_token: "",
   auth_token: "",
 };
 
@@ -78,7 +77,7 @@ export const AppContextProvider = (props) => {
   const fetchUserData = async () => {
     const result = await fetch('/user/'); // pass the token
     console.log("fetchUserData", result);
-    setUser(result.data.user);
+    setUser(result.data);
   };
 
   const fetchProjectData = async () => {
