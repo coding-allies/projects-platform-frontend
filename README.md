@@ -52,12 +52,12 @@ Runs the backend server on port 5000.<br />
 
 # `Authentication & re-authentication flow`
 
-## `Authentication flow`
+## `Authentication flow at Login`
 
 Get github auth token first and:
 
-- if already exist in our db - create a new auth_token and send it back.
-- if new user - create a new auth_token and send it back.
+- if github_token already exist in our db - create a new auth_token and update the DB and send it back.
+- if github_token does not exist in db - create a new user with auth_token and send it back.
 
 Calling user API flow in use effects - (periodically validating the token):
 

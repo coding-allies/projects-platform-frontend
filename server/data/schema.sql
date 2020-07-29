@@ -14,11 +14,12 @@ CREATE TABLE Projects
   contributors TEXT,
   tags TEXT
 );
-
+-- TODO: remigrate the DB here
 CREATE TABLE Users
 (
   id SERIAL PRIMARY KEY,
-  token VARCHAR(255),
+  github_token VARCHAR(255),
+  auth_token VARCHAR(255),
   experience_lvl SMALLINT,
   position VARCHAR(255),
   github_username VARCHAR(255),

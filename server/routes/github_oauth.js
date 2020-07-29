@@ -57,11 +57,7 @@ router.get("/auth/github/callback", async (req, res) => {
   await fetchGitHubUser(access_token)
     .then(async (user) => {
       if (user) {
-        const auth_token = jwt.sign(
-          { userId: user.id },
-          process.env.TOKEN_SECRET,
-          { expiresIn: '24h' });
-        await checkUser(user, auth_token, res);
+        await checkUser(user, access_token, res);
       } else {
         res.status(400).send("Error: Github user is null");
       }
@@ -102,15 +98,19 @@ async function fetchGitHubUser(token) {
   return await request.json();
 }
 
-async function checkUser(user_data, auth_token, res) {
-  let SQL = 'SELECT * FROM Users WHERE github_id=$1;';
-  let values = [user_data.id];
+async function checkUser(user_data, github_token, res) {
+  let SQL = 'SELECT * FROM Users WHERE github_token=$1;';
+  let values = [github_token];
   await client.query(SQL, values)
     .then(result => {
       const user = result.rows[0];
       if (user !== undefined) {
-        let SQL = 'UPDATE Users SET token = $1 WHERE token=$2;';
-        let values = [auth_token, user.token];
+        const auth_token = jwt.sign(
+          { userId: user.id },
+          process.env.TOKEN_SECRET,
+          { expiresIn: '24h' });
+        let SQL = 'UPDATE Users SET auth_token = $1 WHERE github_token=$2;';
+        let values = [auth_token, github_token];
         client.query(SQL, values)
           .then(result => {
             res.redirect("http://localhost:3000/#/token/" + auth_token);
@@ -119,7 +119,7 @@ async function checkUser(user_data, auth_token, res) {
             throw err;
           });
       } else {
-        createUser(user_data, auth_token);
+        const auth_token = createUser(user_data, github_token);
         res.redirect("http://localhost:3000/#/token/" + auth_token);
       }
     })
@@ -128,9 +128,15 @@ async function checkUser(user_data, auth_token, res) {
     });
 }
 
-function createUser(user_data, auth_token) {
+function createUser(user_data, github_token) {
+  const auth_token = jwt.sign(
+    { userId: user_data.id },
+    process.env.TOKEN_SECRET,
+    { expiresIn: '24h' });
+
   const newUser = new User({
-    token: auth_token,
+    auth_token: auth_token,
+    github_token: github_token,
     github_username: user_data.login,
     github_id: user_data.id,
     github_url: user_data.url,
@@ -142,6 +148,12 @@ function createUser(user_data, auth_token) {
   let SQL = 'INSERT INTO users (token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
   let values = [newUser.token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
   client.query(SQL, values)
+    .then(() => {
+      return auth_token;
+    })
+    .catch(err => {
+      throw err;
+    });
 }
 
 async function getUser(auth_token, res) {
@@ -187,10 +199,12 @@ router.get("/projects/user/", async (req, res) => {
   };
   return res.json(authUser);
 });
-// router.get("/logout", (req, res) => {
-//   if (req.session) req.session = null;
-//   res.redirect("/");
-// });
+
+
+router.get("/projects/logout/", (req, res) => {
+  // TODO: delete auth_token from db
+  res.redirect("/");
+});
 
 
 module.exports = router;
