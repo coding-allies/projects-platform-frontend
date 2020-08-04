@@ -16,7 +16,8 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.connect()
 
 function User(data) {
-  this.token = data.token ? data.token : '';
+  this.auth_token = data.auth_token ? data.auth_token : '';
+  this.github_token = data.github_token ? data.github_token : '';
   this.experience_lvl = data.experience_lvl ? data.experience_lvl : 0;
   this.position = data.position ? data.position : '';
   this.github_username = data.github_username ? data.github_username : '';
@@ -145,8 +146,8 @@ function createUser(user_data, github_token) {
   });
 
   // save user to sql
-  let SQL = 'INSERT INTO users (token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
-  let values = [newUser.token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
+  let SQL = 'INSERT INTO users (auth_token, github_token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
+  let values = [newUser.auth_token, newUser.github_token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
   client.query(SQL, values)
     .then(() => {
       return auth_token;
@@ -157,7 +158,7 @@ function createUser(user_data, github_token) {
 }
 
 async function getUser(auth_token, res) {
-  let SQL = 'SELECT * FROM Users WHERE token=$1;';
+  let SQL = 'SELECT * FROM Users WHERE auth_token=$1;';
   let values = [auth_token];
   await client.query(SQL, values)
     .then(result => {
