@@ -100,18 +100,18 @@ async function fetchGitHubUser(token) {
 }
 
 async function checkUser(user_data, github_token, res) {
-  let SQL = 'SELECT * FROM Users WHERE github_token=$1;';
-  let values = [github_token];
+  let SQL = 'SELECT * FROM Users WHERE github_id=$1;';
+  let values = [user_data.github_id];
   await client.query(SQL, values)
-    .then(result => {
+    .then(async (result) => {
       const user = result.rows[0];
       if (user !== undefined) {
         const auth_token = jwt.sign(
           { userId: user.id },
           process.env.TOKEN_SECRET,
           { expiresIn: '24h' });
-        let SQL = 'UPDATE Users SET auth_token = $1 WHERE github_token=$2;';
-        let values = [auth_token, github_token];
+        let SQL = 'UPDATE Users SET auth_token = $1 WHERE github_id=$2;';
+        let values = [auth_token, user_data.github_id];
         client.query(SQL, values)
           .then(result => {
             res.redirect("http://localhost:3000/#/token/" + auth_token);
@@ -120,7 +120,8 @@ async function checkUser(user_data, github_token, res) {
             throw err;
           });
       } else {
-        const auth_token = createUser(user_data, github_token);
+        const auth_token = await createUser(user_data, github_token);
+
         res.redirect("http://localhost:3000/#/token/" + auth_token);
       }
     })
@@ -129,7 +130,7 @@ async function checkUser(user_data, github_token, res) {
     });
 }
 
-function createUser(user_data, github_token) {
+async function createUser(user_data, github_token) {
   const auth_token = jwt.sign(
     { userId: user_data.id },
     process.env.TOKEN_SECRET,
@@ -139,38 +140,37 @@ function createUser(user_data, github_token) {
     auth_token: auth_token,
     github_token: github_token,
     github_username: user_data.login,
-    github_first_name:user_data.first_name,
-    github_last_name:user_data.last_name,
+    github_first_name: user_data.first_name,
+    github_last_name: user_data.last_name,
     github_id: user_data.id,
     github_url: user_data.url,
     avatar_url: user_data.avatar_url,
     gravatar_url: user_data.gravatar_id
   });
-
+  //1. returning somehwere
+  // 2. github and auth token are
   // save user to sql
-  let SQL = 'INSERT INTO users (auth_token, github_token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
+  let SQL = 'INSERT INTO users (auth_token, github_token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING id;';
   let values = [newUser.auth_token, newUser.github_token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
-  client.query(SQL, values)
+  return client.query(SQL, values)
     .then(() => {
       return auth_token;
     })
     .catch(err => {
       throw err;
+
     });
 }
 
 async function getUser(auth_token, res) {
   let SQL = 'SELECT * FROM Users WHERE auth_token=$1;';
   let values = [auth_token];
-  await client.query(SQL, values)
+  return client.query(SQL, values)
     .then(result => {
       const user = result.rows[0];
-      console.log("result", result);
       if (user !== undefined) {
-        console.log("USER", user);
         return user;
       } else {
-        console.log("DID NOT GET USER");
       }
     })
     .catch(err => {
@@ -187,15 +187,17 @@ const getToken = (tokenString) => {
 }
 
 const checkName = user => {
-  if(user.first_name === '' || user.last_name === ''){
+  if (user === undefined) {
+    return "Error";
+  }
+  if ('first_name' in user || 'last_name' in user || user.first_name === '' || user.last_name === '') {
     return user.github_username;
-  }else{
+  } else {
     return `${user.first_name} ${user.last_name}`;
   }
 }
 
 router.get("/projects/user/", async (req, res) => {
-  console.log("IN THE USER API", req.headers);
   const auth_token = getToken(req.headers.authorization);
   if (auth_token === null) {
     return res.sendStatus(401);
@@ -203,8 +205,7 @@ router.get("/projects/user/", async (req, res) => {
   // make sure the authentication flow works. click signin-> authenticate with github=> return to home page
   // implement sign out
   const user = await getUser(auth_token, res);
-  const name = checkName();
-  console.log("user about to be returned in User API", user);
+  const name = checkName(user);
   const authUser = {
     name: name, // TODO: figure out how to get naming set and retrieved correctly
     is_authenticated: true,
@@ -222,7 +223,7 @@ router.get("/projects/logout/", (req, res) => {
   }
   let SQL = 'SELECT * FROM Users WHERE auth_token=$1;';
   let values = [auth_token];
-  client.query(SQL, values)
+  return client.query(SQL, values)
     .then(result => {
       const user = result.rows[0];
       if (user !== undefined) {

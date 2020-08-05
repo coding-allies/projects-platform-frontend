@@ -25,8 +25,11 @@ export const AppContextProvider = (props) => {
 
   const getToken = () => {
     const token = Cookies.get("auth_token");
-    if (!!token) { return token; }
+    if (token !== undefined && token !== 'undefined') {
+      return token;
+    }
     cleanUp();
+    return null;
   }
 
   const validateResponse = (response) => {
@@ -36,12 +39,21 @@ export const AppContextProvider = (props) => {
     };
   }
 
+  const getTokenAuthorization = () => {
+    const token = getToken();
+    let tokenString = '';
+    if (!!token) {
+      tokenString = `Token ${token}`;
+    }
+    return tokenString;
+  }
   const fetch = async (path) => {
     console.log("She's Coding Projects API", baseUrl);
-    const token = getToken();
-
+    const token = getTokenAuthorization();
+    if (!token) {
+    }
     const result = await axios(
-      { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: `Token ${token}` } }
+      { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: token } }
     );
     return validateResponse(result);
   }
@@ -54,14 +66,14 @@ export const AppContextProvider = (props) => {
   }
 
   const post = async (path, data) => {
-    const token = getToken();
+    const token = getTokenAuthorization();
     const result = await axios(
       {
         method: 'POST', url: `${baseProjectsUrl}${path}`,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Token ${token}`
+          Authorization: token
         },
         data: data
       }
@@ -76,7 +88,6 @@ export const AppContextProvider = (props) => {
 
   const fetchUserData = async () => {
     const result = await fetch('/user/'); // pass the token
-    console.log("fetchUserData", result);
     setUser(result.data);
   };
 
@@ -93,7 +104,6 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
-    console.log("TOKEN IN USE EFFECTS", token);
     if (token) {
       fetchUserData();
       // setUser({
