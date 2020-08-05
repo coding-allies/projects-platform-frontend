@@ -204,7 +204,33 @@ router.get("/projects/user/", async (req, res) => {
 
 router.get("/projects/logout/", (req, res) => {
   // TODO: delete auth_token from db
-  res.redirect("/");
+  const auth_token = getToken(req.headers.authorization);
+  if (auth_token === null) {
+    return res.sendStatus(401);
+  }
+  let SQL = 'SELECT * FROM Users WHERE auth_token=$1;';
+  let values = [auth_token];
+  client.query(SQL, values)
+    .then(result => {
+      const user = result.rows[0];
+      if (user !== undefined) {
+        const newAuth_token = '';
+        let SQL = 'UPDATE Users SET auth_token = $1 WHERE auth_token=$2;';
+        let values = [newAuth_token, auth_token];
+        client.query(SQL, values)
+          .then(result => {
+            res.redirect("http://localhost:3000/#/");
+          })
+          .catch(err => {
+            throw err;
+          });
+      } else {
+        res.redirect("http://localhost:3000/#/");
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
 });
 
 
