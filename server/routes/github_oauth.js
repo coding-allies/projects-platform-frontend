@@ -185,6 +185,15 @@ const getToken = (tokenString) => {
   const token = tokenString.split(" ")[1];
   return token;
 }
+
+const checkName = user => {
+  if(user.first_name === '' || user.last_name === ''){
+    return user.github_username;
+  }else{
+    return `${user.first_name} ${user.last_name}`;
+  }
+}
+
 router.get("/projects/user/", async (req, res) => {
   console.log("IN THE USER API", req.headers);
   const auth_token = getToken(req.headers.authorization);
@@ -194,9 +203,10 @@ router.get("/projects/user/", async (req, res) => {
   // make sure the authentication flow works. click signin-> authenticate with github=> return to home page
   // implement sign out
   const user = await getUser(auth_token, res);
+  const name = checkName();
   console.log("user about to be returned in User API", user);
   const authUser = {
-    name: "Bob Marley", // TODO: figure out how to get naming set and retrieved correctly
+    name: name, // TODO: figure out how to get naming set and retrieved correctly
     is_authenticated: true,
     auth_token: auth_token,
   };
