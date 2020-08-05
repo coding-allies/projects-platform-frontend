@@ -139,6 +139,8 @@ function createUser(user_data, github_token) {
     auth_token: auth_token,
     github_token: github_token,
     github_username: user_data.login,
+    github_first_name:user_data.first_name,
+    github_last_name:user_data.last_name,
     github_id: user_data.id,
     github_url: user_data.url,
     avatar_url: user_data.avatar_url,
