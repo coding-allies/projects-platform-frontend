@@ -146,9 +146,7 @@ async function createUser(user_data, github_token) {
     avatar_url: user_data.avatar_url,
     gravatar_url: user_data.gravatar_id
   });
-  //1. returning somehwere
-  // 2. github and auth token are
-  // save user to sql
+
   let SQL = 'INSERT INTO users (auth_token, github_token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING id;';
   let values = [newUser.auth_token, newUser.github_token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
   return client.query(SQL, values)
