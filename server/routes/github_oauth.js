@@ -101,8 +101,8 @@ async function fetchGitHubUser(token) {
 
 async function checkUser(user_data, github_token, res) {
   let SQL = 'SELECT * FROM Users WHERE github_id=$1;';
-  let values = [user_data.github_id];
-  await client.query(SQL, values)
+  let values = [user_data.id];
+  client.query(SQL, values)
     .then(async (result) => {
       const user = result.rows[0];
       if (user !== undefined) {
@@ -110,8 +110,8 @@ async function checkUser(user_data, github_token, res) {
           { userId: user.id },
           process.env.TOKEN_SECRET,
           { expiresIn: '24h' });
-        let SQL = 'UPDATE Users SET auth_token = $1 WHERE github_id=$2;';
-        let values = [auth_token, user_data.github_id];
+        let SQL = 'UPDATE Users SET auth_token=$1 WHERE github_id=$2;';
+        let values = [auth_token, user_data.id];
         client.query(SQL, values)
           .then(result => {
             res.redirect("http://localhost:3000/#/token/" + auth_token);
@@ -121,7 +121,6 @@ async function checkUser(user_data, github_token, res) {
           });
       } else {
         const auth_token = await createUser(user_data, github_token);
-
         res.redirect("http://localhost:3000/#/token/" + auth_token);
       }
     })
@@ -216,14 +215,13 @@ router.get("/projects/user/", async (req, res) => {
 
 
 router.get("/projects/logout/", (req, res) => {
-  // TODO: delete auth_token from db
   const auth_token = getToken(req.headers.authorization);
   if (auth_token === null) {
     return res.sendStatus(401);
   }
   let SQL = 'SELECT * FROM Users WHERE auth_token=$1;';
   let values = [auth_token];
-  return client.query(SQL, values)
+  client.query(SQL, values)
     .then(result => {
       const user = result.rows[0];
       if (user !== undefined) {
@@ -232,16 +230,18 @@ router.get("/projects/logout/", (req, res) => {
         let values = [newAuth_token, auth_token];
         client.query(SQL, values)
           .then(result => {
-            res.redirect("http://localhost:3000/#/");
+            return res.json({ result: "success" });
           })
           .catch(err => {
+            console.error("Logout Error: could not update the DB", err);
             throw err;
           });
       } else {
-        res.redirect("http://localhost:3000/#/");
+        return res.json({ result: "success" });
       }
     })
     .catch(err => {
+      console.error("Logout Error: could not find the user in DB", err);
       throw err;
     });
 });
