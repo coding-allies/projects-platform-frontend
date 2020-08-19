@@ -8,11 +8,16 @@ Join our slack space at She's Coding #projects channel to discuss this projects 
 ## Installation guide
 
 ### To begin with, make sure you have following versions of yarn, npm and Node
-`node: v8.16.0` <br />
-`npm: 6.4.1` <br />
-`yarn: 1.17.0` <br />
+1. `node: v8.16.0` - Feel free to download installer here - https://nodejs.org/en/blog/release/v8.16.0/ <br />
+2. `npm: 6.4.1` - `npm i npm@6.4.1` <br />
+3. for mac users you might need to do `xcode-select --install`
+4. Install brew - https://treehouse.github.io/installation-guides/mac/homebrew
+5. `yarn: 1.17.0` - `brew install yarn` (latest version should be fine)<br /> 
 
-In the project directory (`cd your_path/projects-platform-frontend`), you can run:
+On every step run the command to check that `npm -v`, `node -v`, `yarn -v` etc.
+
+In the project directory:<br />
+`cd your_path/projects-platform-frontend`<br /> 
 
 ### `yarn`
 
