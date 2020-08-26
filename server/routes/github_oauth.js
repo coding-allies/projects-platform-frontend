@@ -214,7 +214,6 @@ async function createProject(project_data) {
   looking_for: project_data.looking_for,
   created: project_data.created,
   updated: project_data.updated,
-  //should it be id? and what kind of function is that in the backend?
   lead : project_data.lead,
   contributors : project_data.contributors,
   });
@@ -298,8 +297,9 @@ router.get("/projects/logout/", (req, res) => {
     });
 });
 
-router.get("projects/all/public/", (req, res) => {
-  console.log('got in get public route');
+router.get("/projects/all/public/", (req, res) => {
+  // console.log('got in get public route');
+  // res.send("Hello from get all public route");
   const mockProject = {
     name: 'mock project1',
     github_url: 'https://www.mockproject.com',
