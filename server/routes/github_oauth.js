@@ -35,6 +35,18 @@ function User(data) {
   this.date_joined = data.date_joined ? data.date_joined : null;
 }
 
+function Project(data) {
+  this.name = data.name ? data.name : '';
+  this.github_url = data.github_url ? data.github_url : '';
+  this.description = data.description ? data.description : '';
+  this.looking_for = data.looking_for ? data.looking_for : '';
+  this.created = data.created ? data.created : '';
+  this.updated = data.updated ? data.updated : '';
+  //should it be id? and what kind of function is that in the backend?
+  this.lead = data.lead ? data.lead : '';
+  this.contributors = data.contributors ? data.contributors : [];
+}
+
 router.get("/", (req, res) => {
   res.send("Hello GitHub auth");
 });
@@ -194,6 +206,48 @@ const checkName = user => {
   }
 }
 
+async function createProject(project_data) {
+  const newProject = new Project({
+  name: project_data.name,
+  github_url: project_data.github_url,
+  description: project_data.description,
+  looking_for: project_data.looking_for,
+  created: project_data.created,
+  updated: project_data.updated,
+  //should it be id? and what kind of function is that in the backend?
+  lead : project_data.lead,
+  contributors : project_data.contributors,
+  });
+
+  let SQL = 'INSERT INTO projects (name, github_url, description, looking_for, created, updated, lead, contributors) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id;';
+  let values = [newProject.name, newProject.github_url, newProject.description, newProject.looking_for, newProject.created, newProject.updated, newProject.lead, newProject.contributors];
+  return client.query(SQL, values)
+    .then(() => {
+      return newProject.name;
+    })
+    .catch(err => {
+      throw err;
+
+    });
+}
+
+async function getProject(auth_token, res) {
+  let SQL = 'SELECT * FROM projects WHERE auth_token=$1;';
+  let values = [auth_token];
+  return client.query(SQL, values)
+    .then(result => {
+      const projects = result.rows;
+      if (projects !== undefined) {
+        return projects;
+      } else {
+        console.log('projects is undefined within getProject function');
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
 router.get("/projects/user/", async (req, res) => {
   const auth_token = getToken(req.headers.authorization);
   if (auth_token === null) {
@@ -243,6 +297,25 @@ router.get("/projects/logout/", (req, res) => {
       throw err;
     });
 });
+
+router.get("projects/all/public/", (req, res) => {
+  console.log('got in get public route');
+  const mockProject = {
+    name: 'mock project1',
+    github_url: 'https://www.mockproject.com',
+    description: 'this is a mock project',
+    looking_for: 'people who can code in React',
+    created: '2019-03-25',
+    updated: '2020-03-25',
+    //should it be id? and what kind of function is that in the backend?
+    lead : 'mock user1',
+    contributors : ['max', 'ana', 'sushi'],
+  };
+  createProject(mockProject);
+  res.json(mockProject);
+});
+
+
 
 
 module.exports = router;

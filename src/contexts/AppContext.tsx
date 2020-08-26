@@ -98,6 +98,7 @@ export const AppContextProvider = (props) => {
       setProjects(result.data.projects);
     } else {
       const result = await fetchPublic('/all/public/');
+      console.log('result from public fetchproject', result);
       setProjects(result.data.projects);
     }
   };
