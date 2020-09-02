@@ -130,4 +130,11 @@ The final step here is to add your email and name to the Git config. This will a
 1. Type `git config --global user.name 'Your Name In Single Quotes'`.
 1. Type `git config --global core.editor 'code --wait'`.
 
+### Verification
+
+#### By the time you’ve completed the guide, you should be able to run the following commands in your terminal:
+
+- `git --version`
+- `node --version`
+
 <!-- ### [⇐ Previous](./04_updating_terminal.md) | [Next ⇒](./06_final_steps.md) -->
