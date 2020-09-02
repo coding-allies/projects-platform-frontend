@@ -137,4 +137,84 @@ The final step here is to add your email and name to the Git config. This will a
 - `git --version`
 - `node --version`
 
+
+
+
+## Install Nodemon
+In Code 301, Nodemon is a tool that is used to restart the server when changes are made in your server code.
+
+In your terminal, run npm i -g nodemon. Run the command nodemon --version to confirm proper installation of Nodemon.
+
+## Install PostgreSQL using WSL
+
+This doc explains how to install PostgreSQL 10 for Windows WSL
+
+We are installing this through the Ubuntu command line since we want this software to run in the Linux environment. You can check out the PostgreSQL Linux install docs [here](https://www.postgresql.org/download/linux/ubuntu/).
+
+## Install
+1. Open a terminal (the Ubuntu app) and then go to the root of the Ubuntu Subsystem by typing `cd ~ `.
+2. Run `lsb_release -a` and make note of the `Codename` listed.
+3. Type `sudo nano ../../etc/apt/sources.list`. This will open a file on Ubuntu using the Nano editor.
+4. At the bottom of this file, paste in the line `deb http://apt.postgresql.org/pub/repos/apt/ CODENAME-pgdg main`, replacing CODENAME with the word you noted in step 2.
+5. When that's done, press `ctrl + x` together to close the file, press `y` when prompted to save your changes, and `enter` to finally close.
+6. Next, copy these 2 lines and paste them into your terminal:
+  ```
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  sudo apt-get update
+  ```
+  This will add postgresql 10 to your repositories so you can install the latest version of Postgresql.
+
+7. After the update is complete, enter in the line `sudo apt-get install postgresql-10` and press `y` when prompted.
+8. To launch the postgres service, type `sudo service postgresql start`.
+
+## Postgres User Setup
+
+**Verifying Installation And Setting A Password**
+- You should be able to run the command `sudo -u postgres psql`. You will be asked for your administrator password - this is what you usually enter when you run `sudo` commands. This will log you into the psql prompt as the user postgres.
+- You should now have a prompt that looks like `postgres=#`. You can run SQL commands from here, which must end in semicolons.
+- If you were not prompted for a default user or password, we will set one using psql. If you type `\du`, you can get a list of users associated with PostgreSQL. You should see a single user, `postgres`. You will need to set up a new role for your machine's default user. This is the username that appears at the beginning of your terminal prompt, and when you log into your machine.
+- In your SQL shell, type the following: `CREATE ROLE your-username-here WITH LOGIN PASSWORD 'your-password-here';`, replacing "your-password-here" with whatever you want it to be. Remember that your password must be wrapped in quotes. The username should not be wrapped in quotes. *Don't forget the semicolon*.
+- If successful, you will receive the feedback `CREATE ROLE`.
+- Now we need to grant that user administrative control. In your SQL shell, type the following: `ALTER ROLE your-username-here WITH superuser;`, replacing "your-username-here" with the username you created a role for in the previous step.
+- If successful, you will receive the feedback `ALTER ROLE`.
+- Next, we need to create a default database for your new user and assign ownership of it to your new account. In the SQL shell, type the following: `CREATE DATABASE your-username-here;`, replacing "your-username-here" with your username. On success, you will receive the feedback `CREATE DATABASE`.
+  - Note: You might get a `WARNING: could not flush dirty data: Function not implemented` warning many times when you run this command. This is okay! Let the command keep running, and you should eventually see success.
+- To change the owner of your database from the `postgres` user to your user, type the folliwing: `ALTER DATABASE your-username-here OWNER TO your-username-here;`, replacing "your-username-here" with your username. On success, you will receive the feedback `ALTER DATABASE`.
+- Close your SQL shell with `\q` or `ctrl-D`. Type `psql` again and your SQL shell should now open as your default user. Hooray!
+
+**If Using PostgreSQL Version > 11 OR Having Postgres Issues**
+- Using your ubunutu WSL terminal, navigate to `/etc/postgresql/11/main` and open the postgresql.conf file with `code postgresql.conf`
+- Search for the setting `fsync`, it may be commented out.
+
+- The full line should read exactly: 
+```
+ fsync=off # flush data to disk for crash safety  
+```
+
+## Suggestion
+
+Since typing out `sudo service postgres start` all the time can be tedious, and you'll need to run this when you restart your computer, we recommend you set up an alias for this.
+
+1. Open a terminal and type `cd ~`, then type `nano .profile`. This will open your `.profile` which controls what your terminal does and looks like.
+1. Add this line next to any other aliases that you have:
+```
+alias pgstart='sudo service postgresql start'
+```
+This will allow you to type `pgstart` to start running the psql service. This is an example of a Quality of Life enhancement, something that makes your life easier and faster as a developer.
+
+You can change `pgstart` to what ever you want, but just be careful you don't overwrite something that postgres might use.
+
+
+#### ALL USERS: Startup and Create some databases
+
+1. Login to psql.
+  - For Mac, type `psql` from terminal.
+    - If the response is, "Can't find database *yourUserName*", run `createdb -U yourUserName`, then run `psql` again.
+  - For Linux, run `psql`.
+  - For WSL, run `pgstart` and `psql` and enter your password if prompted.
+2. You should be at a prompt that looks like `postgres=#` or `<your-username-here>=#`.
+3. Enter the following command: `CREATE DATABASE city_explorer;`. *Note the semicolon. If you forget it, your prompt will go to a new line and look like* `postgres-#`. *This means you have an unterminated command and the prompt will just keep going to new lines until you enter a semicolon*.
+  - You should receive the feedback "CREATE DATABASE".
+4. Verify that your databases were created by running `\l` (no semicolon). You should see a list of databases, including `city_explorer`. You should be able to connect to a database by running `\c DATABASE_NAME`, e.g. `\c city_explorer`.
+> If running `\l` puts you into a view with the highlighted word `(END)` at the bottom of your terminal, you can type `q` to escape that view.
 <!-- ### [⇐ Previous](./04_updating_terminal.md) | [Next ⇒](./06_final_steps.md) -->
