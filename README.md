@@ -101,11 +101,6 @@ We will also install Node on Windows:
 
 1. Visit <https://nodejs.org/en/download/> and download and run the Windows installer.
 
-## Eslint
-
-1. Search 'windows powershell' in the start menu and open it.
-2. Run `npm i -g eslint` . When finished close windows powershell.
-
 ## Git
 
 Git is already installed on Ubuntu as it comes built in. VSCode however also uses Git for it's source-control tool to work. But since VSCode is a Windows application, it doesn't know how to use Ubuntu's version of Git. 
@@ -141,8 +136,6 @@ The final step here is to add your email and name to the Git config. This will a
 
 
 ## Install Nodemon
-In Code 301, Nodemon is a tool that is used to restart the server when changes are made in your server code.
-
 In your terminal, run npm i -g nodemon. Run the command nodemon --version to confirm proper installation of Nodemon.
 
 ## Install PostgreSQL using WSL
