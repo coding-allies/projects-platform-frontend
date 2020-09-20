@@ -8,7 +8,8 @@ Twitter - @simulgirl
 LinkedIn - [link](https://www.linkedin.com/in/rey-d-72953a148/)
 
 *Leyla Li (she/her)*  
-Github - @leyla-li  
+Github - @Leyi-Li 
+LinkedIn - [link](https://www.linkedin.com/in/leyi-li/)
 
 
 ### Project Mentors: 
