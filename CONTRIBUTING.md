@@ -10,9 +10,10 @@ During Open Source Day, we will be doing quick recommendation chats for everyone
 ### Ways you can contribute
 
 #### Coding 
-1. ***Install*** the codebase to your machine following steps in the [wiki](https://github.com/shescoding/projects-platform-frontend/wiki).
-2. We recommend you ***pick an issue*** by "Feature" label (ex: "Feature: Project Lead"), and find other attendees working on it, collaborate to work together to implement it. For example: for some features require implementing frontend alongside with the backend APIs. This would be best done by coordinating together and will hopefully be a more fulfilling and fun experience. NOTE: make sure you assign the issue to yourself to avoid any confusion! And please pick only one issue at a time.
-3. Once a feature is implemented, ***create a pull request*** and ask for review from any of devs Rey(@nurmerey), Leyla(@leyla-li), Christina(@ceyuen), Nev(@partiallymisplaced).
+1. [Fork the project](https://github.com/shescoding/projects-platform-frontend/wiki/Github-%22Fork--%E2%9E%A1---Dev-%E2%9E%A1---Pull-Request%22-Flow).
+2. ***Install*** the codebase to your machine following steps in the [wiki](https://github.com/shescoding/projects-platform-frontend/wiki).
+3. We recommend you ***pick an issue*** by "Feature" label (ex: "Feature: Project Lead"), and find other attendees working on it, collaborate to work together to implement it. For example: for some features require implementing frontend alongside with the backend APIs. This would be best done by coordinating together and will hopefully be a more fulfilling and fun experience. NOTE: make sure you assign the issue to yourself to avoid any confusion! And please pick only one issue at a time.
+4. Once a feature is implemented, [***create a pull request***](https://github.com/shescoding/projects-platform-frontend/wiki/Github-%22Fork--%E2%9E%A1---Dev-%E2%9E%A1---Pull-Request%22-Flow) and ask for review from any of devs Rey(@nurmerey), Leyla(@leyla-li), Christina(@ceyuen), Nev(@partiallymisplaced).
 
 #### Designing 
 We have [a couple tasks](https://github.com/shescoding/projects-platform-frontend/projects/1?card_filter_query=label%3AArtwork) that need either a mockup or UI work. For mentorship and guidance on these please consult Nev(@partiallymisplaced).
