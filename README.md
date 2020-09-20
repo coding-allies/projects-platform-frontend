@@ -10,8 +10,8 @@ Please find installation guide for you environment in our [Wiki](https://github.
 
 All the ways to contribute, as well as writing issues, filing a new feature request can be found [in this document](https://github.com/shescoding/projects-platform-frontend/blob/master/CONTRIBUTING.md).
 
-## 🤩 Welcome to GHD OSD 2020!
-We are so glad to have you 🙌 ! We have created entry-level friendly issues that you can find in [GHD OSD 2020 column](https://github.com/shescoding/projects-platform-frontend/projects/1#column-10678147).
+## 🤩 Welcome to GHC OSD 2020!
+We are so glad to have you 🙌 . We have created entry-level friendly issues that you can find in [GHD OSD 2020 column](https://github.com/shescoding/projects-platform-frontend/projects/1#column-10678147).
 
 #### 👯‍♀️ Community for GHC
 Join our slack space at She's Coding Projects channel (#shescoding-general) to discuss this project or ask questions.
