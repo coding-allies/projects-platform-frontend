@@ -4,7 +4,7 @@ She's Coding Project is part of [She's Coding slack community](https://forms.gle
 
 ## 💻 Installation guide
 
-Please find installation guide for you environment in our [Wiki](https://github.com/shescoding/projects-platform-frontend/wiki).
+Please find an installation guide for your environment in our [Wiki](https://github.com/shescoding/projects-platform-frontend/wiki).
 
 ## 🔏  Contribution guide
 
@@ -16,7 +16,7 @@ We are so glad to have you 🙌 . We have created entry-level friendly issues th
 #### 👯‍♀️ Community for GHC
 Join our slack space at She's Coding Projects channel (#shescoding-general) to discuss this project or ask questions.
 
-### 👩🏻‍💻 Mentopship and help at GHC
+### 👩🏻‍💻 Mentorship and help at GHC
 
 We have several mentors and project representatives to help you succeed during OSD! Please find them in [Code Owners](https://github.com/shescoding/projects-platform-frontend/blob/master/CODEOWNERS.md).
 
@@ -28,3 +28,5 @@ We have several mentors and project representatives to help you succeed during O
 #### Projects Page
 
 ![Screen Shot 2020-09-19 at 6 04 07 pm](https://user-images.githubusercontent.com/3733773/93692128-0ee9b800-faa4-11ea-8e1a-949606a04d01.png)
+
+
