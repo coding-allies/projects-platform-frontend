@@ -43,7 +43,7 @@ function Project(data) {
   this.created = data.created ? data.created : '';
   this.updated = data.updated ? data.updated : '';
   //should it be id? and what kind of function is that in the backend?
-  this.lead = data.lead ? data.lead : '';
+  this.lead_id = data.lead_id ? data.lead_id : '';
   this.contributors = data.contributors ? data.contributors : [];
 }
 
@@ -171,9 +171,25 @@ async function createUser(user_data, github_token) {
     });
 }
 
-async function getUser(auth_token, res) {
+async function getUser(auth_token) {
   let SQL = 'SELECT * FROM Users WHERE auth_token=$1;';
   let values = [auth_token];
+  return client.query(SQL, values)
+    .then(result => {
+      const user = result.rows[0];
+      if (user !== undefined) {
+        return user;
+      } else {
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+async function getUserByID(userID) {
+  let SQL = 'SELECT * FROM Users WHERE id=$1;';
+  let values = [userID];
   return client.query(SQL, values)
     .then(result => {
       const user = result.rows[0];
@@ -208,18 +224,18 @@ const checkName = user => {
 
 async function createProject(project_data) {
   const newProject = new Project({
-  name: project_data.name,
-  github_url: project_data.github_url,
-  description: project_data.description,
-  looking_for: project_data.looking_for,
-  created: project_data.created,
-  updated: project_data.updated,
-  lead : project_data.lead,
-  contributors : project_data.contributors,
+    name: project_data.name,
+    github_url: project_data.github_url,
+    description: project_data.description,
+    looking_for: project_data.looking_for,
+    created: project_data.created,
+    updated: project_data.updated,
+    lead_id: project_data.lead_id,
+    contributors: project_data.contributors,
   });
 
-  let SQL = 'INSERT INTO projects (name, github_url, description, looking_for, created, updated, lead, contributors) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id;';
-  let values = [newProject.name, newProject.github_url, newProject.description, newProject.looking_for, newProject.created, newProject.updated, newProject.lead, newProject.contributors];
+  let SQL = 'INSERT INTO projects (name, github_url, description, looking_for, created, updated, lead_id, contributors) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id;';
+  let values = [newProject.name, newProject.github_url, newProject.description, newProject.looking_for, newProject.created, newProject.updated, newProject.lead_id, newProject.contributors];
   return client.query(SQL, values)
     .then(() => {
       return newProject.name;
@@ -237,9 +253,20 @@ async function getProject(auth_token, res) {
     .then(result => {
       const projects = result.rows;
       if (projects !== undefined) {
+        for (let project of projects) {
+          const lead = await getUserByID(project.lead_id);
+          let lead_obj = { name: lead.first_name + " " + lead.last_name, position: lead.position, experience: lead.experience_lvl };
+          if (is_auth) {
+            lead_obj['email'] = lead.email;
+          } else {
+            project.github_url = '';
+          }
+          project['lead'] = lead_obj;
+          projectsWithLeads.push(project);
+        }
         return projects;
       } else {
-        console.log('projects is undefined within getProject function');
+        throw Error('projects are undefined within getProject function');
       }
     })
     .catch(err => {
@@ -297,22 +324,9 @@ router.get("/projects/logout/", (req, res) => {
     });
 });
 
-router.get("/projects/all/public/", (req, res) => {
-  // console.log('got in get public route');
-  // res.send("Hello from get all public route");
-  const mockProject = {
-    name: 'mock project1',
-    github_url: 'https://www.mockproject.com',
-    description: 'this is a mock project',
-    looking_for: 'people who can code in React',
-    created: '2019-03-25',
-    updated: '2020-03-25',
-    //should it be id? and what kind of function is that in the backend?
-    lead : 'mock user1',
-    contributors : ['max', 'ana', 'sushi'],
-  };
-  createProject(mockProject);
-  res.json(mockProject);
+router.get("/projects/all/public/", async (req, res) => {
+  const projects = await getProject();
+  return res.json(projects);
 });
 
 
