@@ -242,7 +242,6 @@ async function createProject(project_data) {
     })
     .catch(err => {
       throw err;
-
     });
 }
 
@@ -285,7 +284,7 @@ router.get("/projects/user/", async (req, res) => {
   const user = await getUser(auth_token, res);
   const name = checkName(user);
   const authUser = {
-    name: name, // TODO: figure out how to get naming set and retrieved correctly
+    name: name,
     is_authenticated: true,
     auth_token: auth_token,
   };
@@ -330,6 +329,80 @@ router.get("/projects/all/public/", async (req, res) => {
   return res.json(projects);
 });
 
+async function updateUser(auth_token, position, experience_lvl) {
+  let SQL = 'UPDATE Users SET position=$2,experience_lvl=$3 WHERE auth_token=$1 RETURNING id;';
+  let values = [auth_token, position, experience_lvl];
+  client.query(SQL, values)
+    .then((result) => {
+      console.log({ xx: result.rows[0]['id'] });
+      return result.rows[0]['id'];
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+router.post("/projects/add_project/", async (req, res) => {
+  console.log('XXXX reqest', req.body);
+
+  const github_url = req.body["github_url"];
+  const repo_details = github_url.split(
+    'https://github.com/')[1];
+  console.log("repo_details", repo_details);
+  const response = await fetch(
+    'https://api.github.com/repos/' + repo_details);
+  const repo_data = await response.json();
+  console.log({ repo_data });
+
+  // Get contributors
+  const contributors_url_response = await fetch(
+    repo_data["contributors_url"]);
+  const contributors_data = await contributors_url_response.json();
+  const contributors_list = [];
+  for (const contrib of contributors_data) {
+    contributors_list.push(contrib['login']);
+  }
+  console.log({ contributors_list });
+
+  // Field validation
+  if (contributors_list.length === 0 || req.body['position'] === "" || req.body['experience_lvl'] === "" || repo_data["name"] === "" || req.body["github_url"] === "" || repo_data["description"] === "" || req.body["looking_for"] === "") {
+    throw new Error(
+      "Ensure all the fields are filled out and Github Repository has description");
+  }
+
+  // Update the lead
+  const auth_token = getToken(req.headers.authorization);
+  const user_id = await updateUser(auth_token, req.body['position'], req.body['experience_lvl']);
+  console.log("xx", { user_id });
+  const now = new Date();
+  const new_project = {
+    name: repo_data["name"],
+    github_url: req.body["github_url"],
+    description: repo_data["description"],
+    looking_for: req.body["looking_for"],
+    created: now,
+    updated: now, // todo automate
+    lead_id: '1',
+    contributors: contributors_list,
+  };
+  console.log({ new_project });
+  await createProject(new_project);
+  console.log("all good!");
+
+  // new_project.save()
+  // return res.send({ "result": "success" });
+});
+// except KeyError as error:
+// return JsonResponse(
+//   { "result": "error", "error_type": "KeyError", "reason": "KeyError: " + str(error), "message": "Some of the form fields are either empty or filled out wrong" })
+// except IndexError as error:
+// return JsonResponse(
+//   { "result": "error", "error_type": "IndexError", "reason": "IndexError: " + str(error) + ". Check if github_url is valid", "message": "Check if github_url is valid" })
+// except IntegrityError as error:
+// return JsonResponse({ "result": "error", "error_type": "IntegrityError", "reason": "Something went wrong on tring to create project in DB.", "message": "Please make sure your Github project has description, and it doesn't already exist in the projects list." })
+//     else:
+// return JsonResponse({ "result": "error", "error_type": "Unauthenticated", "reason": "authentication required" })
+//   });
 
 
 
