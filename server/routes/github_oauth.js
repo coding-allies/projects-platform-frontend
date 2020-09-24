@@ -16,23 +16,22 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.connect()
 
 function User(data) {
+  const now = new Date();
   this.auth_token = data.auth_token ? data.auth_token : '';
   this.github_token = data.github_token ? data.github_token : '';
-  this.experience_lvl = data.experience_lvl ? data.experience_lvl : 0;
-  this.position = data.position ? data.position : '';
+  this.company = data.company ? data.company : '';
   this.github_username = data.github_username ? data.github_username : '';
   this.github_id = data.github_id ? data.github_id : '';
   this.github_url = data.github_url ? data.github_url : '';
   this.avatar_url = data.avatar_url ? data.avatar_url : '';
   this.gravatar_url = data.gravatar_url ? data.gravatar_url : '';
-  this.last_login = data.last_login ? data.last_login : null;
+  this.last_login = data.last_login ? data.last_login : now;
   this.is_superuser = data.is_superuser ? data.is_superuser : false;
-  this.username = data.username ? data.username : '';
-  this.first_name = data.first_name ? data.first_name : '';
-  this.last_name = data.last_name ? data.last_name : '';
+  this.name = data.name ? data.name : '';
   this.email = data.email ? data.email : '';
   this.is_active = data.is_active ? data.is_active : true;
-  this.date_joined = data.date_joined ? data.date_joined : null;
+  this.date_joined = data.date_joined ? data.date_joined : now;
+  this.hireable = data.hireable ? data.hireable : false;
 }
 
 function Project(data) {
@@ -42,7 +41,6 @@ function Project(data) {
   this.looking_for = data.looking_for ? data.looking_for : '';
   this.created = data.created ? data.created : '';
   this.updated = data.updated ? data.updated : '';
-  //should it be id? and what kind of function is that in the backend?
   this.lead_id = data.lead_id ? data.lead_id : '';
   this.contributors = data.contributors ? data.contributors : [];
 }
@@ -52,7 +50,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/auth/github", (req, res) => {
-  const url = `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=user:email`;
+  const url = `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=read:user`;
   res.redirect(url);
 });
 
@@ -151,16 +149,18 @@ async function createUser(user_data, github_token) {
     auth_token: auth_token,
     github_token: github_token,
     github_username: user_data.login,
-    github_first_name: user_data.first_name,
-    github_last_name: user_data.last_name,
+    name: user_data.name,
     github_id: user_data.id,
     github_url: user_data.url,
     avatar_url: user_data.avatar_url,
-    gravatar_url: user_data.gravatar_id
+    gravatar_url: user_data.gravatar_id,
+    company: user_data.company,
+    hireable: user_data.hireable,
+    email: user_data.email,
   });
 
-  let SQL = 'INSERT INTO users (auth_token, github_token, experience_lvl, position, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, username, first_name, last_name, email, is_active, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING id;';
-  let values = [newUser.auth_token, newUser.github_token, newUser.experience_lvl, newUser.position, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.username, newUser.first_name, newUser.last_name, newUser.email, newUser.is_active, newUser.date_joined];
+  let SQL = 'INSERT INTO users (auth_token, github_token, company, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, name, email, is_active, date_joined, hireable) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id;';
+  let values = [newUser.auth_token, newUser.github_token, newUser.company, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.name, newUser.email, newUser.is_active, newUser.date_joined, newUser.hireable];
   return client.query(SQL, values)
     .then(() => {
       return auth_token;
@@ -215,10 +215,10 @@ const checkName = user => {
   if (user === undefined) {
     return "Error";
   }
-  if ('first_name' in user || 'last_name' in user || user.first_name === '' || user.last_name === '') {
-    return user.github_username;
+  if ('name' in user && user.name !== '') {
+    return user.name;
   } else {
-    return `${user.first_name} ${user.last_name}`;
+    return user.github_username;
   }
 }
 
@@ -246,12 +246,13 @@ async function createProject(project_data) {
     });
 }
 
-async function getProject(auth_token, res) {
-  let SQL = 'SELECT * FROM projects WHERE auth_token=$1;';
-  let values = [auth_token];
-  return client.query(SQL, values)
-    .then(result => {
+async function getProject(is_auth = false) {
+  let SQL = 'SELECT * FROM projects;';
+
+  return client.query(SQL)
+    .then(async result => {
       const projects = result.rows;
+      let projectsWithLeads = [];
       if (projects !== undefined) {
         for (let project of projects) {
           const lead = await getUserByID(project.lead_id);
