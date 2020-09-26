@@ -50,8 +50,6 @@ export const AppContextProvider = (props) => {
   const fetch = async (path) => {
     console.log("She's Coding Projects API", baseUrl);
     const token = getTokenAuthorization();
-    if (!token) {
-    }
     const result = await axios(
       { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: token } }
     );
