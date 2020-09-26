@@ -329,6 +329,15 @@ router.get("/projects/all/public/", async (req, res) => {
   return res.json(projects);
 });
 
+router.get("/projects/all/", async (req, res) => {
+  const auth_token = getToken(req.headers.authorization);
+  if (auth_token === null) {
+    return res.sendStatus(401);
+  }
+  const projects = await getProject(true);
+  return res.json(projects);
+});
+
 async function addNewProject(auth_token, position, experience_lvl, new_project) {
   let SQL = 'UPDATE Users SET position=$2,experience_lvl=$3 WHERE auth_token=$1 RETURNING id;';
   let values = [auth_token, position, experience_lvl];
