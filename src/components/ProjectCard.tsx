@@ -20,7 +20,7 @@ const getContributors = (contributorList: Array<string>) => {
 
   return contributorList.map((contributor, i) => (
     <div className="card-contributor-icon" key={i}>
-      {contributor}
+      {contributor[0].toUpperCase()}
     </div>
   ));
 };
