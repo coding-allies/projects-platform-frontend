@@ -21,8 +21,8 @@
     "virtualenv": "0.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "server": "node server/server.js",
+    "start": "PORT=3000 react-scripts start",
+    "server": "SERVER_PORT=5000 nodemon server/server.js",
     "oauth": "node server/github_auth.js",
     "build": "react-scripts build",
     "test": "react-scripts test",

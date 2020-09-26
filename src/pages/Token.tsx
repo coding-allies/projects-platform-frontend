@@ -4,8 +4,9 @@ import Cookies from 'js-cookie';
 
 
 export function Token() {
+
   Cookies.remove('auth_token', { path: '/' });
-  const token = window.location.href.split('/')
+  const token = window.location.href.split('/');
   Cookies.set('auth_token', token[token.length - 1],
     {
       expires: 30, path: '/'

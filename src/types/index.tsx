@@ -1,7 +1,6 @@
 export interface User {
   name: string;
   is_authenticated: boolean,
-  csrf_token: string,
   auth_token: string,
 }
 

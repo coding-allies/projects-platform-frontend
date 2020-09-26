@@ -13,7 +13,6 @@ const baseProjectsUrl = `${baseUrl}/projects`;
 const mockUser: User = {
   name: "",
   is_authenticated: false,
-  csrf_token: "",
   auth_token: "",
 };
 
@@ -26,8 +25,11 @@ export const AppContextProvider = (props) => {
 
   const getToken = () => {
     const token = Cookies.get("auth_token");
-    if (!!token) { return token; }
+    if (token !== undefined && token !== 'undefined') {
+      return token;
+    }
     cleanUp();
+    return null;
   }
 
   const validateResponse = (response) => {
@@ -37,12 +39,19 @@ export const AppContextProvider = (props) => {
     };
   }
 
+  const getTokenAuthorization = () => {
+    const token = getToken();
+    let tokenString = '';
+    if (!!token) {
+      tokenString = `Token ${token}`;
+    }
+    return tokenString;
+  }
   const fetch = async (path) => {
     console.log("She's Coding Projects API", baseUrl);
-    const token = getToken();
-
+    const token = getTokenAuthorization();
     const result = await axios(
-      { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: `Token ${token}` } }
+      { method: 'GET', url: `${baseProjectsUrl}${path}`, headers: { Authorization: token } }
     );
     return validateResponse(result);
   }
@@ -51,18 +60,19 @@ export const AppContextProvider = (props) => {
     const result = await axios(
       { method: 'GET', url: `${baseProjectsUrl}${path}` }
     );
+
     return validateResponse(result);
   }
 
   const post = async (path, data) => {
-    const token = getToken();
+    const token = getTokenAuthorization();
     const result = await axios(
       {
         method: 'POST', url: `${baseProjectsUrl}${path}`,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Token ${token}`
+          Authorization: token
         },
         data: data
       }
@@ -76,18 +86,18 @@ export const AppContextProvider = (props) => {
   }
 
   const fetchUserData = async () => {
-    const result = await fetch('/user/');
-    setUser(result.data.user);
+    const result = await fetch('/user/'); // pass the token
+    setUser(result.data);
   };
 
   const fetchProjectData = async () => {
     const token = Cookies.get("auth_token");
     if (token) {
       const result = await fetch('/all/');
-      setProjects(result.data.projects);
+      setProjects(result.data);
     } else {
       const result = await fetchPublic('/all/public/');
-      setProjects(result.data.projects);
+      setProjects(result.data);
     }
   };
 
