@@ -255,7 +255,7 @@ async function getProject(is_auth = false) {
       if (projects !== undefined) {
         for (let project of projects) {
           const lead = await getUserByID(project.lead_id);
-          let lead_obj = { name: lead.first_name + " " + lead.last_name, position: lead.position, experience: lead.experience_lvl };
+          let lead_obj = { name: lead.name, position: lead.position, experience: lead.experience_lvl };
           if (is_auth) {
             lead_obj['email'] = lead.email;
           } else {
