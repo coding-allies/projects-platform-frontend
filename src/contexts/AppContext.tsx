@@ -62,6 +62,7 @@ export const AppContextProvider = (props) => {
     const result = await axios(
       { method: 'GET', url: `${baseProjectsUrl}${path}` }
     );
+
     return validateResponse(result);
   }
 
@@ -95,11 +96,10 @@ export const AppContextProvider = (props) => {
     const token = Cookies.get("auth_token");
     if (token) {
       const result = await fetch('/all/');
-      setProjects(result.data.projects);
+      setProjects(result.data);
     } else {
       const result = await fetchPublic('/all/public/');
-      console.log('result from public fetchproject', result);
-      setProjects(result.data.projects);
+      setProjects(result.data);
     }
   };
 
@@ -107,12 +107,6 @@ export const AppContextProvider = (props) => {
     const token = Cookies.get("auth_token");
     if (token) {
       fetchUserData();
-      // setUser({
-      //   name: "BOB",
-      //   is_authenticated: true,
-      //   csrf_token: "",
-      //   auth_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM3MzM3NzMsImlhdCI6MTU5NTM4MzU3NiwiZXhwIjoxNTk1NDY5OTc2fQ.ooaEBz73JfP-ih3Zx3pnEoxgxnRQbiv-5Li1AApfyZo",
-      // });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
