@@ -351,6 +351,23 @@ async function addNewProject(auth_token, position, experience_lvl, new_project) 
     });
 }
 
+async function deleteProject(id) {
+  let SQL = `DELETE FROM projects WHERE id=${id};`;
+  await client.query(SQL)
+    .then(async (res) => {
+      return res;
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+router.post("/projects/:id/delete", async (req,res) => {
+  const response = await deleteProject(req.params.id);
+  return res.send({ "result": `${response}` });
+});
+
+
 router.post("/projects/add_project/", async (req, res) => {
   const github_url = req.body["github_url"];
   const repo_details = github_url.split(
