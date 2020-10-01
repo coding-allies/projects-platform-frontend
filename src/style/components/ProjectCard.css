@@ -55,13 +55,14 @@
 }
 
 .card-description {
-  min-height: 150px;
+  min-height: 100px;
 }
 
 .card-looking-for {
   min-height: 110px;
 }
 
+.card-description-label,
 .card-looking-for-label,
 .card-contributor-label,
 .card-tech-stack-label {
