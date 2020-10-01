@@ -13,8 +13,8 @@ const getTags = (tagList: Array<string>) => {
   });
 };
 
-const getContributors = (contributorList: Array<string>) => {
-  if (contributorList.length > 6) {
+const getContributors = (contributorList: Array<string>, isContributorsExpanded: Boolean) => {
+  if (contributorList.length > 6 && !isContributorsExpanded) {
     contributorList = [...contributorList.slice(0, 6)];
   }
 
@@ -70,6 +70,18 @@ const renderButtons = (project: Project, loginLink: any) => {
   }
 }
 
+const renderContributorExpansionIcons = (length: any, state: Boolean, handleContributorsClick: any) => {
+
+  if (length > 6 && !state) {
+    return <div className="card-contributor-icon" onClick={handleContributorsClick}>...</div>
+  } else if (length > 6 && state) {
+    return <div onClick={handleContributorsClick}>close</div>
+  } else {
+    return null
+  }
+
+}
+
 const ProjectCard: FC<Props> = ({ data, loginLink }) => {
 
   const [isContributorsExpanded, setIsContributorsExpanded] = useState(false)
@@ -105,10 +117,8 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
           Contributors: {project.contributors.length}
         </p>
         <div className="card-contributor-avatars">
-          {getContributors(project.contributors)}
-          {project.contributors.length > 6 && !isContributorsExpanded ?
-            <div className="card-contributor-icon" onClick={handleContributorsClick}>...</div>
-            : null}
+          {getContributors(project.contributors, isContributorsExpanded)}
+          {renderContributorExpansionIcons(project.contributors.length, isContributorsExpanded, handleContributorsClick)}
         </div>
       </div>
 
