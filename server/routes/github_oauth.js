@@ -45,7 +45,7 @@ function Project(data) {
   this.contributors = data.contributors ? data.contributors : [];
 }
 
-function Position(data) {
+function JobInfo(data) {
   this.name = data.name ? data.name : '';
 }
 
@@ -394,8 +394,8 @@ router.post("/projects/add_project/", async (req, res) => {
   return res.send({ "result": "success" });
 });
 
-async function getPositions(name_to_search = '') {
-  let SQL = `SELECT * FROM Positions WHERE name LIKE '${name_to_search}%';`;
+async function getJobInfo(name_to_search = '', table, field) {
+  let SQL = `SELECT * FROM ${table} WHERE ${field} LIKE '${name_to_search}%';`;
   return client.query(SQL)
     .then(result => {
       return result.rows;
@@ -405,28 +405,40 @@ async function getPositions(name_to_search = '') {
     });
 };
 
-router.get("/getPositions", async (req, res) => {
-  const positions = await getPositions(req.body.name_to_search);
-  return res.json(positions);
-});
-
-async function createPosition(position_data) {
-  const newPosition = new Position({
-    name: position_data.name
+async function createJobInfo(job_info_data, table, field) {
+  const newJobInfo = new JobInfo({
+    name: job_info_data.name
   });
 
-  let SQL = `INSERT INTO positions (name) VALUES ('${position_data.name}');`;
+  let SQL = `INSERT INTO ${table} (${field}) VALUES ('${job_info_data.name}');`;
   return client.query(SQL)
     .then(() => {
-      return newPosition.name;
+      return newJobInfo.name;
     })
     .catch(err => {
       throw err;
     });
 }
 
+router.get("/getPositions", async (req, res) => {
+  const positions = await getJobInfo(req.body.name_to_search, 'Positions', 'name');
+  return res.json(positions);
+});
+
 router.post("/addPosition", async (req, res) => {
-  await createPosition(req.body).catch(e => console.log(e));
+  await createJobInfo(req.body, 'Positions', 'name').catch(e => console.log(e));
+  return res.send({
+    "result": "success"
+  });
+})
+
+router.get("/getCompanies", async (req, res) => {
+  const companies = await getJobInfo(req.body.name_to_search, 'Companies', 'name');
+  return res.json(companies);
+});
+
+router.post("/addCompany", async (req, res) => {
+  await createJobInfo(req.body, 'Companies', 'name').catch(e => console.log(e));
   return res.send({
     "result": "success"
   });
