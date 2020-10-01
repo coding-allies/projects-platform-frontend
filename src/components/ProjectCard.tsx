@@ -70,12 +70,17 @@ const renderButtons = (project: Project, loginLink: any) => {
   }
 }
 
-const renderContributorExpansionIcons = (length: any, state: Boolean, handleContributorsClick: any) => {
+// Not sure what type the method handleContributorsClick should be classified as for TypeScript
+const renderContributorExpansionIcons = (contributorsLength: Number, isExpandedState: Boolean, handleContributorsClick: any) => {
 
-  if (length > 6 && !state) {
-    return <div className="card-contributor-icon" onClick={handleContributorsClick}>...</div>
-  } else if (length > 6 && state) {
-    return <div onClick={handleContributorsClick}>close</div>
+  if (contributorsLength > 6 && !isExpandedState) {
+    return <div className="card-contributor-icon" onClick={handleContributorsClick}>
+      ...
+      </div>
+  } else if (contributorsLength > 6 && isExpandedState) {
+    return <div onClick={handleContributorsClick}>
+      close
+      </div>
   } else {
     return null
   }
@@ -85,13 +90,11 @@ const renderContributorExpansionIcons = (length: any, state: Boolean, handleCont
 const ProjectCard: FC<Props> = ({ data, loginLink }) => {
 
   const [isContributorsExpanded, setIsContributorsExpanded] = useState(false)
-
   const project = { ...data };
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience];
 
   const handleContributorsClick = (e) => {
     e.preventDefault();
-    console.log("clicked")
     setIsContributorsExpanded(!isContributorsExpanded)
   } 
 
