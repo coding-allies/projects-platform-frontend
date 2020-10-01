@@ -297,26 +297,27 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
                 {errors.jobTitle.length > 0 && <span className="error">{errors.jobTitle}</span>}
               </div>
               <div>
+              
               <label
-                htmlFor="github-repo-input"
+                htmlFor="current-employer-input"
                 className="form-input-title">
-                GitHub Repo:
+                Current Employer:
               </label>
               <label
-                htmlFor="github-repo-input"
+                htmlFor="current-employer-input"
                 className="form-input-description">
-                Add a link to the GitHub repository for your project
+                Enter your current employer
               </label>
               <input
                 type="url"
-                id="github-repo-input"
-                name="githubRepo"
-                value={this.state.githubRepo}
+                id="current-employer-input"
+                name="currentEmployer"
+                value={this.state.currentEmployer}
                 onChange={this.handleChange}
                 onBlur={this.handleChange}
-                className={classNames({ "field-error": errors.githubRepo.length > 0 })}
+                className={classNames({ "field-error": errors.currentEmployer.length > 0 })}
               />
-              {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
+              {errors.currentEmployer.length > 0 && <span className="error">{errors.currentEmployer}</span>}
               </div>
             </div>
           </div>
@@ -342,25 +343,25 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           {errors.currentLeadPosition.length > 0 && <span className="error">{errors.currentLeadPosition}</span>}
 
           <label
-            htmlFor="current-employer-input"
-            className="form-input-title">
-            Current Employer:
-          </label>
-          <label
-            htmlFor="current-employer-input"
-            className="form-input-description">
-            Enter your current employer
-          </label>
-          <input
-            type="url"
-            id="current-employer-input"
-            name="currentEmployer"
-            value={this.state.githubRepo}
-            onChange={this.handleChange}
-            onBlur={this.handleChange}
-            className={classNames({ "field-error": errors.currentEmployer.length > 0 })}
-          />
-          {errors.currentEmployer.length > 0 && <span className="error">{errors.currentEmployer}</span>}
+              htmlFor="github-repo-input"
+              className="form-input-title">
+              GitHub Repo:
+            </label>
+            <label
+              htmlFor="github-repo-input"
+              className="form-input-description">
+              Add a link to the GitHub repository for your project
+            </label>
+            <input
+              type="url"
+              id="github-repo-input"
+              name="githubRepo"
+              value={this.state.githubRepo}
+              onChange={this.handleChange}
+              onBlur={this.handleChange}
+              className={classNames({ "field-error": errors.githubRepo.length > 0 })}
+            />
+            {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
 
           <label
             htmlFor="looking-for"
