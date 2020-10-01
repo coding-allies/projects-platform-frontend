@@ -159,13 +159,12 @@ async function createUser(user_data, github_token) {
     github_url: user_data.url,
     avatar_url: user_data.avatar_url,
     gravatar_url: user_data.gravatar_id,
-    company: user_data.company,
     hireable: user_data.hireable,
     email: user_data.email,
   });
 
-  let SQL = 'INSERT INTO users (auth_token, github_token, company, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, name, email, is_active, date_joined, hireable) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id;';
-  let values = [newUser.auth_token, newUser.github_token, newUser.company, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.name, newUser.email, newUser.is_active, newUser.date_joined, newUser.hireable];
+  let SQL = 'INSERT INTO users (auth_token, github_token, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, name, email, is_active, date_joined, hireable) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id;';
+  let values = [newUser.auth_token, newUser.github_token, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.name, newUser.email, newUser.is_active, newUser.date_joined, newUser.hireable];
   return client.query(SQL, values)
     .then(() => {
       return auth_token;
