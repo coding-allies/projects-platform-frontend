@@ -309,7 +309,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           <label
             htmlFor="looking-for"
             className="form-input-description">
-            Describe what are you looking for in future contributors
+            Select or enter what type of contributors you're looking for
           </label>
           {/* TODO: Add fixed values for cols, rows */}
           <textarea
