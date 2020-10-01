@@ -125,3 +125,19 @@ span {
   margin: 0.5em;
   display: inline-block;
 }
+
+.tech-stack-select {
+  margin-bottom: 36px;
+}
+
+.tech-stack-select__value-container {
+  height: 45px;
+}
+
+.tech-stack-select__input {
+  padding-top: 8px;
+}
+
+.tech-stack-select__multi-value {
+  margin-bottom: 30px !important;
+}
