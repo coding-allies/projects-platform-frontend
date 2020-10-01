@@ -1,7 +1,13 @@
+DROP TABLE IF EXISTS Positions
+CASCADE;
 DROP TABLE IF EXISTS Users
 CASCADE;
 DROP TABLE IF EXISTS Projects;
-
+CREATE TABLE Positions
+(
+  id SERIAL PRIMARY KEY,
+  position VARCHAR(255)
+);
 -- TODO: remigrate the DB here
 CREATE TABLE Users
 (

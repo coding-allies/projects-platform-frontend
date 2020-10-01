@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "0.19.1",
+    "brew": "0.0.8",
     "classnames": "2.2.6",
     "cookie-session": "^1.4.0",
     "cors": "2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0",
+    "or": "^0.2.0",
     "pg": "8.0.3",
     "react": "16.10.2",
     "react-dom": "16.10.2",
@@ -18,7 +21,8 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "3.2.0",
     "url": "^0.11.0",
-    "virtualenv": "0.3.1"
+    "virtualenv": "0.3.1",
+    "yarn": "^1.22.5"
   },
   "scripts": {
     "start": "PORT=3000 react-scripts start",

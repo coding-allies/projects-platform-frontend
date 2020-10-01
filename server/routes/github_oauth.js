@@ -390,6 +390,21 @@ router.post("/projects/add_project/", async (req, res) => {
   return res.send({ "result": "success" });
 });
 
+async function getPositions() {
+  let SQL = 'SELECT * FROM Positions;';
+  return client.query(SQL)
+    .then(result => {
+      console.log(result);  
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+router.get("/getPositions", (req, res) => {
+  const positions = getPositions(res);
+  return res.json(positions);
+});
 
 
 module.exports = router;
