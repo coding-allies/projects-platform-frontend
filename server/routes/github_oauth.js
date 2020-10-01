@@ -259,8 +259,11 @@ async function getProject(is_auth = false) {
       if (projects !== undefined) {
         for (let project of projects) {
           const lead = await getUserByID(project.lead_id);
-          const position_name = await getJobInfo(lead.position_id, 'Position', 'id', true, 'name');
-          const company_name = await getJobInfo(lead.company_id, 'Company', 'id', true, 'name');
+
+          // TODO: getJobInfo is returning with shape [{ name: 'name' }]
+          const position_name = await getJobInfo(lead.position_id, 'Positions', 'id', true, 'name')[0].name;
+          const company_name = await getJobInfo(lead.company_id, 'Companies', 'id', true, 'name')[0].name;
+
           let lead_obj = {
             name: lead.name,
             position: position_name,
@@ -396,8 +399,12 @@ router.post("/projects/add_project/", async (req, res) => {
     contributors: contributors_list,
   };
 
-  const position_id = getJobInfo(req.body['position'], 'Positions', 'name', true, 'id');
-  const company_id = getJobInfo(req.body['company'], 'Companies', 'name', true, 'id'); // TODO: handle this in the frontend
+  // TODO: refactor or abstract getJobInfo to 'get or create'
+  // const position_id = await getJobInfo(req.body['position'], 'Positions', 'name', true, 'id');
+  // const company_id = await getJobInfo(req.body['company'], 'Companies', 'name', true, 'id'); // TODO: handle this in the frontend
+  const position_id = 1;
+  const company_id = 1;
+
   // TODO: atomic transaction
   // TODO: safeguard and return error messages
   await addNewProject(auth_token, position_id, company_id, req.body['experience_lvl'], new_project).catch(e => console.error(e));
