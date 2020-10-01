@@ -45,6 +45,10 @@ function Project(data) {
   this.contributors = data.contributors ? data.contributors : [];
 }
 
+function Position(data) {
+  this.name = data.name ? data.name : '';
+}
+
 router.get("/", (req, res) => {
   res.send("Hello GitHub auth");
 });
@@ -405,5 +409,27 @@ router.get("/getPositions", async (req, res) => {
   const positions = await getPositions(req.body.name_to_search);
   return res.json(positions);
 });
+
+async function createPosition(position_data) {
+  const newPosition = new Position({
+    name: position_data.name
+  });
+
+  let SQL = `INSERT INTO positions (name) VALUES ('${position_data.name}');`;
+  return client.query(SQL)
+    .then(() => {
+      return newPosition.name;
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+router.post("/addPosition", async (req, res) => {
+  await createPosition(req.body).catch(e => console.log(e));
+  return res.send({
+    "result": "success"
+  });
+})
 
 module.exports = router;
