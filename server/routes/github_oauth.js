@@ -19,7 +19,8 @@ function User(data) {
   const now = new Date();
   this.auth_token = data.auth_token ? data.auth_token : '';
   this.github_token = data.github_token ? data.github_token : '';
-  this.company = data.company ? data.company : '';
+  this.position_id = data.position_id ? data.position_id : '';
+  this.company_id = data.company_id ? data.company_id : '';
   this.github_username = data.github_username ? data.github_username : '';
   this.github_id = data.github_id ? data.github_id : '';
   this.github_url = data.github_url ? data.github_url : '';
@@ -259,7 +260,14 @@ async function getProject(is_auth = false) {
       if (projects !== undefined) {
         for (let project of projects) {
           const lead = await getUserByID(project.lead_id);
-          let lead_obj = { name: lead.name, position: lead.position, experience: lead.experience_lvl };
+          const position_name = await getJobInfo(lead.position_id, 'Position', 'id', true, 'name');
+          const company_name = await getJobInfo(lead.company_id, 'Company', 'id', true, 'name');
+          let lead_obj = {
+            name: lead.name,
+            position: position_name,
+            company: company_name, // TODO: handle this new field in the frontend
+            experience: lead.experience_lvl
+          };
           if (is_auth) {
             lead_obj['email'] = lead.email;
           } else {
@@ -342,9 +350,9 @@ router.get("/projects/all/", async (req, res) => {
   return res.json(projects);
 });
 
-async function addNewProject(auth_token, position, experience_lvl, new_project) {
-  let SQL = 'UPDATE Users SET position=$2,experience_lvl=$3 WHERE auth_token=$1 RETURNING id;';
-  let values = [auth_token, position, experience_lvl];
+async function addNewProject(auth_token, position_id, company_id, experience_lvl, new_project) {
+  let SQL = 'UPDATE Users SET position_id=$2, company_id=$4, experience_lvl=$3 WHERE auth_token=$1 RETURNING id;';
+  let values = [auth_token, position_id, experience_lvl, company_id];
   await client.query(SQL, values)
     .then(async (result) => {
       const user_id = result.rows[0]['id'];
@@ -372,7 +380,7 @@ router.post("/projects/add_project/", async (req, res) => {
   }
 
   // Field validation
-  if (contributors_list.length === 0 || req.body['position'] === "" || req.body['experience_lvl'] === "" || repo_data["name"] === "" || req.body["github_url"] === "" || repo_data["description"] === "" || req.body["looking_for"] === "") {
+  if (contributors_list.length === 0 || req.body['position'] === "" || req.body['company'] === "" || req.body['experience_lvl'] === "" || repo_data["name"] === "" || req.body["github_url"] === "" || repo_data["description"] === "" || req.body["looking_for"] === "") {
     throw new Error(
       "Ensure all the fields are filled out and Github Repository has description");
   }
@@ -388,14 +396,18 @@ router.post("/projects/add_project/", async (req, res) => {
     updated: now, // TODO: automate
     contributors: contributors_list,
   };
+
+  const position_id = getJobInfo(req.body['position'], 'Positions', 'name', true, 'id');
+  const company_id = getJobInfo(req.body['company'], 'Companies', 'name', true, 'id'); // TODO: handle this in the frontend
   // TODO: atomic transaction
   // TODO: safeguard and return error messages
-  await addNewProject(auth_token, req.body['position'], req.body['experience_lvl'], new_project).catch(e => console.error(e));
+  await addNewProject(auth_token, position_id, company_id, req.body['experience_lvl'], new_project).catch(e => console.error(e));
   return res.send({ "result": "success" });
 });
 
-async function getJobInfo(name_to_search = '', table, field) {
-  let SQL = `SELECT * FROM ${table} WHERE ${field} LIKE '${name_to_search}%';`;
+async function getJobInfo(name_to_search = '', table, field, exact = false, selection = '*') {
+  let SQL =
+    `SELECT ${selection} FROM ${table} WHERE ${field} ${exact ? `= '${name_to_search}'` : `LIKE '${name_to_search}%'`};`;
   return client.query(SQL)
     .then(result => {
       return result.rows;
