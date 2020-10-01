@@ -17,11 +17,12 @@
     "react-modal": "3.11.2",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.2.0",
+    "react-select": "^3.1.0",
     "url": "^0.11.0",
     "virtualenv": "0.3.1"
   },
   "scripts": {
-    "start": "PORT=3000 react-scripts start",
+    "start": "SET PORT=3000 && react-scripts start",
     "server": "SERVER_PORT=5000 nodemon server/server.js",
     "oauth": "node server/github_auth.js",
     "build": "react-scripts build",

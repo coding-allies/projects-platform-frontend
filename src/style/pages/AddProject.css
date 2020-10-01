@@ -96,6 +96,17 @@ span {
   margin: 0.4em 1em;
 }
 
+.add-project-experience-fields{
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-project-experience-field {
+  display: inline-flex;
+  width: fit-content;
+}
+
 .modal-container{
   max-width: 50%;
   margin: 15em auto;

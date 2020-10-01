@@ -4,6 +4,7 @@ import classNames from "classnames/bind"
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import CreatableSelect from 'react-select/creatable';
 import Cookies from 'js-cookie';
 import Modal from 'react-modal';
 
@@ -11,12 +12,16 @@ const validGitHubRepo = /^(?:https:\/\/)*github[.]com\/([a-z0-9-]+)\/([a-z0-9\-_
 
 type FormState = {
   experienceLevel: string,
+  jobTitle: string,
+  currentEmployer: string,
   currentLeadPosition: string,
   githubRepo: string,
   lookingFor: string,
   // techStack: string,
   errors: {
     experienceLevel: string,
+    jobTitle: string,
+    currentEmployer: string,
     currentLeadPosition: string,
     githubRepo: string,
     lookingFor: string,
@@ -49,12 +54,16 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
   state: FormState = {
     experienceLevel: "",
+    jobTitle: "",
+    currentEmployer: "",
     currentLeadPosition: "",
     githubRepo: "",
     lookingFor: "",
     // techStack: "",
     errors: {
       experienceLevel: "",
+      jobTitle: "",
+      currentEmployer: "",
       currentLeadPosition: "",
       githubRepo: "",
       lookingFor: "",
@@ -212,9 +221,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
   render() {
     const token = Cookies.get("auth_token");
-    if (!!!token) {
-      this.props.history.push('/');
-    }
+    // if (!!!token) {
+    //   this.props.history.push('/');
+    // }
     const { errors } = this.state;
     return (
       <div className="add-project-page">
@@ -259,6 +268,58 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           </select>
           {errors.experienceLevel.length > 0 && <span className="error">{errors.experienceLevel}</span>}
 
+          <div className="add-project-experience-fields">
+            <div className="add-project-experience-field">
+              <div>
+                <label
+                  htmlFor="select-experience-level"
+                  className="form-input-title">
+                  Job Title:
+                </label>
+                <label
+                  htmlFor="select-experience-level"
+                  className="form-input-description">
+                  Select or enter your job title
+                </label>
+                <CreatableSelect
+                  id="select-job-title"
+                  name="jobTitle"
+                  value={this.state.jobTitle}
+                  onChange={this.handleChange}
+                  onBlur={this.handleChange}
+                  options={[
+                    { value: 'Software Engineer', label: 'Software Engineer'},
+                    { value: 'Product Manager', label: 'Product Manager'},
+                    { value: 'Backend Engineer', label: 'Backend Engineer'}
+                  ]}
+                  className={classNames({ "field-error": errors.jobTitle.length > 0 })}>
+                </CreatableSelect>
+                {errors.jobTitle.length > 0 && <span className="error">{errors.jobTitle}</span>}
+              </div>
+              <div>
+              <label
+                htmlFor="github-repo-input"
+                className="form-input-title">
+                GitHub Repo:
+              </label>
+              <label
+                htmlFor="github-repo-input"
+                className="form-input-description">
+                Add a link to the GitHub repository for your project
+              </label>
+              <input
+                type="url"
+                id="github-repo-input"
+                name="githubRepo"
+                value={this.state.githubRepo}
+                onChange={this.handleChange}
+                onBlur={this.handleChange}
+                className={classNames({ "field-error": errors.githubRepo.length > 0 })}
+              />
+              {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
+              </div>
+            </div>
+          </div>
           <label
             htmlFor="lead-position"
             className="form-input-title">
@@ -281,25 +342,25 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           {errors.currentLeadPosition.length > 0 && <span className="error">{errors.currentLeadPosition}</span>}
 
           <label
-            htmlFor="github-repo-input"
+            htmlFor="current-employer-input"
             className="form-input-title">
-            GitHub Repo:
+            Current Employer:
           </label>
           <label
-            htmlFor="github-repo-input"
+            htmlFor="current-employer-input"
             className="form-input-description">
-            Add a link to the GitHub repository for your project
+            Enter your current employer
           </label>
           <input
             type="url"
-            id="github-repo-input"
-            name="githubRepo"
+            id="current-employer-input"
+            name="currentEmployer"
             value={this.state.githubRepo}
             onChange={this.handleChange}
             onBlur={this.handleChange}
-            className={classNames({ "field-error": errors.githubRepo.length > 0 })}
+            className={classNames({ "field-error": errors.currentEmployer.length > 0 })}
           />
-          {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
+          {errors.currentEmployer.length > 0 && <span className="error">{errors.currentEmployer}</span>}
 
           <label
             htmlFor="looking-for"
