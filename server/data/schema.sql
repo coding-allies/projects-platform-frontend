@@ -1,10 +1,18 @@
 DROP TABLE IF EXISTS Positions
 CASCADE;
+DROP TABLE IF EXISTS Companies
+CASCADE;
 DROP TABLE IF EXISTS Users
 CASCADE;
 DROP TABLE IF EXISTS Projects;
 
 -- TODO: remigrate the DB here
+CREATE TABLE Companies
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255)
+
+);
 CREATE TABLE Positions
 (
   id SERIAL PRIMARY KEY,
@@ -18,7 +26,7 @@ CREATE TABLE Users
   auth_token VARCHAR(255) NOT NULL,
   experience_lvl SMALLINT CHECK (experience_lvl >= 0),
   position_id INTEGER REFERENCES Positions(id),
-  company VARCHAR(255),
+  company_id INTEGER REFERENCES Companies(id),
   github_username VARCHAR(255) NOT NULL,
   github_id INTEGER NOT NULL CHECK (github_id >= 0),
   github_url VARCHAR(255) NOT NULL,
