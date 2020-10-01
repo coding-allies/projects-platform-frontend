@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons'
 
 
 const getTags = (tagList: Array<string>) => {
@@ -71,16 +73,12 @@ const renderButtons = (project: Project, loginLink: any) => {
 }
 
 // Not sure what type the method handleContributorsClick should be classified as for TypeScript
-const renderContributorExpansionIcons = (contributorsLength: Number, isExpandedState: Boolean, handleContributorsClick: any) => {
+const renderContributorExpansionIcons = (contributorsLength: Number, handleContributorsClick: any) => {
 
-  if (contributorsLength > 6 && !isExpandedState) {
-    return <div className="card-contributor-icon" onClick={handleContributorsClick}>
-      ...
-      </div>
-  } else if (contributorsLength > 6 && isExpandedState) {
-    return <div onClick={handleContributorsClick}>
-      close
-      </div>
+  if (contributorsLength > 6) {
+    return <div onClick={handleContributorsClick} className="card-contributor-icon-expand">
+      <FontAwesomeIcon icon={faArrowsAltV} />
+    </div>
   } else {
     return null
   }
@@ -121,7 +119,7 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
         </p>
         <div className="card-contributor-avatars">
           {getContributors(project.contributors, isContributorsExpanded)}
-          {renderContributorExpansionIcons(project.contributors.length, isContributorsExpanded, handleContributorsClick)}
+          {renderContributorExpansionIcons(project.contributors.length, handleContributorsClick)}
         </div>
       </div>
 

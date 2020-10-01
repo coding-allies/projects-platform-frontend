@@ -93,3 +93,23 @@
   grid-gap: 10px;
   padding-bottom: 0;
 }
+
+.card-contributor-icon-expand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF;
+  border: 2px solid #393939;
+  border-radius: 20px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 700;
+  color: #393939;
+  font-size: 18px;
+  box-shadow: 3px 3px turquoise;
+}
+
+.card-contributor-icon-expand:hover {
+  background-color: #393939;
+  color: #FFF;
+}
