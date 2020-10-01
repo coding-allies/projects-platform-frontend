@@ -84,15 +84,16 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
         <p>{project.description}</p>
       </div>
 
-      <div className="card-lead">
-        <h3>Project Lead: {project.lead.name}</h3>
-        <p>{project.lead.position}</p>
-        <p>{experienceLevel}</p>
-      </div>
-
       <div className="card-looking-for">
         <p className="card-looking-for-label">Looking For:</p>
         <p>{project.looking_for}</p>
+      </div>
+
+      <div className="card-lead">
+        <p className="card-lead-label">Project Lead:</p>
+        <p>{project.lead.name}</p>
+        <p>{project.lead.position}</p>
+        <p>{experienceLevel}</p>
       </div>
 
       <div className="card-contributors">
