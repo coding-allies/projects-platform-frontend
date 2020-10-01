@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
 
@@ -15,7 +15,7 @@ const getTags = (tagList: Array<string>) => {
 
 const getContributors = (contributorList: Array<string>) => {
   if (contributorList.length > 6) {
-    contributorList = [...contributorList.slice(0, 6), '...'];
+    contributorList = [...contributorList.slice(0, 6)];
   }
 
   return contributorList.map((contributor, i) => (
@@ -71,9 +71,17 @@ const renderButtons = (project: Project, loginLink: any) => {
 }
 
 const ProjectCard: FC<Props> = ({ data, loginLink }) => {
+
+  const [isContributorsExpanded, setIsContributorsExpanded] = useState(false)
+
   const project = { ...data };
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience];
 
+  const handleContributorsClick = (e) => {
+    e.preventDefault();
+    console.log("clicked")
+    setIsContributorsExpanded(!isContributorsExpanded)
+  } 
 
   return (
     <article className="card-wrapper">
@@ -98,6 +106,9 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
         </p>
         <div className="card-contributor-avatars">
           {getContributors(project.contributors)}
+          {project.contributors.length > 6 && !isContributorsExpanded ?
+            <div className="card-contributor-icon" onClick={handleContributorsClick}>...</div>
+            : null}
         </div>
       </div>
 
