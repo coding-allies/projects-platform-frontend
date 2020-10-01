@@ -390,6 +390,20 @@ router.post("/projects/add_project/", async (req, res) => {
   return res.send({ "result": "success" });
 });
 
+async function getPositions(name_to_search = '') {
+  let SQL = `SELECT * FROM Positions WHERE name LIKE '${name_to_search}%';`;
+  return client.query(SQL)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      throw err;
+    });
+};
 
+router.get("/getPositions", async (req, res) => {
+  const positions = await getPositions(req.body.name_to_search);
+  return res.json(positions);
+});
 
 module.exports = router;
