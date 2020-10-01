@@ -34,14 +34,24 @@ const renderButtons = (project: Project, loginLink: any) => {
   if (!!project.lead.email) {
     return (
       <div className="card-buttons">
-        <a
-          href={project.github_url}
-          className="button-link"
-          target={project.github_url}
-          rel="noopener noreferrer"
-        >
-          View on Github
-      </a>
+        <div className="card-buttons-row">
+          <a
+            href={project.github_url}
+            className="button-link"
+            target={project.github_url}
+            rel="noopener noreferrer"
+          >
+            View on Github
+          </a>
+          <a
+            href={`${project.github_url}/issues`}
+            className="button-link"
+            target={`${project.github_url}/issues`}
+            rel="noopener noreferrer"
+          >
+            Current Issues
+          </a>
+        </div>
         <a
           href={`mailto:${project.lead.email}?subject=Request to join ${project.name}`}
           className="button-link"
@@ -53,12 +63,20 @@ const renderButtons = (project: Project, loginLink: any) => {
   } else {
     return (
       <div className="card-buttons">
-        <button
-          onClick={loginLink}
-          className="button-link"
-        >
-          View on Github
-      </button>
+        <div className="card-buttons-row">
+          <button
+            onClick={loginLink}
+            className="button-link"
+          >
+            View on Github
+          </button>
+          <button
+              onClick={loginLink}
+              className="button-link"
+            >
+              Current Issues
+          </button>
+        </div>
         <button
           onClick={loginLink}
           className="button-link"
