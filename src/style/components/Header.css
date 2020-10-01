@@ -54,6 +54,5 @@ header nav ul li a.current {
 header nav ul li a:hover {
   color: #40e0d0;
   font-weight:bold;
-  font-size:1.1em;
-  transition: font-weight font-size color 300ms ease;
+  transition: font-weight color 300ms ease;
 }
