@@ -31,61 +31,32 @@ type Props = {
 };
 
 const renderButtons = (project: Project, loginLink: any) => {
-  if (!!project.lead.email) {
-    return (
-      <div className="card-buttons">
-        <div className="card-buttons-row">
-          <a
-            href={project.github_url}
+  let isAuth: boolean = !!project.lead.email;
+
+  return (
+    <div className="card-buttons">
+      <div className="card-buttons-row">
+        <button
+          onClick={isAuth ? () => window.open(project.github_url, '_blank') : loginLink}
+          className="button-link"
+        >
+          View on Github
+        </button>
+        <button
+            onClick={isAuth ? () => window.open(`${project.github_url}/issues`, '_blank') : loginLink }
             className="button-link"
-            target={project.github_url}
-            rel="noopener noreferrer"
-          >
-            View on Github
-          </a>
-          <a
-            href={`${project.github_url}/issues`}
-            className="button-link"
-            target={`${project.github_url}/issues`}
-            rel="noopener noreferrer"
           >
             Current Issues
-          </a>
-        </div>
-        <a
-          href={`mailto:${project.lead.email}?subject=Request to join ${project.name}`}
-          className="button-link"
-        >
-          Request to Join
-      </a>
-      </div >
-    );
-  } else {
-    return (
-      <div className="card-buttons">
-        <div className="card-buttons-row">
-          <button
-            onClick={loginLink}
-            className="button-link"
-          >
-            View on Github
-          </button>
-          <button
-              onClick={loginLink}
-              className="button-link"
-            >
-              Current Issues
-          </button>
-        </div>
-        <button
-          onClick={loginLink}
-          className="button-link"
-        >
-          Request to Join
-      </button>
-      </div >
-    );
-  }
+        </button>
+      </div>
+      <button
+        onClick={isAuth ? () => window.open(`mailto:${project.lead.email}?subject=Request to join ${project.name}`, '_blank'): loginLink}
+        className="button-link"
+      >
+        Request to Join
+    </button>
+    </div >
+  );
 }
 
 const ProjectCard: FC<Props> = ({ data, loginLink }) => {
