@@ -56,6 +56,19 @@ textarea {
   margin-bottom: 36px;
 }
 
+.creatable {
+  margin-bottom: 36px;
+}
+.creatable input,
+.creatable .creatable__multi-value__label {
+  font-size: 16px !important;
+  padding: 10px !important;
+  margin-bottom: 0;
+}
+.creatable .creatable__control {
+  border-radius: 0px;
+}
+
 span {
   margin-top: -24px;
   padding-bottom: 24px;
@@ -65,6 +78,13 @@ span {
   border: 1px solid #c23b22;
 }
 .field-error:focus {
+  outline-color: #f00;
+}
+
+.creatable-error .creatable__control {
+  border: 1px solid #c23b22;
+}
+.creatable-error .creatable__control:focus {
   outline-color: #f00;
 }
 
