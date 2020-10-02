@@ -2,9 +2,11 @@ import React, { FC } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
 
-
 const getTags = (tagList: Array<string>) => {
-  return tagList.map(tag => {
+  if (tagList.length > 5) {
+    tagList = [...tagList.slice(0, 5)];
+  }
+  return tagList.map((tag) => {
     return (
       <div className={`tag`} key={tag}>
         {tag}
@@ -15,7 +17,7 @@ const getTags = (tagList: Array<string>) => {
 
 const getContributors = (contributorList: Array<string>) => {
   if (contributorList.length > 6) {
-    contributorList = [...contributorList.slice(0, 6), '...'];
+    contributorList = [...contributorList.slice(0, 6), "..."];
   }
 
   return contributorList.map((contributor, i) => (
@@ -41,39 +43,32 @@ const renderButtons = (project: Project, loginLink: any) => {
           rel="noopener noreferrer"
         >
           View on Github
-      </a>
+        </a>
         <a
           href={`mailto:${project.lead.email}?subject=Request to join ${project.name}`}
           className="button-link"
         >
           Request to Join
-      </a>
-      </div >
+        </a>
+      </div>
     );
   } else {
     return (
       <div className="card-buttons">
-        <button
-          onClick={loginLink}
-          className="button-link"
-        >
+        <button onClick={loginLink} className="button-link">
           View on Github
-      </button>
-        <button
-          onClick={loginLink}
-          className="button-link"
-        >
+        </button>
+        <button onClick={loginLink} className="button-link">
           Request to Join
-      </button>
-      </div >
+        </button>
+      </div>
     );
   }
-}
+};
 
 const ProjectCard: FC<Props> = ({ data, loginLink }) => {
   const project = { ...data };
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience];
-
 
   return (
     <article className="card-wrapper">
@@ -87,6 +82,11 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
 
       <p className="card-description">{project.description}</p>
 
+      <div className="card-tech-stack">
+        <p className="card-tech-stack-label">Tech stack: </p>
+        <div className="card-tags">{getTags(project.tags)}</div>
+      </div>
+
       <div className="card-looking-for">
         <p className="card-looking-for-label">Looking For:</p>
         <p>{project.looking_for}</p>
@@ -99,11 +99,6 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
         <div className="card-contributor-avatars">
           {getContributors(project.contributors)}
         </div>
-      </div>
-
-      <div className="card-tech-stack">
-        <p className="card-tech-stack-label">Tech stack: </p>
-        {/* <div className="card-tags">{getTags(data.tags)}</div> */}
       </div>
 
       {renderButtons(project, loginLink)}
