@@ -6,14 +6,22 @@ import { AppContext } from "../contexts/AppContext";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Modal from 'react-modal';
+import CreatableSelect from 'react-select/creatable';
 
 const validGitHubRepo = /^(?:https:\/\/)*github[.]com\/([a-z0-9-]+)\/([a-z0-9\-_]+)\/?$/;
+
+type FormOption = {
+  value: string,
+  label: string
+}
+
+type FormOptions = Array<FormOption>;
 
 type FormState = {
   experienceLevel: string,
   currentLeadPosition: string,
   githubRepo: string,
-  lookingFor: string,
+  lookingFor: FormOptions,
   // techStack: string,
   errors: {
     experienceLevel: string,
@@ -33,7 +41,7 @@ const validateForm = (state) => {
   let hasInput = false;
 
   let inputFields = Object.values(state).filter(
-    (value: any) => value.length === 0);
+    (value: any) => value === null || value.length === 0);
 
   hasInput = (inputFields.length === 0) ? true : false;
 
@@ -51,7 +59,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     experienceLevel: "",
     currentLeadPosition: "",
     githubRepo: "",
-    lookingFor: "",
+    lookingFor: [],
     // techStack: "",
     errors: {
       experienceLevel: "",
@@ -65,6 +73,25 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     },
     cancelModalOpen: false
   }
+
+  lookingForOptions: FormOptions = [
+    {
+      value: 'Frontend Engineer',
+      label: 'Frontend Engineer'
+    },
+    {
+      value: 'Backend Engineer',
+      label: 'Backend Engineer'
+    },
+    {
+      value: 'Product Manager',
+      label: 'Product Manager'
+    },
+    {
+      value: 'UX Researcher',
+      label: 'UX Researcher'
+    }
+  ];
 
   csrf = '';
 
@@ -110,11 +137,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
         }
         break;
 
-      case 'lookingFor':
-        errors.lookingFor =
-          value.length === 0 ? "Field cannot be empty" : "";
-        break;
-
       // case 'techStack':
       //   errors.techStack =
       //     value.length === 0 ? "Tech stack cannot be empty" : "";
@@ -129,6 +151,23 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       [name]: value,
       errors
     } as Pick<FormState, keyof FormState>)
+  }
+
+  handleCreatableChange = (value: FormOptions, actionMeta: any) => {
+    const name = actionMeta.name;
+    const errors = this.state.errors;
+
+    switch (name) {
+      case 'lookingFor':
+        errors.lookingFor =
+          !value || value.length === 0 ? "Field cannot be empty" : "";
+        break;
+    }
+
+    this.setState({
+      [name]: value,
+      errors
+    } as Pick<FormState, keyof FormState>);
   }
 
   showErrors = () => {
@@ -172,7 +211,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       const data = {
         experience_lvl: stateDict.experienceLevel,
         github_url: stateDict.githubRepo,
-        looking_for: stateDict.lookingFor,
+        looking_for: stateDict.lookingFor.map(option => option.label).join(', '),
         position: stateDict.currentLeadPosition,
         csrfmiddlewaretoken: this.csrf
       }
@@ -312,14 +351,16 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             Select or enter what type of contributors you're looking for
           </label>
           {/* TODO: Add fixed values for cols, rows */}
-          <textarea
+          <CreatableSelect
             id="looking-for"
             name="lookingFor"
             value={this.state.lookingFor}
-            onChange={this.handleChange}
-            onBlur={this.handleChange}
-            style={{ "resize": "none" }}
-            className={classNames({ "field-error": errors.lookingFor.length > 0 })}
+            onChange={this.handleCreatableChange}
+            options={this.lookingForOptions}
+            placeholder="Select or enter contributor type"
+            isMulti
+            className={classNames('creatable', { "creatable-error": errors.lookingFor.length > 0 })}
+            classNamePrefix="creatable"
           />
           {errors.lookingFor.length > 0 && <span className="error">{errors.lookingFor}</span>}
 
