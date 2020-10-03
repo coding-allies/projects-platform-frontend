@@ -231,6 +231,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
         </div>
 
         {(this.state.serverError.message) && <div className="error-message">
+          <p>{this.state.serverError.message}</p>
           <p>
             There was an issue with adding this GitHub Repo
             
