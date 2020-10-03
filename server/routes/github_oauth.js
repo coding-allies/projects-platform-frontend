@@ -363,6 +363,10 @@ async function deleteProject(id) {
 };
 
 router.post("/projects/:id/delete", async (req,res) => {
+  const auth_token = getToken(req.headers.authorization);
+  if (auth_token === null) {
+    return res.sendStatus(401);
+  }
   const response = await deleteProject(req.params.id);
   return res.send({ "result": `${response}` });
 });
