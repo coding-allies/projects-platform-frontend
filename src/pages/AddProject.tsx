@@ -74,6 +74,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     cancelModalOpen: false
   }
 
+  // TODO: These values will be coming in from a getPosition API when #114 is implemented.
   lookingForOptions: FormOptions = [
     {
       value: 'Frontend Engineer',
