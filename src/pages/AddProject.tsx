@@ -29,6 +29,8 @@ type FormState = {
   cancelModalOpen: boolean
 }
 
+// This is a placeholder for tech stack options
+// Needs to be replaced with information from the API via 'getTagsForProjectID'
 const techStackOptions = [{value: 'django', label: 'Django'},
 {value: 'java', label: 'Java'},
 {value: 'javascript', label: 'JavaScript'},
