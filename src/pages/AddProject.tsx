@@ -253,9 +253,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             onBlur={this.handleChange}
             className={classNames({ "field-error": errors.experienceLevel.length > 0 })}>
             <option value="">Select your experience level</option>
-            <option value="0">Learner (0+ years of experience)</option>
-            <option value="1">Beginner (1+ years of experience)</option>
-            <option value="2">Experienced (3+ years of experience)</option>
+            <option value="0">0-1 years</option>
+            <option value="1">1-3 years</option>
+            <option value="2">3-5 years</option>
+            <option value="3">5+ years</option>
           </select>
           {errors.experienceLevel.length > 0 && <span className="error">{errors.experienceLevel}</span>}
 
