@@ -9,10 +9,13 @@ exports[`renders App correctly 1`] = `
       className="logo"
     >
       <a
-        href="/projects"
+        href="#/projects"
         onClick={[Function]}
       >
-        she's collaborating
+        <img
+          alt="She's Coding Projects"
+          src="scp-logo.svg"
+        />
       </a>
     </h1>
     <nav>
@@ -21,7 +24,7 @@ exports[`renders App correctly 1`] = `
           <a
             aria-current="page"
             className="current"
-            href="/"
+            href="#/"
             onClick={[Function]}
             style={Object {}}
           >
@@ -31,7 +34,7 @@ exports[`renders App correctly 1`] = `
         <li>
           <a
             aria-current={null}
-            href="/projects"
+            href="#/projects"
             onClick={[Function]}
           >
             Projects
@@ -52,53 +55,57 @@ exports[`renders App correctly 1`] = `
   <div
     className="platform-welcome"
   >
-    <section
-      className="platform-intro"
-    >
-      <h1>
-        The Title Will Explain The Platform, Briefly
-      </h1>
-      <p>
-        The intro paragraph will go into a bit more details. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a mattis purus, vel cursus justo. Ut nec pretium ex. Nullam ac ultricies orci. Nulla facilisi.
-      </p>
-      <button>
-        Sign In With GitHub
-      </button>
-    </section>
-    <section
-      className="platform-features"
-    >
-      <div
-        className="platform-feature"
+    <div>
+      <section
+        className="platform-intro"
       >
-        <h3>
-          Title Explains Feature
-        </h3>
+        <h1>
+          Open Source Collaboration for Womxn In Tech
+        </h1>
         <p>
-          The feature summary paragraph will go into a bit more details. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a mattis purus, vel cursus justo. Ut nec pretium ex.
+          She's Coding Projects is a place for womxn in tech to share and find open-source projects so they can easily connect and collaborate in a safe environment. Join our community and let's write some awesome code together!
         </p>
-      </div>
-      <div
-        className="platform-feature"
+        <button
+          onClick={[Function]}
+        >
+          Join Us
+        </button>
+      </section>
+      <section
+        className="platform-features"
       >
-        <h3>
-          Title Explains Feature
-        </h3>
-        <p>
-          The feature summary paragraph will go into a bit more details. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a mattis purus, vel cursus justo. Ut nec pretium ex.
-        </p>
-      </div>
-      <div
-        className="platform-feature"
-      >
-        <h3>
-          Title Explains Feature
-        </h3>
-        <p>
-          The feature summary paragraph will go into a bit more details. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a mattis purus, vel cursus justo. Ut nec pretium ex.
-        </p>
-      </div>
-    </section>
+        <div
+          className="platform-feature"
+        >
+          <h3>
+            Find A Project
+          </h3>
+          <p>
+            Gain experience by contributing to womxn-led open source projects! Learn best practices, get code reviews and mentorship from womxn working in the industry, and build your portfolio.
+          </p>
+        </div>
+        <div
+          className="platform-feature"
+        >
+          <h3>
+            Share A Project
+          </h3>
+          <p>
+            Grow your leadership skills by spearheading a project! Guide newcomers to writing excellent code through PR/CR. Be a confident champion for other womxn in tech and help close the gender gap at your workplace and the industry.
+          </p>
+        </div>
+        <div
+          className="platform-feature"
+        >
+          <h3>
+            Write Software You Love
+          </h3>
+          <p>
+            Join forces with fellow womxn in tech to create, deliver and maintain projects that solve problems and improve lives! Form teams and support each other in your journeys to fulfulling careers in tech.
+          </p>
+        </div>
+      </section>
+    </div>
     <section
       className="platform-featured-projects"
     >
@@ -107,458 +114,18 @@ exports[`renders App correctly 1`] = `
       </h2>
       <div
         className="projects-wrapper"
-      >
-        <article
-          className="card-wrapper"
-        >
-          <h2>
-            Project Name here
-          </h2>
-          <div
-            className="card-lead"
-          >
-            <h3>
-              Project Lead: 
-              Ada Lovelace
-            </h3>
-            <p>
-              Currently: 
-              Self-employed
-            </p>
-            <p>
-              Experienced (3+ years of experience)
-            </p>
-          </div>
-          <p
-            className="card-description"
-          >
-            This project aims to achieve...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-          <div
-            className="card-looking-for"
-          >
-            <p
-              className="card-looking-for-label"
-            >
-              Looking For:
-            </p>
-            <p>
-              I could really use some help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
-          <div
-            className="card-contributors"
-          >
-            <p
-              className="card-contributor-label"
-            >
-              Contributors: 
-              7
-            </p>
-            <div
-              className="card-contributor-avatars"
-            >
-              <div
-                className="card-contributor-icon"
-              >
-                NS
-              </div>
-              <div
-                className="card-contributor-icon"
-              >
-                MM
-              </div>
-              <div
-                className="card-contributor-icon"
-              >
-                NN
-              </div>
-              <div
-                className="card-contributor-icon"
-              >
-                IJ
-              </div>
-              <div
-                className="card-contributor-icon"
-              >
-                FR
-              </div>
-              <div
-                className="card-contributor-icon"
-              >
-                HJ
-              </div>
-              <div
-                className="card-contributor-icon"
-              >
-                WS
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-tech-stack"
-          >
-            <p
-              className="card-tech-stack-label"
-            >
-              Tech stack: 
-            </p>
-            <div
-              className="card-tags"
-            >
-              <div
-                className="tag"
-              >
-                JS
-              </div>
-              <div
-                className="tag"
-              >
-                ReactJS
-              </div>
-              <div
-                className="tag"
-              >
-                Typescript
-              </div>
-              <div
-                className="tag"
-              >
-                TypescriptTypescript
-              </div>
-              <div
-                className="tag"
-              >
-                CSS
-              </div>
-              <div
-                className="tag"
-              >
-                Objective C
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-buttons"
-          >
-            <a
-              className="button-link"
-              href="https://github.com/shescoding/projects-platform-frontend"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              View on Github
-            </a>
-            <a
-              className="button-link"
-              href="mailto:info@shescoding.org"
-            >
-              Request to Join
-            </a>
-          </div>
-        </article>
-        <article
-          className="card-wrapper"
-        >
-          <h2>
-            Project 2 here context
-          </h2>
-          <div
-            className="card-lead"
-          >
-            <h3>
-              Project Lead: 
-              Jane Doe
-            </h3>
-            <p>
-              Currently: 
-              ABC Comp
-            </p>
-            <p>
-              Learner (0+ years of experience)
-            </p>
-          </div>
-          <p
-            className="card-description"
-          >
-            Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-          <div
-            className="card-looking-for"
-          >
-            <p
-              className="card-looking-for-label"
-            >
-              Looking For:
-            </p>
-            <p>
-              I could really use some help with the front-end.
-            </p>
-          </div>
-          <div
-            className="card-contributors"
-          >
-            <p
-              className="card-contributor-label"
-            >
-              Contributors: 
-              1
-            </p>
-            <div
-              className="card-contributor-avatars"
-            >
-              <div
-                className="card-contributor-icon"
-              >
-                JD
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-tech-stack"
-          >
-            <p
-              className="card-tech-stack-label"
-            >
-              Tech stack: 
-            </p>
-            <div
-              className="card-tags"
-            >
-              <div
-                className="tag"
-              >
-                JS
-              </div>
-              <div
-                className="tag"
-              >
-                ReactJS
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-buttons"
-          >
-            <a
-              className="button-link"
-              href="https://github.com/shescoding/projects-platform-frontend"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              View on Github
-            </a>
-            <a
-              className="button-link"
-              href="mailto:info@shescoding.org"
-            >
-              Request to Join
-            </a>
-          </div>
-        </article>
-        <article
-          className="card-wrapper"
-        >
-          <h2>
-            Project 2 here context
-          </h2>
-          <div
-            className="card-lead"
-          >
-            <h3>
-              Project Lead: 
-              Sandy Doe
-            </h3>
-            <p>
-              Currently: 
-              Test Company
-            </p>
-            <p>
-              Learner (0+ years of experience)
-            </p>
-          </div>
-          <p
-            className="card-description"
-          >
-            Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-          <div
-            className="card-looking-for"
-          >
-            <p
-              className="card-looking-for-label"
-            >
-              Looking For:
-            </p>
-            <p>
-              Any help with enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
-          <div
-            className="card-contributors"
-          >
-            <p
-              className="card-contributor-label"
-            >
-              Contributors: 
-              1
-            </p>
-            <div
-              className="card-contributor-avatars"
-            >
-              <div
-                className="card-contributor-icon"
-              >
-                JD
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-tech-stack"
-          >
-            <p
-              className="card-tech-stack-label"
-            >
-              Tech stack: 
-            </p>
-            <div
-              className="card-tags"
-            >
-              <div
-                className="tag"
-              >
-                JS
-              </div>
-              <div
-                className="tag"
-              >
-                ReactJS
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-buttons"
-          >
-            <a
-              className="button-link"
-              href="https://github.com/shescoding/projects-platform-frontend"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              View on Github
-            </a>
-            <a
-              className="button-link"
-              href="mailto:info@shescoding.org"
-            >
-              Request to Join
-            </a>
-          </div>
-        </article>
-        <article
-          className="card-wrapper"
-        >
-          <h2>
-            Project 2 here context
-          </h2>
-          <div
-            className="card-lead"
-          >
-            <h3>
-              Project Lead: 
-              Ginny Doe
-            </h3>
-            <p>
-              Currently: 
-              ABC Comp
-            </p>
-            <p>
-              Learner (0+ years of experience)
-            </p>
-          </div>
-          <p
-            className="card-description"
-          >
-            Some short description - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-          <div
-            className="card-looking-for"
-          >
-            <p
-              className="card-looking-for-label"
-            >
-              Looking For:
-            </p>
-            <p>
-              We're just getting started, so any help is appreciated!
-            </p>
-          </div>
-          <div
-            className="card-contributors"
-          >
-            <p
-              className="card-contributor-label"
-            >
-              Contributors: 
-              1
-            </p>
-            <div
-              className="card-contributor-avatars"
-            >
-              <div
-                className="card-contributor-icon"
-              >
-                JD
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-tech-stack"
-          >
-            <p
-              className="card-tech-stack-label"
-            >
-              Tech stack: 
-            </p>
-            <div
-              className="card-tags"
-            >
-              <div
-                className="tag"
-              >
-                JS
-              </div>
-              <div
-                className="tag"
-              >
-                ReactJS
-              </div>
-            </div>
-          </div>
-          <div
-            className="card-buttons"
-          >
-            <a
-              className="button-link"
-              href="https://github.com/shescoding/projects-platform-frontend"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              View on Github
-            </a>
-            <a
-              className="button-link"
-              href="mailto:info@shescoding.org"
-            >
-              Request to Join
-            </a>
-          </div>
-        </article>
-      </div>
+      />
     </section>
-    <footer>
-      Brought to you by She's Coding
-    </footer>
   </div>
+  <footer>
+    Brought to you with love by 
+    <a
+      href="https://shescoding.org/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      She's Coding
+    </a>
+  </footer>
 </div>
 `;
