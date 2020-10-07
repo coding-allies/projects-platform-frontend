@@ -11,7 +11,7 @@ const PlatformSummary = (props: ProjectSummaryProps) => {
     if (!!token) {
       return (<a className="button-link" href="/#/projects">See All Projects</a>)} 
     else {
-      return (<button onClick={props.login}>Sign In With GitHub</button>)
+      return (<button onClick={props.login}>Join Us</button>)
     }
 
   }
