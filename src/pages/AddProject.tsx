@@ -3,6 +3,7 @@ import "../style/pages/AddProject.css";
 import classNames from "classnames/bind"
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
+import CreatableSelect from 'react-select/creatable';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Modal from 'react-modal';
@@ -14,19 +15,27 @@ type FormState = {
   currentLeadPosition: string,
   githubRepo: string,
   lookingFor: string,
-  // techStack: string,
+  techStack: { value: string, label: string }[],
   errors: {
     experienceLevel: string,
     currentLeadPosition: string,
     githubRepo: string,
     lookingFor: string,
-    // techStack: string,
+    techStack: string,
   },
   serverError: {
     message: string
   },
   cancelModalOpen: boolean
 }
+
+// This is a placeholder for tech stack options
+// Needs to be replaced with information from the API via 'getTagsForProjectID'
+const techStackOptions = [{value: 'django', label: 'Django'},
+{value: 'java', label: 'Java'},
+{value: 'javascript', label: 'JavaScript'},
+{value: 'kotlin', label: 'Kotlin'},
+{value: 'python', label: 'Python'}]
 
 const validateForm = (state) => {
   let noErrors = true;
@@ -52,13 +61,13 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
     currentLeadPosition: "",
     githubRepo: "",
     lookingFor: "",
-    // techStack: "",
+    techStack: [],
     errors: {
       experienceLevel: "",
       currentLeadPosition: "",
       githubRepo: "",
       lookingFor: "",
-      // techStack: "",
+      techStack: "",
     },
     serverError: {
       message: ""
@@ -115,10 +124,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           value.length === 0 ? "Field cannot be empty" : "";
         break;
 
-      // case 'techStack':
-      //   errors.techStack =
-      //     value.length === 0 ? "Tech stack cannot be empty" : "";
-      //   break;
+      case 'techStack':
+        errors.techStack =
+          value.length === 0 ? "Tech stack cannot be empty" : "";
+        break;
 
       default:
         break;
@@ -153,9 +162,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       currErrors.lookingFor = "Field cannot be empty"
     }
 
-    // if (!!!this.state.techStack) {
-    //   currErrors.techStack = "Tech stack cannot be empty"
-    // }
+    if (!!!this.state.techStack) {
+      currErrors.techStack = "Tech stack cannot be empty"
+    }
 
     this.setState({ errors: currErrors });
   }
@@ -308,6 +317,28 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           />
           {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
 
+           <label
+            htmlFor="tech-stack"
+            className="form-input-title">
+            Tech Stack:
+          </label>
+          <label
+            htmlFor="tech-stack"
+            className="form-input-description">
+            What technology is used in the project?
+          </label>
+          <div className="tech-stack-select">
+            <CreatableSelect
+                id="tech-stack"
+                classNamePrefix="tech-stack-select"
+                placeholder='Select or enter multiple tech'
+                isMulti
+                options={techStackOptions}
+                className={classNames({ "field-error": errors.techStack.length > 0 })}
+            />
+          </div>
+          {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
+
           <label
             htmlFor="looking-for"
             className="form-input-title">
@@ -329,28 +360,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
             className={classNames({ "field-error": errors.lookingFor.length > 0 })}
           />
           {errors.lookingFor.length > 0 && <span className="error">{errors.lookingFor}</span>}
-
-          {/* <label
-            htmlFor="tech-stack"
-            className="form-input-title">
-            Tech Stack:
-          </label>
-          <label
-            htmlFor="tech-stack"
-            className="form-input-description">
-            Enter the tech stack your project is built with, separated by commas. Max 5.
-          </label>
-          <input
-            type="text"
-            id="tech-stack"
-            name="techStack"
-            value={this.state.techStack}
-            onChange={this.handleChange}
-            onBlur={this.handleChange}
-            className={classNames({ "field-error": errors.techStack.length > 0 })}
-          />
-          {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
-          */}
 
           {/* this is the modal for cancel */}
           { this.state.cancelModalOpen ? 
