@@ -232,7 +232,13 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
         {(this.state.serverError.message) && <div className="error-message">
           <p>{this.state.serverError.message}</p>
-          <p>If this problem persists, contact us!</p>
+          <p>
+            There was an issue with adding this GitHub Repo
+            
+            - GitHub Repo must have a description
+            - GitHub Repo cannot be listed more than once with She's Coding Projects.
+          </p>
+          <p>If you continue to have issues, please contact us at info@shecoding.org </p>
         </div>}
         <form id="add-project-form" onSubmit={this.handleSubmit} noValidate>
           <label
