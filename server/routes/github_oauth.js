@@ -1,5 +1,7 @@
 // const cookieSession = require('cookie-session');
-const { URLSearchParams } = require('url');
+const {
+  URLSearchParams
+} = require('url');
 const express = require('express');
 const router = express.Router();
 const pg = require('pg');
@@ -79,8 +81,7 @@ router.get("/auth/github/callback", async (req, res) => {
 });
 
 async function getAccessToken(code, client_id, client_secret) {
-  const result = await axios(
-    {
+  const result = await axios({
       method: 'post',
       url: "https://github.com/login/oauth/access_token",
       data: {
@@ -88,12 +89,11 @@ async function getAccessToken(code, client_id, client_secret) {
         client_secret,
         code
       }
-    }
-  ).then(data => {
-    const params = new URLSearchParams(data.data);
-    const access_token = params.get("access_token");
-    return access_token;
-  })
+    }).then(data => {
+      const params = new URLSearchParams(data.data);
+      const access_token = params.get("access_token");
+      return access_token;
+    })
     .catch(err => {
       throw err;
     });
@@ -116,10 +116,12 @@ async function checkUser(user_data, github_token, res) {
     .then(async (result) => {
       const user = result.rows[0];
       if (user !== undefined) {
-        const auth_token = jwt.sign(
-          { userId: user.id },
-          process.env.TOKEN_SECRET,
-          { expiresIn: '24h' });
+        const auth_token = jwt.sign({
+            userId: user.id
+          },
+          process.env.TOKEN_SECRET, {
+            expiresIn: '24h'
+          });
         let SQL = 'UPDATE Users SET auth_token=$1 WHERE github_id=$2;';
         let values = [auth_token, user_data.id];
         client.query(SQL, values)
@@ -140,10 +142,12 @@ async function checkUser(user_data, github_token, res) {
 }
 
 async function createUser(user_data, github_token) {
-  const auth_token = jwt.sign(
-    { userId: user_data.id },
-    process.env.TOKEN_SECRET,
-    { expiresIn: '24h' });
+  const auth_token = jwt.sign({
+      userId: user_data.id
+    },
+    process.env.TOKEN_SECRET, {
+      expiresIn: '24h'
+    });
 
   const newUser = new User({
     auth_token: auth_token,
@@ -179,8 +183,7 @@ async function getUser(auth_token) {
       const user = result.rows[0];
       if (user !== undefined) {
         return user;
-      } else {
-      }
+      } else {}
     })
     .catch(err => {
       throw err;
@@ -195,8 +198,7 @@ async function getUserByID(userID) {
       const user = result.rows[0];
       if (user !== undefined) {
         return user;
-      } else {
-      }
+      } else {}
     })
     .catch(err => {
       throw err;
@@ -255,7 +257,11 @@ async function getProject(is_auth = false) {
       if (projects !== undefined) {
         for (let project of projects) {
           const lead = await getUserByID(project.lead_id);
-          let lead_obj = { name: lead.name, position: lead.position, experience: lead.experience_lvl };
+          let lead_obj = {
+            name: lead.name,
+            position: lead.position,
+            experience: lead.experience_lvl
+          };
           if (is_auth) {
             lead_obj['email'] = lead.email;
           } else {
@@ -308,14 +314,18 @@ router.get("/projects/logout/", (req, res) => {
         let values = [newAuth_token, auth_token];
         client.query(SQL, values)
           .then(result => {
-            return res.json({ result: "success" });
+            return res.json({
+              result: "success"
+            });
           })
           .catch(err => {
             console.error("Logout Error: could not update the DB", err);
             throw err;
           });
       } else {
-        return res.json({ result: "success" });
+        return res.json({
+          result: "success"
+        });
       }
     })
     .catch(err => {
@@ -344,7 +354,10 @@ async function addNewProject(auth_token, position, experience_lvl, new_project) 
   await client.query(SQL, values)
     .then(async (result) => {
       const user_id = result.rows[0]['id'];
-      await createProject({ ...new_project, lead_id: user_id });
+      await createProject({
+        ...new_project,
+        lead_id: user_id
+      });
     })
     .catch(err => {
       throw err;
@@ -387,9 +400,26 @@ router.post("/projects/add_project/", async (req, res) => {
   // TODO: atomic transaction
   // TODO: safeguard and return error messages
   await addNewProject(auth_token, req.body['position'], req.body['experience_lvl'], new_project).catch(e => console.error(e));
-  return res.send({ "result": "success" });
+  return res.send({
+    "result": "success"
+  });
 });
 
+//Positions method
+async function getPositions() {
+  let SQL = 'SELECT * FROM Positions;';
+  return client.query(SQL)
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      throw err;
+    });
+}
 
+router.get("/getPositions", (req, res) => {
+  const positions = getPositions(res);
+  return res.json(positions);
+});
 
 module.exports = router;
