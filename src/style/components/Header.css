@@ -50,3 +50,9 @@ header nav ul li a {
 header nav ul li a.current {
   border-bottom: 3px solid turquoise;
 }
+
+header nav ul li a:hover {
+  color: #40e0d0;
+  font-weight:bold;
+  transition: font-weight color 300ms ease;
+}
