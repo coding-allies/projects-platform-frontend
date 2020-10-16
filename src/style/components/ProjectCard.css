@@ -92,9 +92,19 @@
 }
 
 .card-buttons {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
   padding-bottom: 0;
+  gap: 10px;
+}
+
+.card-buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-buttons-row button {
+  width: 48%;
 }
