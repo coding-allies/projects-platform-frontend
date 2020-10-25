@@ -40,7 +40,7 @@ class Header extends React.Component<{}, {}> {
     return (
       <header>
         <h1 className="logo">
-          <Link to="/welcome">
+          <Link to="/">
             <img src={logo} alt="She's Coding Projects" />
           </Link>
         </h1>
