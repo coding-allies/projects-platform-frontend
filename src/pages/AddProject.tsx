@@ -38,11 +38,11 @@ type FormState = {
 
 // This is a placeholder for tech stack options
 // Needs to be replaced with information from the API via 'getTagsForProjectID'
-const techStackOptions = [{value: 'django', label: 'Django'},
-{value: 'java', label: 'Java'},
-{value: 'javascript', label: 'JavaScript'},
-{value: 'kotlin', label: 'Kotlin'},
-{value: 'python', label: 'Python'}]
+const techStackOptions = [{ value: 'django', label: 'Django' },
+{ value: 'java', label: 'Java' },
+{ value: 'javascript', label: 'JavaScript' },
+{ value: 'kotlin', label: 'Kotlin' },
+{ value: 'python', label: 'Python' }]
 
 const validateForm = (state) => {
   let noErrors = true;
@@ -209,7 +209,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   }
 
   handleSubmit = (event: any) => {
-    // let that = this;
     event.preventDefault();
     if (validateForm(this.state)) {
 
@@ -282,7 +281,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           <p>{this.state.serverError.message}</p>
           <p>
             There was an issue with adding this GitHub Repo
-            
+
             - GitHub Repo must have a description
             - GitHub Repo cannot be listed more than once with She's Coding Projects.
           </p>
@@ -356,7 +355,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           />
           {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
 
-           <label
+          <label
             htmlFor="tech-stack"
             className="form-input-title">
             Tech Stack:
@@ -406,8 +405,8 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           {errors.lookingFor.length > 0 && <span className="error">{errors.lookingFor}</span>}
 
           {/* this is the modal for cancel */}
-          { this.state.cancelModalOpen ? 
-            <Modal isOpen={this.state.cancelModalOpen} 
+          {this.state.cancelModalOpen ?
+            <Modal isOpen={this.state.cancelModalOpen}
               className="modal-container"
               closeTimeoutMS={200}>
               <div className="modal-text">
@@ -417,9 +416,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
                 <button onClick={this.cancelAddingProject} className="modal-button">Yes, I am sure</button>
                 <button onClick={this.closeCancelModel} className="modal-button">Cancel</button>
               </div>
-              
-            </Modal> 
-            : null }
+
+            </Modal>
+            : null}
           <div className="add-project-form-buttons">
             <button type="submit" className="add-project-form-button">
               Add your project
