@@ -22,7 +22,7 @@ type FormState = {
   currentLeadPosition: string,
   githubRepo: string,
   lookingFor: FormOptions,
-  techStack: { value: string, label: string }[],
+  techStack: FormOptions,
   errors: {
     experienceLevel: string,
     currentLeadPosition: string,
@@ -49,7 +49,7 @@ const validateForm = (state) => {
   let hasInput = false;
 
   let inputFields = Object.values(state).filter(
-    (value: any) => value === null || value.length === 0);
+    (value: any) => value === null || value.length === 0 || value === []);
 
   hasInput = (inputFields.length === 0) ? true : false;
 
@@ -171,6 +171,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
         errors.lookingFor =
           !value || value.length === 0 ? "Field cannot be empty" : "";
         break;
+      case 'techStack':
+        errors.lookingFor =
+          !value || value.length === 0 ? "Field cannot be empty" : "";
+        break;
     }
 
     this.setState({
@@ -187,10 +191,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
 
     if (!!!this.state.currentLeadPosition) {
       currErrors.currentLeadPosition = "Current position is required";
-    }
-
-    if (!!!this.state.githubRepo) {
-      currErrors.githubRepo = "A GitHub repository is required";
     }
 
     if (!!!this.state.githubRepo) {
@@ -368,12 +368,15 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           </label>
           <div className="tech-stack-select">
             <CreatableSelect
-                id="tech-stack"
-                classNamePrefix="tech-stack-select"
-                placeholder='Select or enter multiple tech'
-                isMulti
-                options={techStackOptions}
-                className={classNames({ "field-error": errors.techStack.length > 0 })}
+              id="tech-stack"
+              name="techStack"
+              value={this.state.techStack}
+              onChange={this.handleCreatableChange}
+              options={techStackOptions}
+              placeholder='Select or enter multiple tech'
+              isMulti
+              className={classNames({ "field-error": errors.techStack.length > 0 })}
+              classNamePrefix="tech-stack-select"
             />
           </div>
           {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
