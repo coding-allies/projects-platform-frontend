@@ -6,6 +6,23 @@ She's Coding Project is part of [She's Coding slack community](https://forms.gle
 
 Please find an installation guide for your environment in our [Wiki](https://github.com/shescoding/projects-platform-frontend/wiki).
 
+## 🏃 Running the project
+
+To install all dependencies and build the project
+```bash
+yarn && yarn build
+```
+
+To start the server
+```bash
+yarn server
+```
+
+To run the project
+```bash
+yarn start
+```
+
 ## 🔏  Contribution guide
 
 All the ways to contribute, as well as writing issues, filing a new feature request can be found [in this document](https://github.com/shescoding/projects-platform-frontend/blob/master/CONTRIBUTING.md).
