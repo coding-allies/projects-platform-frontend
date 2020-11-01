@@ -63,7 +63,6 @@ const renderButtons = (project: Project, loginLink: any) => {
   );
 }
 
-// Not sure what type the method handleContributorsClick should be classified as for TypeScript
 const renderContributorExpansionIcons = (isContributorsExpanded: boolean, contributorsLength: Number, handleContributorsClick: any) => {
 
   if (contributorsLength > 6 && !isContributorsExpanded) {
