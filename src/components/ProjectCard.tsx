@@ -4,9 +4,11 @@ import "../style/components/ProjectCard.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
-
 const getTags = (tagList: Array<string>) => {
-  return tagList.map(tag => {
+  if (tagList.length > 5) {
+    tagList = [...tagList.slice(0, 5)];
+  }
+  return tagList.map((tag) => {
     return (
       <div className={`tag`} key={tag}>
         {tag}
@@ -33,43 +35,32 @@ type Props = {
 };
 
 const renderButtons = (project: Project, loginLink: any) => {
-  if (!!project.lead.email) {
-    return (
-      <div className="card-buttons">
-        <a
-          href={project.github_url}
-          className="button-link"
-          target={project.github_url}
-          rel="noopener noreferrer"
-        >
-          View on Github
-      </a>
-        <a
-          href={`mailto:${project.lead.email}?subject=Request to join ${project.name}`}
-          className="button-link"
-        >
-          Request to Join
-      </a>
-      </div >
-    );
-  } else {
-    return (
-      <div className="card-buttons">
+  let isAuth: boolean = !!project.lead.email;
+
+  return (
+    <div className="card-buttons">
+      <div className="card-buttons-row">
         <button
-          onClick={loginLink}
+          onClick={isAuth ? () => window.open(project.github_url, '_blank') : loginLink}
           className="button-link"
         >
           View on Github
-      </button>
+        </button>
         <button
-          onClick={loginLink}
-          className="button-link"
-        >
-          Request to Join
-      </button>
-      </div >
-    );
-  }
+            onClick={isAuth ? () => window.open(`${project.github_url}/issues`, '_blank') : loginLink }
+            className="button-link"
+          >
+            Current Issues
+        </button>
+      </div>
+      <button
+        onClick={isAuth ? () => window.open(`mailto:${project.lead.email}?subject=Request to join ${project.name}`, '_blank'): loginLink}
+        className="button-link"
+      >
+        Request to Join
+    </button>
+    </div >
+  );
 }
 
 // Not sure what type the method handleContributorsClick should be classified as for TypeScript
@@ -104,17 +95,28 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
     <article className="card-wrapper">
       <h2>{project.name}</h2>
 
-      <div className="card-lead">
-        <h3>Project Lead: {project.lead.name}</h3>
-        <p>{project.lead.position}</p>
-        <p>{experienceLevel}</p>
+      <div className="card-description">
+        <p className="card-description-label">Project Description:</p>
+        <p>{project.description}</p>
       </div>
 
       <p className="card-description">{project.description}</p>
 
+      <div className="card-tech-stack">
+        <p className="card-tech-stack-label">Tech stack: </p>
+        <div className="card-tags">{getTags(project.tags)}</div>
+      </div>
+
       <div className="card-looking-for">
         <p className="card-looking-for-label">Looking For:</p>
         <p>{project.looking_for}</p>
+      </div>
+
+      <div className="card-lead">
+        <p className="card-lead-label">Project Lead:</p>
+        <p>{project.lead.name}</p>
+        <p>{project.lead.position}</p>
+        <p>{experienceLevel}</p>
       </div>
 
       <div className="card-contributors">
@@ -125,11 +127,6 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
           {getContributors(project.contributors, isContributorsExpanded)}
           {renderContributorExpansionIcons(isContributorsExpanded, project.contributors.length, handleContributorsClick)}
         </div>
-      </div>
-
-      <div className="card-tech-stack">
-        <p className="card-tech-stack-label">Tech stack: </p>
-        {/* <div className="card-tags">{getTags(data.tags)}</div> */}
       </div>
 
       {renderButtons(project, loginLink)}

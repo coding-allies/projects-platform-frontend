@@ -56,14 +56,20 @@
 }
 
 .card-description {
-  min-height: 150px;
+  min-height: 100px;
 }
 
 .card-looking-for {
-  min-height: 110px;
+  min-height: 130px;
 }
 
+.card-lead {
+  min-height: 120px;
+}
+
+.card-description-label,
 .card-looking-for-label,
+.card-lead-label,
 .card-contributor-label,
 .card-tech-stack-label {
   text-transform: uppercase;
@@ -87,11 +93,11 @@
 }
 
 .card-buttons {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
   padding-bottom: 0;
+  gap: 10px;
 }
 
 .card-contributor-icon-expand {
@@ -112,4 +118,14 @@
 .card-contributor-icon-expand:hover {
   background-color: #393939;
   color: #FFF;
+}
+
+.card-buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-buttons-row button {
+  width: 48%;
 }
