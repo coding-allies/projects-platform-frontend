@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Project, ExperienceLevelsTypes } from "../types";
 import "../style/components/ProjectCard.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
 const getTags = (tagList: Array<string>) => {
   if (tagList.length > 5) {
@@ -15,9 +17,9 @@ const getTags = (tagList: Array<string>) => {
   });
 };
 
-const getContributors = (contributorList: Array<string>) => {
-  if (contributorList.length > 6) {
-    contributorList = [...contributorList.slice(0, 6), "..."];
+const getContributors = (contributorList: Array<string>, isContributorsExpanded: Boolean) => {
+  if (contributorList.length > 6 && !isContributorsExpanded) {
+    contributorList = [...contributorList.slice(0, 6)];
   }
 
   return contributorList.map((contributor, i) => (
@@ -61,9 +63,32 @@ const renderButtons = (project: Project, loginLink: any) => {
   );
 }
 
+const renderContributorExpansionIcons = (isContributorsExpanded: boolean, contributorsLength: Number, handleContributorsClick: any) => {
+
+  if (contributorsLength > 6 && !isContributorsExpanded) {
+    return <div onClick={handleContributorsClick} className="card-contributor-icon-expand">
+      <FontAwesomeIcon icon={faCaretDown} />
+    </div>
+  } else if (contributorsLength > 6 && isContributorsExpanded) {
+    return <div onClick={handleContributorsClick} className="card-contributor-icon-expand">
+      <FontAwesomeIcon icon={faCaretUp} />
+    </div>
+  } else {
+    return null
+  }
+
+}
+
 const ProjectCard: FC<Props> = ({ data, loginLink }) => {
+
+  const [isContributorsExpanded, setIsContributorsExpanded] = useState(false)
   const project = { ...data };
   const experienceLevel = ExperienceLevelsTypes[project.lead.experience];
+
+  const handleContributorsClick = (e) => {
+    e.preventDefault();
+    setIsContributorsExpanded(!isContributorsExpanded)
+  } 
 
   return (
     <article className="card-wrapper">
@@ -98,7 +123,8 @@ const ProjectCard: FC<Props> = ({ data, loginLink }) => {
           Contributors: {project.contributors.length}
         </p>
         <div className="card-contributor-avatars">
-          {getContributors(project.contributors)}
+          {getContributors(project.contributors, isContributorsExpanded)}
+          {renderContributorExpansionIcons(isContributorsExpanded, project.contributors.length, handleContributorsClick)}
         </div>
       </div>
 
