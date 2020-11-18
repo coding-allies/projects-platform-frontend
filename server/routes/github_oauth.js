@@ -19,7 +19,8 @@ function User(data) {
   const now = new Date();
   this.auth_token = data.auth_token ? data.auth_token : '';
   this.github_token = data.github_token ? data.github_token : '';
-  this.company = data.company ? data.company : '';
+  this.position_id = data.position_id ? data.position_id : '';
+  this.company_id = data.company_id ? data.company_id : '';
   this.github_username = data.github_username ? data.github_username : '';
   this.github_id = data.github_id ? data.github_id : '';
   this.github_url = data.github_url ? data.github_url : '';
@@ -43,6 +44,10 @@ function Project(data) {
   this.updated = data.updated ? data.updated : '';
   this.lead_id = data.lead_id ? data.lead_id : '';
   this.contributors = data.contributors ? data.contributors : [];
+}
+
+function JobInfo(data) {
+  this.name = data.name ? data.name : '';
 }
 
 router.get("/", (req, res) => {
@@ -154,13 +159,12 @@ async function createUser(user_data, github_token) {
     github_url: user_data.url,
     avatar_url: user_data.avatar_url,
     gravatar_url: user_data.gravatar_id,
-    company: user_data.company,
     hireable: user_data.hireable,
     email: user_data.email,
   });
 
-  let SQL = 'INSERT INTO users (auth_token, github_token, company, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, name, email, is_active, date_joined, hireable) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id;';
-  let values = [newUser.auth_token, newUser.github_token, newUser.company, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.name, newUser.email, newUser.is_active, newUser.date_joined, newUser.hireable];
+  let SQL = 'INSERT INTO users (auth_token, github_token, github_username, github_id, github_url, avatar_url, gravatar_url, last_login, is_superuser, name, email, is_active, date_joined, hireable) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id;';
+  let values = [newUser.auth_token, newUser.github_token, newUser.github_username, newUser.github_id, newUser.github_url, newUser.avatar_url, newUser.gravatar_url, newUser.last_login, newUser.is_superuser, newUser.name, newUser.email, newUser.is_active, newUser.date_joined, newUser.hireable];
   return client.query(SQL, values)
     .then(() => {
       return auth_token;
@@ -255,7 +259,17 @@ async function getProject(is_auth = false) {
       if (projects !== undefined) {
         for (let project of projects) {
           const lead = await getUserByID(project.lead_id);
-          let lead_obj = { name: lead.name, position: lead.position, experience: lead.experience_lvl };
+
+          // TODO: getJobInfo is returning with shape [{ name: 'name' }]
+          const position_name = await getJobInfo(lead.position_id, 'Positions', 'id', true, 'name')[0].name;
+          const company_name = await getJobInfo(lead.company_id, 'Companies', 'id', true, 'name')[0].name;
+
+          let lead_obj = {
+            name: lead.name,
+            position: position_name,
+            company: company_name, // TODO: handle this new field in the frontend
+            experience: lead.experience_lvl
+          };
           if (is_auth) {
             lead_obj['email'] = lead.email;
           } else {
@@ -338,9 +352,9 @@ router.get("/projects/all/", async (req, res) => {
   return res.json(projects);
 });
 
-async function addNewProject(auth_token, position, experience_lvl, new_project) {
-  let SQL = 'UPDATE Users SET position=$2,experience_lvl=$3 WHERE auth_token=$1 RETURNING id;';
-  let values = [auth_token, position, experience_lvl];
+async function addNewProject(auth_token, position_id, company_id, experience_lvl, new_project) {
+  let SQL = 'UPDATE Users SET position_id=$2, company_id=$4, experience_lvl=$3 WHERE auth_token=$1 RETURNING id;';
+  let values = [auth_token, position_id, experience_lvl, company_id];
   await client.query(SQL, values)
     .then(async (result) => {
       const user_id = result.rows[0]['id'];
@@ -389,7 +403,7 @@ router.post("/projects/add_project/", async (req, res) => {
   }
 
   // Field validation
-  if (contributors_list.length === 0 || req.body['position'] === "" || req.body['experience_lvl'] === "" || repo_data["name"] === "" || req.body["github_url"] === "" || repo_data["description"] === "" || req.body["looking_for"] === "") {
+  if (contributors_list.length === 0 || req.body['position'] === "" || req.body['company'] === "" || req.body['experience_lvl'] === "" || repo_data["name"] === "" || req.body["github_url"] === "" || repo_data["description"] === "" || req.body["looking_for"] === "") {
     throw new Error(
       "Ensure all the fields are filled out and Github Repository has description");
   }
@@ -405,12 +419,68 @@ router.post("/projects/add_project/", async (req, res) => {
     updated: now, // TODO: automate
     contributors: contributors_list,
   };
+
+  // TODO: refactor or abstract getJobInfo to 'get or create'
+  // const position_id = await getJobInfo(req.body['position'], 'Positions', 'name', true, 'id');
+  // const company_id = await getJobInfo(req.body['company'], 'Companies', 'name', true, 'id'); // TODO: handle this in the frontend
+  const position_id = 1;
+  const company_id = 1;
+
   // TODO: atomic transaction
   // TODO: safeguard and return error messages
-  await addNewProject(auth_token, req.body['position'], req.body['experience_lvl'], new_project).catch(e => console.error(e));
+  await addNewProject(auth_token, position_id, company_id, req.body['experience_lvl'], new_project).catch(e => console.error(e));
   return res.send({ "result": "success" });
 });
 
+async function getJobInfo(name_to_search = '', table, field, exact = false, selection = '*') {
+  let SQL =
+    `SELECT ${selection} FROM ${table} WHERE ${field} ${exact ? `= '${name_to_search}'` : `LIKE '${name_to_search}%'`};`;
+  return client.query(SQL)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      throw err;
+    });
+};
 
+async function createJobInfo(job_info_data, table, field) {
+  const newJobInfo = new JobInfo({
+    name: job_info_data.name
+  });
+
+  let SQL = `INSERT INTO ${table} (${field}) VALUES ('${job_info_data.name}');`;
+  return client.query(SQL)
+    .then(() => {
+      return newJobInfo.name;
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+router.get("/getPositions", async (req, res) => {
+  const positions = await getJobInfo(req.body.name_to_search, 'Positions', 'name');
+  return res.json(positions);
+});
+
+router.post("/addPosition", async (req, res) => {
+  await createJobInfo(req.body, 'Positions', 'name').catch(e => console.log(e));
+  return res.send({
+    "result": "success"
+  });
+})
+
+router.get("/getCompanies", async (req, res) => {
+  const companies = await getJobInfo(req.body.name_to_search, 'Companies', 'name');
+  return res.json(companies);
+});
+
+router.post("/addCompany", async (req, res) => {
+  await createJobInfo(req.body, 'Companies', 'name').catch(e => console.log(e));
+  return res.send({
+    "result": "success"
+  });
+})
 
 module.exports = router;
