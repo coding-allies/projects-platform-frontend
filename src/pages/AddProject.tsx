@@ -22,7 +22,7 @@ type FormState = {
   currentLeadPosition: string,
   githubRepo: string,
   lookingFor: FormOptions,
-  techStack: { value: string, label: string }[],
+  techStack: FormOptions,
   errors: {
     experienceLevel: string,
     currentLeadPosition: string,
@@ -38,18 +38,18 @@ type FormState = {
 
 // This is a placeholder for tech stack options
 // Needs to be replaced with information from the API via 'getTagsForProjectID'
-const techStackOptions = [{value: 'django', label: 'Django'},
-{value: 'java', label: 'Java'},
-{value: 'javascript', label: 'JavaScript'},
-{value: 'kotlin', label: 'Kotlin'},
-{value: 'python', label: 'Python'}]
+const techStackOptions = [{ value: 'django', label: 'Django' },
+{ value: 'java', label: 'Java' },
+{ value: 'javascript', label: 'JavaScript' },
+{ value: 'kotlin', label: 'Kotlin' },
+{ value: 'python', label: 'Python' }]
 
 const validateForm = (state) => {
   let noErrors = true;
   let hasInput = false;
 
   let inputFields = Object.values(state).filter(
-    (value: any) => value === null || value.length === 0);
+    (value: any) => value === null || value.length === 0 || value === []);
 
   hasInput = (inputFields.length === 0) ? true : false;
 
@@ -171,6 +171,10 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
         errors.lookingFor =
           !value || value.length === 0 ? "Field cannot be empty" : "";
         break;
+      case 'techStack':
+        errors.lookingFor =
+          !value || value.length === 0 ? "Field cannot be empty" : "";
+        break;
     }
 
     this.setState({
@@ -193,10 +197,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
       currErrors.githubRepo = "A GitHub repository is required";
     }
 
-    if (!!!this.state.githubRepo) {
-      currErrors.githubRepo = "A GitHub repository is required";
-    }
-
     if (!!!this.state.lookingFor) {
       currErrors.lookingFor = "Field cannot be empty"
     }
@@ -209,7 +209,6 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
   }
 
   handleSubmit = (event: any) => {
-    // let that = this;
     event.preventDefault();
     if (validateForm(this.state)) {
 
@@ -282,7 +281,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           <p>{this.state.serverError.message}</p>
           <p>
             There was an issue with adding this GitHub Repo
-            
+
             - GitHub Repo must have a description
             - GitHub Repo cannot be listed more than once with She's Coding Projects.
           </p>
@@ -356,7 +355,7 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           />
           {errors.githubRepo.length > 0 && <span className="error">{errors.githubRepo}</span>}
 
-           <label
+          <label
             htmlFor="tech-stack"
             className="form-input-title">
             Tech Stack:
@@ -368,12 +367,15 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           </label>
           <div className="tech-stack-select">
             <CreatableSelect
-                id="tech-stack"
-                classNamePrefix="tech-stack-select"
-                placeholder='Select or enter multiple tech'
-                isMulti
-                options={techStackOptions}
-                className={classNames({ "field-error": errors.techStack.length > 0 })}
+              id="tech-stack"
+              name="techStack"
+              value={this.state.techStack}
+              onChange={this.handleCreatableChange}
+              options={techStackOptions}
+              placeholder='Select or enter multiple tech'
+              isMulti
+              className={classNames({ "field-error": errors.techStack.length > 0 })}
+              classNamePrefix="tech-stack-select"
             />
           </div>
           {errors.techStack.length > 0 && <span className="error">{errors.techStack}</span>}
@@ -403,8 +405,8 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
           {errors.lookingFor.length > 0 && <span className="error">{errors.lookingFor}</span>}
 
           {/* this is the modal for cancel */}
-          { this.state.cancelModalOpen ? 
-            <Modal isOpen={this.state.cancelModalOpen} 
+          {this.state.cancelModalOpen ?
+            <Modal isOpen={this.state.cancelModalOpen}
               className="modal-container"
               closeTimeoutMS={200}>
               <div className="modal-text">
@@ -414,9 +416,9 @@ class AddProject extends React.Component<RouteComponentProps, FormState> {
                 <button onClick={this.cancelAddingProject} className="modal-button">Yes, I am sure</button>
                 <button onClick={this.closeCancelModel} className="modal-button">Cancel</button>
               </div>
-              
-            </Modal> 
-            : null }
+
+            </Modal>
+            : null}
           <div className="add-project-form-buttons">
             <button type="submit" className="add-project-form-button">
               Add your project
