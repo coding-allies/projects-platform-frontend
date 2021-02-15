@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { Projects } from "./pages/Projects";
 import { Token } from "./pages/Token";
 import Welcome from "./pages/Welcome";
+import About from "./pages/About";
 import AddProject from "./pages/AddProject";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/token/:token" component={Token} />
             <Route path="/projects" component={Projects} />
             <Route path="/add-project" component={AddProject} />
+            <Route path="/about" component={About} />
             <Route path="/" component={Welcome} />
           </Switch>
           <Footer />

@@ -48,6 +48,7 @@ class Header extends React.Component<{}, {}> {
           <ul>
             <li><NavLink exact to="/" activeClassName="current">Home</NavLink></li>
             <li><NavLink to="/projects" activeClassName="current">Projects</NavLink></li>
+            <li><NavLink to="/about" activeClassName="current">About</NavLink></li>
           </ul>
         </nav>
         {user.is_authenticated ? signedIn : signedOut}
